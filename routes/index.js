@@ -81,19 +81,19 @@ router.get('/user', (req, res) => {
 });
 
 router.get('/Server/:id', (req, res) => {
-    const id = parseInt(req.params.id);
-    let coffee_arr = [];
+    const id = req.params.id;
+    let CoffeeMenu = [];
     let espresso_arr = [];
-    let tea_arr = [];
+    let TeaMenu = [];
     let refresher_arr = [];
     let coffeefrap_arr = [];
     let cremefrap_arr = [];
-    let breakfast_arr = [];
-    let bakery_arr = [];
+    let BreakfastMenu = [];
+    let BakeryMenu = [];
     pool.query("select * from menu where subcategory='Coffee'")
         .then(query_res => {
             for (let i = 0; i < query_res.rowCount; i++) {
-                coffee_arr.push(query_res.rows[i]);
+                CoffeeMenu.push(query_res.rows[i]);
             }
             return pool.query("select * from menu where subcategory='Espresso'");
         })
@@ -105,7 +105,7 @@ router.get('/Server/:id', (req, res) => {
         })
         .then(query_res => {
             for (let i = 0; i < query_res.rowCount; i++) {
-                tea_arr.push(query_res.rows[i]);
+                TeaMenu.push(query_res.rows[i]);
             }
             return pool.query("select * from menu where subcategory='Refresher'");
         })
@@ -129,23 +129,23 @@ router.get('/Server/:id', (req, res) => {
         })
         .then(query_res => {
             for (let i = 0; i < query_res.rowCount; i++) {
-                breakfast_arr.push(query_res.rows[i]);
+                BreakfastMenu.push(query_res.rows[i]);
             }
             return pool.query("select * from menu where subcategory='Bakery'");
         })
         .then(query_res => {
             for (let i = 0; i < query_res.rowCount; i++) {
-                bakery_arr.push(query_res.rows[i]);
+                BakeryMenu.push(query_res.rows[i]);
             }
             const data = {
-                coffee_arr: coffee_arr,
+                CoffeeMenu: CoffeeMenu,
                 espresso_arr: espresso_arr,
-                tea_arr: tea_arr,
+                TeaMenu: TeaMenu,
                 refresher_arr: refresher_arr,
                 coffeefrap_arr: coffeefrap_arr,
                 cremefrap_arr: cremefrap_arr,
-                breakfast_arr: breakfast_arr,
-                bakery_arr: bakery_arr
+                BreakfastMenu: BreakfastMenu,
+                BakeryMenu: BakeryMenu,id:id
             };
             console.log(data);
             res.render('Server', data);
@@ -183,11 +183,13 @@ router.post('/update-inventory/:id', (req, res) => {
         .then(() => {
             console.log("Item quantity updated");
             res.status(200).send("Item quantity updated");
-
+            
+          
         })
         .catch(err => {
             console.error(err);
             res.status(500).send('Internal Server Error');
+
         });
 });
 

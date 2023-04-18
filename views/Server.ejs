@@ -7,22 +7,69 @@
 </header>
 <body>
 
-    <a href="./">
+    <a href="/">
         <button >Home</button>
     </a>
-    <a href="/Server/1">
+    <a href="/Server/CoffeeMenu">
         <button >Coffee</button>
     </a>
-    <a href="/Server/2">
+    <a href="/Server/TeaMenu">
         <button >Tea</button>
     </a>
-    <a href="/Server/3">
+    <a href="/Server/BreakfastMenu">
         <button >Breakfast</button>
     </a>
-    <a href="/Server/4">
+    <a href="/Server/BakeryMenu">
         <button >Bakery</button>
     </a>
     <hr class="rounded">
+    <h1><%= id%></h1>
 
+    <table>
+        <% if (id == "CoffeeMenu") { %>
+            <% for(var i in CoffeeMenu) { %>
+                <tr>
+                  <td><%= CoffeeMenu[i].item%></td>
+                  <td><%= CoffeeMenu[i].tall%></td>
+                  <td><%= CoffeeMenu[i].grande%></td>
+                  <td><%= CoffeeMenu[i].venti%></td>
+                  
+                </tr>
+             <% } %>
+            <%} else if (id == "TeaMenu") { %>
+                <% for(var i in TeaMenu) { %>
+                    <tr>
+                      <td><%= TeaMenu[i].item%></td>
+                      <td><%= TeaMenu[i].tall%></td>
+                      <td><%= TeaMenu[i].grande%></td>
+                      <td><%= TeaMenu[i].venti%></td>
+                      
+                    </tr>
+                 <% } %>
+                <%} else if (id == "BreakfastMenu") { %>
+                    <% for(var i in BreakfastMenu) { %>
+                        <tr>
+                          <td><%= BreakfastMenu[i].item%></td>
+                          <td><%= BreakfastMenu[i].tall%></td>
+                          <td><%= BreakfastMenu[i].grande%></td>
+                          <td><%= BreakfastMenu[i].venti%></td>
+                          
+                        </tr>
+                     <% } %>
+                    <%}else if (id == "BakeryMenu") { %>
+                        <% for(var i in BakeryMenu) { %>
+                            <tr>
+                              <td><%= BakeryMenu[i].item%></td>
+                              <td><%= BakeryMenu[i].tall%></td>
+                              <td><%= BakeryMenu[i].grande%></td>
+                              <td><%= BakeryMenu[i].venti%></td>
+                              
+                            </tr>
+                         <% } %>
+                    <%} else { %>
+            <p> Not finished </p>
+            <% } %>
+       
+    </table>
 </body>
 </html>
