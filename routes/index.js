@@ -80,6 +80,7 @@ router.get('/user', (req, res) => {
         });
 });
 
+
 router.get('/Server/:id', (req, res) => {
     const id = req.params.id;
     let serverMenu = [];
@@ -93,7 +94,6 @@ router.get('/Server/:id', (req, res) => {
     }else if(id== "serverMenu" ){
         menuType = "Coffee";
     }
-    
     
     
 
@@ -114,6 +114,7 @@ router.get('/Server/:id', (req, res) => {
             res.status(500).send('Internal Server Error');
         });
 });
+
 
 router.get('/Manager', (req, res) => {
     // x, z, excess, sales reports
@@ -142,8 +143,6 @@ router.post('/update-inventory/:id', (req, res) => {
         .then(() => {
             console.log("Item quantity updated");
             res.status(200).send("Item quantity updated");
-            
-          
         })
         .catch(err => {
             console.error(err);
