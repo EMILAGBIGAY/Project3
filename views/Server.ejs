@@ -2,11 +2,11 @@
 <!DOCTYPE html>
 <html lang="en">
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/style.css" />
 <header>
     <h1>Server</h1>
 </header>
-<body>
+<body >
     
 
     <a href="/">
@@ -55,7 +55,7 @@
     
 <% for (var i = 0; i < serverMenu.length; i++) { %>
     
-      <input type = "radio" name= "drinkOrder"><%= serverMenu[i].item%></input>
+      <input class = "radioBtn" type = "radio" name= "drinkOrder"><%= serverMenu[i].item%></input>
       <% if ((i+1)%3 == 0) { %>
         <br>
         <%}  %>

@@ -1,25 +1,9 @@
 body {
   background-color: #f9f9f9;
-  max-width: 100%;
-  font: 40px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #151515;
 }
-.btn {
-  background-color: #6e6c6c; /* Green */
-  border: none;
-  color: white;
-  padding-top: 80px;
-  padding-bottom: 80px;
-  width: 100%;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 40px;
-}
 
-.btn:hover{
-  background-color: #414141
-}
