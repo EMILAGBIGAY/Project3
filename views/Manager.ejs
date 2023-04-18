@@ -7,12 +7,24 @@
 
 </header>
 <body>
-
+    
     <a href="/">
         <button >Home</button>
     </a>
-    <a href="/Server">
-        <button >Home</button>
+    <a href="/Manager">
+        <button >Refresh Inventory</button>
     </a>
+    <script>
+        console.log(data);
+    </script>
+    
+        <table>
+            <% for(var i in inventory_arr) { %>
+               <tr>
+                 <td><%= inventory_arr[i].item%></td>
+                 <td><%= inventory_arr[i].quantity%></td>
+               </tr>
+            <% } %>
+        </table>
 </body>
 </html>

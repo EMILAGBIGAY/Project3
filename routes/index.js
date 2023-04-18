@@ -155,7 +155,7 @@ router.get('/Server', (req, res) => {
         });
 });
 
-router.get('/manager', (req, res) => {
+router.get('/Manager', (req, res) => {
     // x, z, excess, sales reports
     // update/restock inventory
     // update/add menu item
