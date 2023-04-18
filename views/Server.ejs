@@ -6,6 +6,7 @@
     <h1>Server</h1>
 </header>
 <body>
+    
 
     <a href="/">
         <button >Home</button>
@@ -23,8 +24,14 @@
         <button >Bakery</button>
     </a>
     <hr class="rounded">
-    <h1><%= id%></h1>
-<div>
+    
+
+<table>
+
+<tr>
+
+    <td>
+        <h1><%= id%></h1>
     <table>
         
             <% for(var i in serverMenu) { %>
@@ -36,16 +43,15 @@
                 </tr>
              <% } %>
     </table>
-</div>
+</td>
 
 
 
 
-<div>
-<br>
-<h1>Order</h1>
+<td>
+    <h1>Order</h1>
 <form>
-
+    
 <% for (var i = 0; i < serverMenu.length; i++) { %>
     
       <input type = "radio" name= "drinkOrder"><%= serverMenu[i].item%></input>
@@ -64,8 +70,10 @@
 <input type="submit" value="Order">
 </form>
 
-</div>
+</td>
 
+</tr>
+</table>
 
 </body>
 </html>
