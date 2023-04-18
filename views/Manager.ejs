@@ -14,15 +14,20 @@
     <a href="/Manager">
         <button >Refresh Inventory</button>
     </a>
-    <script>
-        console.log(data);
-    </script>
     
         <table>
             <% for(var i in inventory_arr) { %>
                <tr>
                  <td><%= inventory_arr[i].item%></td>
                  <td><%= inventory_arr[i].quantity%></td>
+                 <td>
+                    <form action="/update-inventory/<%= inventory_arr[i].id%> "method="post" >
+
+                    <button type="submit" name="submit" >
+                        restock
+                    </button>
+                </form>
+            </td>
                </tr>
             <% } %>
         </table>

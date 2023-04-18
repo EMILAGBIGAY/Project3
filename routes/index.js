@@ -167,7 +167,7 @@ router.get('/Manager', (req, res) => {
                 inventory_arr.push(query_res.rows[i]);
             }
             const data = {inventory_arr: inventory_arr};
-            console.log(data);
+            
             res.render('Manager', data);
         })
         .catch(err => {
@@ -176,18 +176,21 @@ router.get('/Manager', (req, res) => {
         });
 });
 
-router.post('/update-inventory', (req, res) => {
-    const id = req.body.id;
+router.post('/update-inventory/:id', (req, res) => {
+    const id = parseInt(req.params.id);
     pool.query("update inventory set quantity = quantity + 10000 where id = $1", [id])
         .then(() => {
             console.log("Item quantity updated");
             res.status(200).send("Item quantity updated");
+            
         })
         .catch(err => {
             console.error(err);
             res.status(500).send('Internal Server Error');
         });
 });
+
+
 /*
 router.post('/add-inventory-item', (req, res) => {
     const item = req.body.item;
