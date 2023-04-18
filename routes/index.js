@@ -80,7 +80,8 @@ router.get('/user', (req, res) => {
         });
 });
 
-router.get('/Server', (req, res) => {
+router.get('/Server/:id', (req, res) => {
+    const id = parseInt(req.params.id);
     let coffee_arr = [];
     let espresso_arr = [];
     let tea_arr = [];
@@ -182,7 +183,7 @@ router.post('/update-inventory/:id', (req, res) => {
         .then(() => {
             console.log("Item quantity updated");
             res.status(200).send("Item quantity updated");
-            
+
         })
         .catch(err => {
             console.error(err);
