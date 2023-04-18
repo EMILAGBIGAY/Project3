@@ -82,70 +82,29 @@ router.get('/user', (req, res) => {
 
 router.get('/Server/:id', (req, res) => {
     const id = req.params.id;
-    let CoffeeMenu = [];
-    let espresso_arr = [];
-    let TeaMenu = [];
-    let refresher_arr = [];
-    let coffeefrap_arr = [];
-    let cremefrap_arr = [];
-    let BreakfastMenu = [];
-    let BakeryMenu = [];
-    pool.query("select * from menu where subcategory='Coffee'")
+    let serverMenu = [];
+    var menuType="Coffee";
+    if(id== "TeaMenu"){
+        menuType = "Tea";
+    } else if(id== "BreakfastMenu" ){
+        menuType = "Breakfast";
+    }else if(id== "BakeryMenu" ){
+        menuType = "Bakery";
+    }else if(id== "serverMenu" ){
+        menuType = "Coffee";
+    }
+    
+    
+    
+
+    pool.query("select * from menu where subcategory = $1",[menuType])
         .then(query_res => {
             for (let i = 0; i < query_res.rowCount; i++) {
-                CoffeeMenu.push(query_res.rows[i]);
-            }
-            return pool.query("select * from menu where subcategory='Espresso'");
-        })
-        .then(query_res => {
-            for (let i = 0; i < query_res.rowCount; i++) {
-                espresso_arr.push(query_res.rows[i]);
-            }
-            return pool.query("select * from menu where subcategory='Tea'");
-        })
-        .then(query_res => {
-            for (let i = 0; i < query_res.rowCount; i++) {
-                TeaMenu.push(query_res.rows[i]);
-            }
-            return pool.query("select * from menu where subcategory='Refresher'");
-        })
-        .then(query_res => {
-            for (let i = 0; i < query_res.rowCount; i++) {
-                refresher_arr.push(query_res.rows[i]);
-            }
-            return pool.query("select * from menu where subcategory='Coffee Frappuccino'");
-        })
-        .then(query_res => {
-            for (let i = 0; i < query_res.rowCount; i++) {
-                coffeefrap_arr.push(query_res.rows[i]);
-            }
-            return pool.query("select * from menu where subcategory='Creme Frappuccino'");
-        })
-        .then(query_res => {
-            for (let i = 0; i < query_res.rowCount; i++) {
-                cremefrap_arr.push(query_res.rows[i]);
-            }
-            return pool.query("select * from menu where subcategory='Breakfast'");
-        })
-        .then(query_res => {
-            for (let i = 0; i < query_res.rowCount; i++) {
-                BreakfastMenu.push(query_res.rows[i]);
-            }
-            return pool.query("select * from menu where subcategory='Bakery'");
-        })
-        .then(query_res => {
-            for (let i = 0; i < query_res.rowCount; i++) {
-                BakeryMenu.push(query_res.rows[i]);
-            }
+                serverMenu.push(query_res.rows[i]);
+        }
             const data = {
-                CoffeeMenu: CoffeeMenu,
-                espresso_arr: espresso_arr,
-                TeaMenu: TeaMenu,
-                refresher_arr: refresher_arr,
-                coffeefrap_arr: coffeefrap_arr,
-                cremefrap_arr: cremefrap_arr,
-                BreakfastMenu: BreakfastMenu,
-                BakeryMenu: BakeryMenu,id:id
+                serverMenu: serverMenu,
+                id: id
             };
             console.log(data);
             res.render('Server', data);
