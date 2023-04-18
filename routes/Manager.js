@@ -1,4 +1,6 @@
 var express = require('express');
+const { Pool } = require('pg');
+const dotenv = require('dotenv').config();
 var router = express.Router();
 
 /* GET Manager page. */
