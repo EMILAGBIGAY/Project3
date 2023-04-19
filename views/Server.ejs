@@ -2,30 +2,63 @@
 <!DOCTYPE html>
 <html lang="en">
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/style.css" />
-<header>
-    <h1>Server</h1>
-</header>
-<body >
-    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <style>
+    .row {
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      border-left: 1px solid #ccc;
+      border-right: 1px solid #ccc;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-left: 10px;
+      
+      margin-top: 10px;
+      margin-bottom: 10px;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  </style>
 
-    <a href="/">
-        <button >Home</button>
-    </a>
-    <a href="/Server/CoffeeMenu">
-        <button >Coffee</button>
-    </a>
-    <a href="/Server/TeaMenu">
-        <button >Tea</button>
-    </a>
-    <a href="/Server/BreakfastMenu">
-        <button >Breakfast</button>
-    </a>
-    <a href="/Server/BakeryMenu">
-        <button >Bakery</button>
-    </a>
-    <hr class="rounded">
-    
+</head>
+<body>
+
+<!--Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+  <a class="navbar-brand" href="/">
+    <img src ="../bootstrap/starbi.png" height = 50px alt ="Your logo"/> 
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" >Server</a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link" href="/Server/CoffeeMenu">Coffee</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/Server/TeaMenu">Tea</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/Server/BreakfastMenu">Breakfast</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/Server/BakeryMenu">Bakery</a>
+      </li>
+      
+    </ul>
+  </div>
+</nav>
+<body>
+ 
+
 
 <table>
 
@@ -49,13 +82,14 @@
 
 
 
-<td>
+<td class = "Radio">
     <h1>Order</h1>
-<form>
+<form >
     
 <% for (var i = 0; i < serverMenu.length; i++) { %>
     
-      <input class = "radioBtn" type = "radio" name= "drinkOrder"><%= serverMenu[i].item%></input>
+      <input class = "radioBtn" type = "radio" id="<%= serverMenu[i].item%>" name= "drinkOrder"></input>
+      <label for="<%= serverMenu[i].item%>"><%= serverMenu[i].item%></label>
       <% if ((i+1)%3 == 0) { %>
         <br>
         <%}  %>
@@ -63,9 +97,12 @@
 <br>
 
 <h1>Size</h1>
-<input type = "radio" name= "drinkSize">tall</input>
-<input type = "radio" name= "drinkSize">grande</input>
-<input type = "radio" name= "drinkSize">venti</input>
+<input type = "radio" id="tall"name= "drinkSize"></input>
+<label for="tall">tall</label>
+<input type = "radio" name= "drinkSize"></input>
+<label for="grande">grande</label>
+<input type = "radio" name= "drinkSize"></input>
+<label for="venti">venti</label>
 
 <br><br>
 <input type="submit" value="Order">

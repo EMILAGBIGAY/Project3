@@ -2,35 +2,144 @@
 <!DOCTYPE html>
 <html lang="en">
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/style.css" />
-<header>
-    <h1>Manager</h1>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-</header>
+<style>
+    .row {
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      border-left: 1px solid #ccc;
+      border-right: 1px solid #ccc;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-left: 10px;
+      
+      margin-top: 10px;
+      margin-bottom: 10px;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  </style>
+
+</head>
+<body>
+
+<!--Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+  <a class="navbar-brand" href="/">
+    <img src ="../bootstrap/starbi.png" height = 50px alt ="Your logo"/> 
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" >Manager</a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link" href="/Manager">Refresh</a>
+      </li>
+    </ul>
+  </div>
+</nav>
 <body>
     
-    <a href="/">
-        <button >Home</button>
-    </a>
-    <a  href="/Manager">
-        <button >Refresh Inventory</button>
-    </a>
-    <hr class="rounded">
-        <table>
-            <% for(var i in inventory_arr) { %>
-               <tr>
-                 <td><%= inventory_arr[i].item%></td>
-                 <td><%= inventory_arr[i].quantity%></td>
-                 <td>
-                    <form action="/update-inventory/<%= inventory_arr[i].id%> "method="post" >
+ 
+<!--Inventory -->
+<div class="container-md">
+    <div class="row">
+      <div class="col">
+        <h3>Inventory</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Quantity</th>
+              <th>Restock</th>
+            </tr>
+          </thead>
+          <tbody>
 
-                    <button type="submit" name="submit" >
-                        restock
-                    </button>
-                </form>
-            </td>
-               </tr>
-            <% } %>
+            <% for(var i in inventory_arr) { %>
+                <tr>
+                  <td><%= inventory_arr[i].item%></td>
+                  <td><%= inventory_arr[i].quantity%></td>
+                  <td>
+                     <form action="/update-inventory/<%= inventory_arr[i].id%> "method="post" >
+ 
+                     <button type="submit" name="submit" >
+                         restock
+                     </button>
+                 </form>
+             </td>
+                </tr>
+             <% } %>
+            
+          </tbody>
         </table>
+      </div>
+    </div>
+  </div>
+  
+<!--Generate Reports -->
+<div class="container-md">
+    <div class="row">
+      <div class="col">
+        <h3>Generate Reports</h3>
+        <div class="dropdown">
+          <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Choose Report
+          </button>
+          <div class="dropdown-menu" aria-labelledby="Choose Report">
+            <a class="dropdown-item" href="#">X Report</a>
+            <a class="dropdown-item" href="#">Z Report</a>
+            <a class="dropdown-item" href="#">Restock Report</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!--Seasonal Item -->
+  <div class="container-md">
+    <div class="row">
+      <div class="col">
+        <h3>Seasonal Item</h3>
+          <form>
+            <div class="form-group">
+              <label for="enterNameSeasonal">Seasonal Item name</label>
+              <input type="seasonalItem" class="form-control" id="seasonalItemName" placeholder="Item Name">
+            </div>
+            <div class="form-group">
+              <label for="enterPriceSeasonal">Item Price $</label>
+              <input type="seasonalItem" class="form-control" id="seasonalItemPrice" placeholder="Item Price">
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!--Sales Report -->
+  <div class="container-md">
+    <div class="row">
+      <div class="col">
+        <h3>Sales Report</h3>
+        <form>
+          <div class="form-group">
+            <label for="salesReport">Enter Date Range</label>
+            <input type="salesReportDate" class="form-control" id="dateRange" placeholder="mm-dd-yyyy/mm-dd-yyyy">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
 </body>
 </html>
