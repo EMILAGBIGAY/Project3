@@ -142,7 +142,7 @@ router.post('/update-inventory/:id', (req, res) => {
     pool.query("update inventory set quantity = quantity + 10000 where id = $1", [id])
         .then(() => {
             console.log("Item quantity updated");
-            res.status(200).send("Item quantity updated");
+            res.redirect("../Manager");
         })
         .catch(err => {
             console.error(err);
