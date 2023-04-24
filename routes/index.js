@@ -96,8 +96,10 @@ router.get('/Server/:id', (req, res) => {
         menuType = "Breakfast";
     }else if(id== "BakeryMenu" ){
         menuType = "Bakery";
-    }else if(id== "serverMenu" ){
+    }else if(id== "CoffeeMenu" ){
         menuType = "Coffee";
+    }else if(id== "SeasonalMenu" ){
+        menuType = "seasonal";
     }
     
     
@@ -172,16 +174,16 @@ router.post('/add-inventory-item', (req, res) => {
     pool.query("insert into inventory (item, quantity) values ($1, $2)", [item, quantity])
 */
 router.post('/add-menu-item', (req, res) => {
-    const category = req.body.category;
-    const subcategory = req.body.subcategory;
-    const item = req.body.item;
-    const tallPrice = req.body.tallPrice;
-    const grandePrice = req.body.grandePrice;
-    const ventiPrice = req.body.ventiPrice;
-    pool.query("insert into menu (category, subcategory, item, tall, grande, venti) values ($1, $2, $3, $4, $5, $6)", [category, subcategory, item, tallPrice, grandePrice, ventiPrice])
+    
+    const item = req.body.SeasonName;
+    const tallPrice = req.body.PriceTall;
+    const grandePrice = req.body.PriceGrande;
+    const ventiPrice = req.body.PriceVenti;
+    
+    pool.query("insert into menu (category, subcategory, item, tall, grande, venti) values ('drink', 'seasonal', $1, $2, $3, $4)", [item, tallPrice, grandePrice, ventiPrice])
         .then(() => {
             console.log("Menu item added");
-            res.status(200).send("Menu item added");
+            res.redirect("../Manager");
         })
         .catch(err => {
             console.error(err);
