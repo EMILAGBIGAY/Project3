@@ -25,6 +25,8 @@ module.exports = router;
 const express = require('express')
 const { Pool } = require('pg');
 const dotenv = require('dotenv').config();
+var bodyParser = require('body-parser');
+
 
 
 //using the API documentation for help
@@ -58,13 +60,16 @@ process.on('SIGINT', function() {
 });
 
 app.set('view engine', "ejs");
+app.use(bodyParser.json()); 
+
+app.use(bodyParser.urlencoded({ extended: true })); 
 
 // Serve static files from the public directory
 app.use(express.static('public/stylesheets'));
 
 router.get('/', (req, res) => {
     res.render('index');
-})
+});
 
 router.get('/user', (req, res) => {
     arr = [];
@@ -151,6 +156,14 @@ router.post('/update-inventory/:id', (req, res) => {
         });
 });
 
+router.post('/orderItem', (req, res) => {
+    const order = req.drinkOrder;
+    const size = req.drinkSize;
+    console.log(req.body);
+   
+    res.redirect("../Server/CoffeeMenu");
+  
+});
 
 /*
 router.post('/add-inventory-item', (req, res) => {
@@ -176,8 +189,11 @@ router.post('/add-menu-item', (req, res) => {
         });
 });
 
+
+
+
 app.use('/', router);
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
-})
+});
