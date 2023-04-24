@@ -101,8 +101,6 @@ router.get('/Server/:id', (req, res) => {
     }else if(id== "SeasonalMenu" ){
         menuType = "seasonal";
     }
-    
-    
 
     pool.query("select * from menu where subcategory = $1",[menuType])
         .then(query_res => {
@@ -180,7 +178,7 @@ router.post('/add-menu-item', (req, res) => {
     const grandePrice = req.body.PriceGrande;
     const ventiPrice = req.body.PriceVenti;
     
-    pool.query("insert into menu (category, subcategory, item, tall, grande, venti) values ('drink', 'seasonal', $1, $2, $3, $4)", [item, tallPrice, grandePrice, ventiPrice])
+    pool.query("insert into menu (category, subcategory, item, tall, grande, venti) values ('Drink', 'seasonal', $1, $2, $3, $4)", [item, tallPrice, grandePrice, ventiPrice])
         .then(() => {
             console.log("Menu item added");
             res.redirect("../Manager");

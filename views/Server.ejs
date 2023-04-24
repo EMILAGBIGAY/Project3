@@ -60,30 +60,47 @@
     </ul>
   </div>
 </nav>
-<body>
+
  
 
 
 <table>
 
 <tr>
+<td>
+    
+<!--Inventory -->
+<div class="container-md">
+  <div class="row">
+    <div class="col">
+      <h3><%= id%></h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Tall</th>
+            <th>Grande</th>
+            <th>Venti</th>
+          </tr>
+        </thead>
+        <tbody>
 
-    <td>
-        <h1><%= id%></h1>
-    <table>
-        
-            <% for(var i in serverMenu) { %>
-                <tr>
-                  <td><%= serverMenu[i].item%></td>
+          <% for(var i in serverMenu) { %>
+              <tr>
+                <td><%= serverMenu[i].item%></td>
                   <td><%= serverMenu[i].tall%></td>
                   <td><%= serverMenu[i].grande%></td>
                   <td><%= serverMenu[i].venti%></td>
-                </tr>
-             <% } %>
-    </table>
+              </tr>
+           <% } %>
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
 </td>
-
-
 
 
 <td class = "Radio">
