@@ -147,22 +147,86 @@ router.post('/update-inventory/:id', (req, res) => {
     pool.query("update inventory set quantity = quantity + 10000 where id = $1", [id])
         .then(() => {
             console.log("Item quantity updated");
-            res.redirect("../Manager");
         })
         .catch(err => {
             console.error(err);
             res.status(500).send('Internal Server Error');
 
         });
+        res.redirect("../Manager");
 });
 
+
 router.post('/orderItem', (req, res) => {
-    const order = req.drinkOrder;
-    const size = req.drinkSize;
+    const order = req.body.drinkOrder;
+    const itemArray = order.split(':');
+    //
+    const name = itemArray[0];
+    const category = itemArray[1];
+    const subcategory = itemArray[2];
+    //prices
+    const tall = itemArray[3];
+    const grande = itemArray[4];
+    const venti = itemArray[5];
+
+    var price = 0.00;
+    const size = req.body.drinkSize;
+    if(size=='tall'){
+        price = tall;
+    } else if(size == 'grande'){
+        price = grande;
+    } else if(size == 'venti'){
+        price = venti;
+    }
+
+
     console.log(req.body);
-   
+    pool.query("insert into xreport (item, price) values ($1,$2)", [name,price])
+        .then(() => {
+            console.log("order added to x report");
+            console.log(itemArray);
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+        });
+
+
     res.redirect("../Server/CoffeeMenu");
   
+});
+router.get('/XReport', (req, res) => {
+    let revenue= 0.0;
+    let report_arr = [];
+    pool.query("select * from xreport")
+        .then(query_res => {
+            for (let i = 0; i < query_res.rowCount; i++) {
+                report_arr.push(query_res.rows[i]);
+                
+            }
+            pool.query("select SUM(price) from xreport")
+        .then(query_res => {
+            for (let i = 0; i < query_res.rowCount; i++) {
+               revenue =  query_res.rows[i];
+            }
+            const data = {report_arr: report_arr, revenue: revenue, type: 'XReport'};
+            console.log(data);
+             res.render('XReport', data);
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+        });
+
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+            
+        });
+
+       
+        
 });
 
 /*

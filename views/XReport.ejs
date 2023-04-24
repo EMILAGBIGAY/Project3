@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<style>
+    .row {
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      border-left: 1px solid #ccc;
+      border-right: 1px solid #ccc;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-left: 10px;
+      
+      margin-top: 10px;
+      margin-bottom: 10px;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  </style>
+
+</head>
+<body>
+
+<!--Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+  <a class="navbar-brand" href="/">
+    <img src ="https://cdn-icons-png.flaticon.com/512/5977/5977591.png" height = 50px /> 
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" >Reports</a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link" href="/Manager">Back to Manager</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+    
+ 
+<!--Inventory -->
+<div class="container-md">
+    <div class="row">
+      <div class="col">
+        <h3><%= type%></h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Order</th>
+              <th>Price</th>
+          
+            </tr>
+          </thead>
+          <tbody>
+
+            <% for(var i in report_arr) { %>
+                <tr>
+                  <td><%= report_arr[i].item%></td>
+                  <td><%= report_arr[i].price%></td>
+                  
+                </tr>
+             <% } %>
+            <tr>
+                <td>Total Revenue</td>
+                <td><%= revenue.sum%></td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  
+</body>
+</html>
