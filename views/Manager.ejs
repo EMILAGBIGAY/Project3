@@ -72,9 +72,9 @@
                   <td>
                      <form action="/update-inventory/<%= inventory_arr[i].id%>"method="post" >
  
-                     <button type="submit" name="submit" >
-                         restock
-                     </button>
+                      <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">
+                        Restock
+                      </button>
                  </form>
              </td>
                 </tr>
@@ -129,9 +129,9 @@
               <label for="enterVentiPriceSeasonal">Venti Price $</label>
               <input type="seasonalItem" name="PriceVenti" class="form-control" id="seasonalVentiItemPrice" placeholder="Venti Price">
             </div>
-            <div class="form-group">
-              <input type="submit">
-            </div>
+            <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">
+              Submit
+            </button>
           </form>
       </div>
     </div>
