@@ -224,8 +224,39 @@ router.get('/XReport', (req, res) => {
             res.status(500).send('Internal Server Error');
             
         });
+        
+});
+router.get('/ZReport', (req, res) => {
+    let revenue= 0.0;
+    let report_arr = [];
+    pool.query("select * from xreport")
+        .then(query_res => {
+            for (let i = 0; i < query_res.rowCount; i++) {
+                report_arr.push(query_res.rows[i]);
+                
+            }
+            pool.query("select SUM(price) from xreport")
+        .then(query_res => {
+            for (let i = 0; i < query_res.rowCount; i++) {
+               revenue =  query_res.rows[i];
+            }
+            const data = {report_arr: report_arr, revenue: revenue, type: 'ZReport: WARNING REFRESHING WILL REQUEST A NEW Z REPORT DELETING'};
+            console.log(data);
+            
 
-       
+             res.render('XReport', data);
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+        });
+
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+            
+        });
         
 });
 
