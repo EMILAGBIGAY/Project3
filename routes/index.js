@@ -120,6 +120,39 @@ router.get('/Server/:id', (req, res) => {
         });
 });
 
+router.get('/Customer', (req, res) => {
+    const id = req.params.id;
+    let customerMenu = [];
+    var menuType="Coffee";
+    if(id== "TeaMenu"){
+        menuType = "Tea";
+    } else if(id== "BreakfastMenu" ){
+        menuType = "Breakfast";
+    }else if(id== "BakeryMenu" ){
+        menuType = "Bakery";
+    }else if(id== "CoffeeMenu" ){
+        menuType = "Coffee";
+    }else if(id== "SeasonalMenu" ){
+        menuType = "seasonal";
+    }
+
+    pool.query("select * from menu where subcategory = $1",[menuType])
+        .then(query_res => {
+            for (let i = 0; i < query_res.rowCount; i++) {
+                customerMenu.push(query_res.rows[i]);
+        }
+            const data = {
+                customerMenu: Menu,
+                id: id
+            };
+            console.log(data);
+            res.render('Customer', data);
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+        });
+});
 
 router.get('/Manager', (req, res) => {
     // x, z, excess, sales reports
@@ -224,8 +257,39 @@ router.get('/XReport', (req, res) => {
             res.status(500).send('Internal Server Error');
             
         });
+        
+});
+router.get('/ZReport', (req, res) => {
+    let revenue= 0.0;
+    let report_arr = [];
+    pool.query("select * from xreport")
+        .then(query_res => {
+            for (let i = 0; i < query_res.rowCount; i++) {
+                report_arr.push(query_res.rows[i]);
+                
+            }
+            pool.query("select SUM(price) from xreport")
+        .then(query_res => {
+            for (let i = 0; i < query_res.rowCount; i++) {
+               revenue =  query_res.rows[i];
+            }
+            const data = {report_arr: report_arr, revenue: revenue, type: 'ZReport: WARNING REFRESHING WILL REQUEST A NEW Z REPORT DELETING'};
+            console.log(data);
+            
 
-       
+             res.render('XReport', data);
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+        });
+
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+            
+        });
         
 });
 
