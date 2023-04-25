@@ -127,7 +127,7 @@ router.get('/Manager', (req, res) => {
     // update/add menu item
     //
     let inventory_arr = [];
-    pool.query("select * from inventory")
+    pool.query("select * from inventory order by id")
         .then(query_res => {
             for (let i = 0; i < query_res.rowCount; i++) {
                 inventory_arr.push(query_res.rows[i]);
