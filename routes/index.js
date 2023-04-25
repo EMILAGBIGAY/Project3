@@ -16,7 +16,7 @@ fetch(`https://${host}/latest?amount=10&from=GBP&to=USD`)
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Starbucks Point of Sale' });
-  
+
 });
 
 module.exports = router;
@@ -25,23 +25,31 @@ module.exports = router;
 const express = require('express')
 const { Pool } = require('pg');
 const dotenv = require('dotenv').config();
+const fetch = require('node-fetch');
 var bodyParser = require('body-parser');
 
 
 
 //using the API documentation for help
-const host = 'api.frankfurter.app';
-fetch(`https://${host}/latest?amount=10&from=GBP&to=USD`)
-  .then(resp => resp.json())
-  .then((data) => {
-    price = `10 GBP = ${data.rates.USD} USD`;
-  });
-
-
 // Create Express App
 const app = express();
 const router = express.Router();
 const port = 3000;
+
+router.get('/', (req, res) => {
+    const host = 'api.frankfurter.app';
+    fetch(`https://${host}/latest?amount=10&from=GBP&to=USD`)
+      .then(resp => resp.json())
+      .then((data) => {
+        const price = `10 GBP = ${data.rates.USD} USD`;
+        res.render('index', { price: price }); // pass price to the view
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+      });
+  });
+
 
 //Create Postgres Pool
 const pool = new Pool({
@@ -60,15 +68,15 @@ process.on('SIGINT', function() {
 });
 
 app.set('view engine', "ejs");
-app.use(bodyParser.json()); 
+app.use(bodyParser.json());
 
-app.use(bodyParser.urlencoded({ extended: true })); 
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Serve static files from the public directory
 app.use(express.static('public/stylesheets'));
 
 router.get('/', (req, res) => {
-    res.render('index');
+
 });
 
 router.get('/user', (req, res) => {
@@ -166,7 +174,7 @@ router.get('/Manager', (req, res) => {
                 inventory_arr.push(query_res.rows[i]);
             }
             const data = {inventory_arr: inventory_arr};
-            
+
             res.render('Manager', data);
         })
         .catch(err => {
@@ -226,7 +234,7 @@ router.post('/orderItem', (req, res) => {
 
 
     res.redirect("../Server/CoffeeMenu");
-  
+
 });
 router.get('/XReport', (req, res) => {
     let revenue= 0.0;
@@ -235,7 +243,7 @@ router.get('/XReport', (req, res) => {
         .then(query_res => {
             for (let i = 0; i < query_res.rowCount; i++) {
                 report_arr.push(query_res.rows[i]);
-                
+
             }
             pool.query("select SUM(price) from xreport")
         .then(query_res => {
@@ -255,9 +263,9 @@ router.get('/XReport', (req, res) => {
         .catch(err => {
             console.error(err);
             res.status(500).send('Internal Server Error');
-            
+
         });
-        
+
 });
 router.get('/ZReport', (req, res) => {
     let revenue= 0.0;
@@ -266,7 +274,7 @@ router.get('/ZReport', (req, res) => {
         .then(query_res => {
             for (let i = 0; i < query_res.rowCount; i++) {
                 report_arr.push(query_res.rows[i]);
-                
+
             }
             pool.query("select SUM(price) from xreport")
         .then(query_res => {
@@ -275,7 +283,7 @@ router.get('/ZReport', (req, res) => {
             }
             const data = {report_arr: report_arr, revenue: revenue, type: 'ZReport: WARNING REFRESHING WILL REQUEST A NEW Z REPORT DELETING'};
             console.log(data);
-            
+
 
              res.render('XReport', data);
         })
@@ -288,9 +296,9 @@ router.get('/ZReport', (req, res) => {
         .catch(err => {
             console.error(err);
             res.status(500).send('Internal Server Error');
-            
+
         });
-        
+
 });
 
 /*
@@ -300,12 +308,12 @@ router.post('/add-inventory-item', (req, res) => {
     pool.query("insert into inventory (item, quantity) values ($1, $2)", [item, quantity])
 */
 router.post('/add-menu-item', (req, res) => {
-    
+
     const item = req.body.SeasonName;
     const tallPrice = req.body.PriceTall;
     const grandePrice = req.body.PriceGrande;
     const ventiPrice = req.body.PriceVenti;
-    
+
     pool.query("insert into menu (category, subcategory, item, tall, grande, venti) values ('Drink', 'seasonal', $1, $2, $3, $4)", [item, tallPrice, grandePrice, ventiPrice])
         .then(() => {
             console.log("Menu item added");
