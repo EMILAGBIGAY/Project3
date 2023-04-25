@@ -22,6 +22,15 @@
       margin-left: 10px;
       margin-right: 10px;
     }
+
+    .my-custom-scrollbar {
+      position: relative;
+      height: 700px;
+      overflow: auto;
+    }
+    .table-wrapper-scroll-y {
+      display: block;
+    }
   </style>
 
 </head>
@@ -55,7 +64,8 @@
     <div class="row">
       <div class="col">
         <h3>Inventory</h3>
-        <table class="table">
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+        <table class="table table-bordered table-striped mb-0">
           <thead>
             <tr>
               <th>Item</th>
@@ -83,78 +93,84 @@
           </tbody>
         </table>
       </div>
-    </div>
-  </div>
-  
-<!--Generate Reports -->
-<div class="container-md">
-    <div class="row">
+      </div>
+
+      <!-- column 2-->
       <div class="col">
-        <h3>Generate Reports</h3>
-        <div class="dropdown">
-          <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Choose Report
-          </button>
-          <div class="dropdown-menu" aria-labelledby="Choose Report">
-            <a class="dropdown-item" href="/XReport">X Report</a>
-            <a class="dropdown-item" href="/ZReport">Z Report</a>
-            <a class="dropdown-item" href="#">Restock Report</a>
-            <a class="dropdown-item" href="#">Excess Report</a>
+            <!--Generate Reports -->
+        <div class="container-md">
+          <div class="row">
+            <div class="col">
+              <h3>Generate Reports</h3>
+              <div class="dropdown">
+                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Choose Report
+                </button>
+                <div class="dropdown-menu" aria-labelledby="Choose Report">
+                  <a class="dropdown-item" href="/XReport">X Report</a>
+                  <a class="dropdown-item" href="/ZReport">Z Report</a>
+                  <a class="dropdown-item" href="#">Restock Report</a>
+                  <a class="dropdown-item" href="#">Excess Report</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!--Seasonal Item -->
+        <div class="container-md">
+          <div class="row">
+            <div class="col">
+              <h3>Seasonal Item</h3>
+                <form action="/add-menu-item"method="post">
+                  <div class="form-group">
+                    <label for="enterNameSeasonal">Seasonal Item name</label>
+                    <input type="seasonalItem" name="SeasonName"class="form-control" id="seasonalItemName" placeholder="Item Name">
+                  </div>
+                  <div class="form-group">
+                    <label for="enterTallPriceSeasonal">Tall Price $</label>
+                    <input type="seasonalItem" name="PriceTall" class="form-control" id="seasonalTallItemPrice" placeholder="Tall Price">
+                  </div>
+                  <div class="form-group">
+                    <label for="enterGrandeSeasonal">Grande Price $</label>
+                    <input type="seasonalItem" name="PriceGrande" class="form-control" id="seasonalGrandeItemPrice" placeholder="Grande Price">
+                  </div>
+                  <div class="form-group">
+                    <label for="enterVentiPriceSeasonal">Venti Price $</label>
+                    <input type="seasonalItem" name="PriceVenti" class="form-control" id="seasonalVentiItemPrice" placeholder="Venti Price">
+                  </div>
+                  <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">
+                    Submit
+                  </button>
+                </form>
+            </div>
+          </div>
+        </div>
+
+
+        <!--Sales Report -->
+        <div class="container-md">
+          <div class="row">
+            <div class="col">
+              <h3>Sales Report</h3>
+              <form>
+                <div class="form-group">
+                  <label for="salesReport">Enter Date Range</label>
+                  <input type="salesReportDate" class="form-control" id="dateRange" placeholder="mm-dd-yyyy/mm-dd-yyyy">
+                </div>
+                <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">
+                  Submit
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
   
-  
-  <!--Seasonal Item -->
-  <div class="container-md">
-    <div class="row">
-      <div class="col">
-        <h3>Seasonal Item</h3>
-          <form action="/add-menu-item"method="post">
-            <div class="form-group">
-              <label for="enterNameSeasonal">Seasonal Item name</label>
-              <input type="seasonalItem" name="SeasonName"class="form-control" id="seasonalItemName" placeholder="Item Name">
-            </div>
-            <div class="form-group">
-              <label for="enterTallPriceSeasonal">Tall Price $</label>
-              <input type="seasonalItem" name="PriceTall" class="form-control" id="seasonalTallItemPrice" placeholder="Tall Price">
-            </div>
-            <div class="form-group">
-              <label for="enterGrandeSeasonal">Grande Price $</label>
-              <input type="seasonalItem" name="PriceGrande" class="form-control" id="seasonalGrandeItemPrice" placeholder="Grande Price">
-            </div>
-            <div class="form-group">
-              <label for="enterVentiPriceSeasonal">Venti Price $</label>
-              <input type="seasonalItem" name="PriceVenti" class="form-control" id="seasonalVentiItemPrice" placeholder="Venti Price">
-            </div>
-            <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">
-              Submit
-            </button>
-          </form>
-      </div>
-    </div>
-  </div>
-  
-  
-  <!--Sales Report -->
-  <div class="container-md">
-    <div class="row">
-      <div class="col">
-        <h3>Sales Report</h3>
-        <form>
-          <div class="form-group">
-            <label for="salesReport">Enter Date Range</label>
-            <input type="salesReportDate" class="form-control" id="dateRange" placeholder="mm-dd-yyyy/mm-dd-yyyy">
-          </div>
-          <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">
-            Submit
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
+
   
 </body>
 </html>
