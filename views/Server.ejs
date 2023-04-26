@@ -107,9 +107,17 @@ input[type="radio"]:checked + label {
         <thead>
           <tr>
             <th>Item</th>
+            <% if(<%= serverMenu[0].category%>=='Food'){ %>
+              
+              <th>Price</th>
+           <% } %>
+           <% else{ %>
             <th>Tall</th>
             <th>Grande</th>
             <th>Venti</th>
+            
+            <% } %>
+          
           </tr>
         </thead>
         <tbody>
@@ -117,9 +125,17 @@ input[type="radio"]:checked + label {
           <% for(var i in serverMenu) { %>
               <tr>
                 <td><%= serverMenu[i].item%></td>
+                <% if(<%= serverMenu[0].category%>=='Food'){ %>
                   <td>$<%= serverMenu[i].tall%></td>
+               <% } %>
+               <% else{ %>
+                
+
+                <td>$<%= serverMenu[i].tall%></td>
                   <td>$<%= serverMenu[i].grande%></td>
                   <td>$<%= serverMenu[i].venti%></td>
+                <% } %>
+                
               </tr>
            <% } %>
           

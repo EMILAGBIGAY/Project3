@@ -219,6 +219,21 @@ router.post('/orderItem', (req, res) => {
     } else if(size == 'venti'){
         price = venti;
     }
+    if(category=='Food'){
+        price==tall;
+    }
+    var menuType="CoffeeMenu";
+    if(subcategory== "Tea"){
+        menuType = "TeaMenu";
+    } else if(subcategory== 'Breakfast' ){
+        menuType = "BreakfastMenu";
+    }else if(subcategory== "Bakery" ){
+        menuType = "BakeryMenu";
+    }else if(subcategory== "Coffee" ){
+        menuType = "CoffeeMenu";
+    }else if(subcategory== "seasonal" ){
+        menuType = "SeasonalMenu";
+    }
 
 
     console.log(req.body);
@@ -232,8 +247,8 @@ router.post('/orderItem', (req, res) => {
             res.status(500).send('Internal Server Error');
         });
 
-
-    res.redirect("../Server/CoffeeMenu");
+    const serverPath = '../Server/'+menuType;
+    res.redirect(serverPath);
 
 });
 router.get('/XReport', (req, res) => {
