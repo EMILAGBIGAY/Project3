@@ -97,6 +97,8 @@ router.get('/user', (req, res) => {
 router.get('/Server/:id', (req, res) => {
     const id = req.params.id;
     let serverMenu = [];
+    let currentOrder = [];
+    
     var menuType="Coffee";
     if(id== "TeaMenu"){
         menuType = "Tea";
@@ -115,12 +117,27 @@ router.get('/Server/:id', (req, res) => {
             for (let i = 0; i < query_res.rowCount; i++) {
                 serverMenu.push(query_res.rows[i]);
         }
-            const data = {
+            
+            pool.query("select * from current_order")
+            .then(query_res => {
+                for (let i = 0; i < query_res.rowCount; i++) {
+                    currentOrder.push(query_res.rows[i]);
+    
+            }
+         const data = {
                 serverMenu: serverMenu,
+                currentOrder: currentOrder,
                 id: id
             };
-            console.log(data);
             res.render('Server', data);
+        
+        })
+            .catch(err => {
+                console.error(err);
+                res.status(500).send('Internal Server Error');
+            });
+
+           
         })
         .catch(err => {
             console.error(err);
@@ -131,6 +148,7 @@ router.get('/Server/:id', (req, res) => {
 router.get('/Customer', (req, res) => {
     const id = req.params.id;
     let customerMenu = [];
+    let currentOrder = [];
     var menuType="Coffee";
     if(id== "TeaMenu"){
         menuType = "Tea";
@@ -149,10 +167,24 @@ router.get('/Customer', (req, res) => {
             for (let i = 0; i < query_res.rowCount; i++) {
                 customerMenu.push(query_res.rows[i]);
         }
+
+        pool.query("select * from current_order")
+        .then(query_res => {
+            for (let i = 0; i < query_res.rowCount; i++) {
+                currentOrder.push(query_res.rows[i]);
+        } })
+        .catch(err => {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+        });
+
+
             const data = {
                 customerMenu: Menu,
+                currentOrder: currentOrder,
                 id: id
             };
+
             console.log(data);
             res.render('Customer', data);
         })
@@ -212,16 +244,20 @@ router.post('/orderItem', (req, res) => {
 
     var price = 0.00;
     const size = req.body.drinkSize;
-    if(size=='tall'){
+
+    
+    
         price = tall;
-    } else if(size == 'grande'){
+      if(category=='Drink'){  
+     if(size == 'grande'){
         price = grande;
     } else if(size == 'venti'){
         price = venti;
     }
-    if(category=='Food'){
-        price==tall;
-    }
+}
+    
+
+
     var menuType="CoffeeMenu";
     if(subcategory== "Tea"){
         menuType = "TeaMenu";
@@ -235,6 +271,34 @@ router.post('/orderItem', (req, res) => {
         menuType = "SeasonalMenu";
     }
 
+    var shot =false;
+    if(req.body.shot== 'on'){
+        shot =true;
+    }
+    var iced =false;
+    if(req.body.iced== 'on'){
+        iced =true;
+    }
+    var syrup =false;
+    if(req.body.syrup== 'on'){
+        syrup =true;
+    }
+    var nondairy =false;
+    if(req.body.nondairy== 'on'){
+        iced =true;
+    }
+    const exampleTimeStamp = '2011-01-01 00:00:00';
+    const exampleOrderId = 5;
+
+    pool.query("insert into current_order (date, subcategory, price, name, shot, iced, syrup, nondairy, orderid) values ( $1, $2, $3, $4, $5, $6, $7, $8, $9)", [exampleTimeStamp, subcategory, price, name, shot, iced, syrup, nondairy, exampleOrderId])
+        .then(() => {
+            console.log("added to current order");
+            
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+        });
 
     console.log(req.body);
     pool.query("insert into xreport (item, price) values ($1,$2)", [name,price])

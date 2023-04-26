@@ -38,9 +38,13 @@ Removes the "radio button circle"
   &:not(:disabled) ~ label {
     cursor: pointer;
   }
-  
 }
-
+input[type="checkbox"] {
+  display: none;
+  &:not(:disabled) ~ label {
+    cursor: pointer;
+  }
+}
 label {
   height: 100%;
   background: white;
@@ -53,6 +57,11 @@ label {
 }
 
 input[type="radio"]:checked + label {
+  background: rgb(32, 223, 86);
+  color: hsla(215, 0%, 100%, 1);
+  box-shadow: 0px 0px 20px hsla(150, 100%, 50%, 0.75);
+}
+input[type="checkbox"]:checked + label {
   background: rgb(32, 223, 86);
   color: hsla(215, 0%, 100%, 1);
   box-shadow: 0px 0px 20px hsla(150, 100%, 50%, 0.75);
@@ -107,11 +116,11 @@ input[type="radio"]:checked + label {
         <thead>
           <tr>
             <th>Item</th>
-            <% if(<%= serverMenu[0].category%>=='Food'){ %>
+            <% if(serverMenu[0].category =='Food'){ %>
               
               <th>Price</th>
-           <% } %>
-           <% else{ %>
+         
+           <%} else{ %>
             <th>Tall</th>
             <th>Grande</th>
             <th>Venti</th>
@@ -125,10 +134,9 @@ input[type="radio"]:checked + label {
           <% for(var i in serverMenu) { %>
               <tr>
                 <td><%= serverMenu[i].item%></td>
-                <% if(<%= serverMenu[0].category%>=='Food'){ %>
+                <% if( serverMenu[0].category=='Food'){ %>
                   <td>$<%= serverMenu[i].tall%></td>
-               <% } %>
-               <% else{ %>
+               <% } else{ %>
                 
 
                 <td>$<%= serverMenu[i].tall%></td>
@@ -154,26 +162,97 @@ input[type="radio"]:checked + label {
             <label for="<%= serverMenu[i].item%>"><%= serverMenu[i].item%></label>
            
       <% } %>
-      <br>
       
-      <h3>Size</h3>
+      <% if(serverMenu[0].category !='Food'){ %>
+         <br> 
+         <h3>Size</h3>
       
       
       <input type = "radio" id="tall" name= "drinkSize" value="tall"></input>
       <label for="tall">Tall </label>
       
-      <input type = "radio" id="grande"name= "drinkSize"  value="grande"></input>
+      <input type = "radio" id="grande"name= "drinkSize"  value="grande" checked></input>
       <label for="grande">Grande</label>
       
       <input type = "radio"  id="venti" name= "drinkSize" value="venti"></input>
       <label for="venti">Venti</label>
+      <h3>Customizations</h3>
+      <input type = "checkbox" id="shot" name= "shot" ></input>
+      <label for="shot">Espresso Shot</label>
+      <input type = "checkbox" id="iced" name= "iced" ></input>
+      <label for="iced">Iced </label>
+      <input type = "checkbox" id="syrup" name= "syrup" ></input>
+      <label for="syrup">Syrup Pump </label>
+      <input type = "checkbox" id="nondairy" name= "nondairy" ></input>
+      <label for="nondairy">nondairy </label>
+   
+     <%} %>
+     
+       <br><br>     
       
-      <br><br>
       <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Order</button>
       </form>
     </div>
   </div>
 </div>
+
+
+
+<!--Inventory -->
+<div class="container-md">
+  <div class="row">
+    <div class="col">
+      <h3>Cart</h3>
+      <div class="table-wrapper-scroll-y my-custom-scrollbar">
+      <table class="table table-striped table-bordered table-sm" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <% for(var i in currentOrder) { %>
+              <tr>
+                <td><%= currentOrder[i].size%> <%= currentOrder[i].name%></td>
+                <td><%= currentOrder[i].price%></td>
+                <td>
+                   <form action="/"method="post" >
+
+                    <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">
+                      delete
+                    </button>
+               </form>
+           </td>
+              </tr>
+           <% } %>
+          </tbody>
+
+          
+          <tr>
+            <td>
+            <form action="/"method="post">
+              <input name="menuCategory" value ="<%= serverMenu[0].subcategory%>">
+
+              <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">
+                Submit
+              </button>
+           
+            </form>
+       </td>
+            <th>Subtotal</th>
+            <th>$$$</th>
+           </tr>
+          
+       
+         
+      </table>
+    </div>
+    </div>
+
+
 
 
 </body>
