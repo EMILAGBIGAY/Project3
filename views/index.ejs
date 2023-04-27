@@ -19,7 +19,7 @@
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 10px;
-    
+
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 10px;
@@ -28,11 +28,10 @@
 </style>
 
 
-
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-success">
     <a class="navbar-brand" href="/">
-      <img src ="https://cdn-icons-png.flaticon.com/512/5977/5977591.png" height = 50px /> 
+      <img src ="https://cdn-icons-png.flaticon.com/512/5977/5977591.png" height = 50px />
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -42,7 +41,7 @@
         <li class="nav-item active">
           <a class="nav-link" >Home</a>
         </li>
-        
+
         <li class="nav-item">
           <a class="nav-link" href="/Manager">Manager</a>
         </li>
@@ -52,12 +51,26 @@
         <li class="nav-item">
           <a class="nav-link" href="/Customer/CoffeeMenu">Customer</a>
         </li>
+        <li>
+          <a class="nav-link" href="/finder">Find one near you</a>
+        </li>
       </ul>
     </div>
   </nav>
-  <body>
-    
+
+
   <p><%=price%></p>
+
+  <div id="google_translate_element"></div>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 
 </body>
 </html>
