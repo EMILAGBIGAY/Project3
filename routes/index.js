@@ -25,7 +25,7 @@ module.exports = router;
 const express = require('express')
 const { Pool } = require('pg');
 const dotenv = require('dotenv').config();
-const fetch = require('node-fetch');
+const fetch = require('isomorphic-fetch');
 var bodyParser = require('body-parser');
 
 
