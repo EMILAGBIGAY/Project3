@@ -25,7 +25,7 @@ module.exports = router;
 const express = require('express')
 const { Pool } = require('pg');
 const dotenv = require('dotenv').config();
-const fetch = require('node-fetch');
+const fetch = require('isomorphic-fetch');
 var bodyParser = require('body-parser');
 
 
@@ -98,7 +98,7 @@ router.get('/Server/:id', (req, res) => {
     const id = req.params.id;
     let serverMenu = [];
     let currentOrder = [];
-    
+
     var menuType="Coffee";
     if(id== "TeaMenu"){
         menuType = "Tea";
@@ -117,12 +117,12 @@ router.get('/Server/:id', (req, res) => {
             for (let i = 0; i < query_res.rowCount; i++) {
                 serverMenu.push(query_res.rows[i]);
         }
-            
+
             pool.query("select * from current_order")
             .then(query_res => {
                 for (let i = 0; i < query_res.rowCount; i++) {
                     currentOrder.push(query_res.rows[i]);
-    
+
             }
          const data = {
                 serverMenu: serverMenu,
@@ -130,14 +130,14 @@ router.get('/Server/:id', (req, res) => {
                 id: id
             };
             res.render('Server', data);
-        
+
         })
             .catch(err => {
                 console.error(err);
                 res.status(500).send('Internal Server Error');
             });
 
-           
+
         })
         .catch(err => {
             console.error(err);
@@ -245,17 +245,17 @@ router.post('/orderItem', (req, res) => {
     var price = 0.00;
     const size = req.body.drinkSize;
 
-    
-    
+
+
         price = tall;
-      if(category=='Drink'){  
+      if(category=='Drink'){
      if(size == 'grande'){
         price = grande;
     } else if(size == 'venti'){
         price = venti;
     }
 }
-    
+
 
 
     var menuType="CoffeeMenu";
@@ -293,7 +293,7 @@ router.post('/orderItem', (req, res) => {
     pool.query("insert into current_order (date, subcategory, price, name, shot, iced, syrup, nondairy, orderid) values ( $1, $2, $3, $4, $5, $6, $7, $8, $9)", [exampleTimeStamp, subcategory, price, name, shot, iced, syrup, nondairy, exampleOrderId])
         .then(() => {
             console.log("added to current order");
-            
+
         })
         .catch(err => {
             console.error(err);
@@ -404,7 +404,9 @@ router.post('/add-menu-item', (req, res) => {
         });
 });
 
-
+router.get('/finder', function(req, res) {
+    res.render('finder');
+});
 
 
 app.use('/', router);
