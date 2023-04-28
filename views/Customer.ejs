@@ -78,6 +78,7 @@ label {
   padding: 1rem;
   margin-bottom: 1rem;
   text-align: center;
+  width: 80%;
   
 }
 
@@ -150,7 +151,7 @@ input[type="checkbox"]:checked + label {
         </div>
       <% for (var i = 1; i < serverMenu.length; i++) { %>
         <div>
-            <img src="<%= ('../'+serverMenu[0].item+'.jpg').replace( /\s/g, '')%>">
+            <img src="<%= ('../'+serverMenu[i].item+'.jpg').replace( /\s/g, '')%>">
             <input  type = "radio" id="<%= serverMenu[i].item%>" value="<%= serverMenu[i].item%>:<%= serverMenu[i].category%>:<%= serverMenu[i].subcategory%>:<%= serverMenu[i].tall%>:<%= serverMenu[i].grande%>:<%= serverMenu[i].venti%>" name= "drinkOrder"></input>
             <label for="<%= serverMenu[i].item%>"><%= serverMenu[i].item%></label>
            </div>
@@ -184,19 +185,7 @@ input[type="checkbox"]:checked + label {
        <br>  
        <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Add to Cart</button> 
       </form>
-      <% if(serverMenu[0].category =='Food'){ %>
-        <form>
-     <br>
-     <h3>Check Out</h3>
-     <input type = "radio" id="Card"name= "payment"  value="<%= serverMenu[0].subcategory%>" checked></input>
-   <label for="Card">Card</label>
-   
-   <input type = "radio"  id="Paypal" name= "payment" value="<%= serverMenu[0].subcategory%>"></input>
-   <label for="Paypal">Cash</label>
-   <br>
-   <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Process Order</button> 
-   </form>
-  <%}  %>
+     
       
     </div>
 
@@ -234,7 +223,7 @@ input[type="checkbox"]:checked + label {
           </tbody>
       </table>
       </div>
-      <% if(serverMenu[0].category !='Food'){ %>
+      
            <form>
         <br>
         <h3>Check Out</h3>
@@ -246,7 +235,7 @@ input[type="checkbox"]:checked + label {
       <br>
       <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Process Order</button> 
       </form>
-     <%}  %>
+   
       
     </div>
 
