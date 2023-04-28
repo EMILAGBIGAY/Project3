@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
     <meta charset="UTF-8">
@@ -9,6 +8,7 @@
   <style>
     .btn{
       background-color:#006241;
+     
     }
 
     .navbar{
@@ -20,6 +20,13 @@
       top: 0;
       z-index: 100;
     }
+    
+      img {
+  border-radius: 50%;
+  width: 75px;
+  height: 75px;
+}
+    
 
     .row {
       border-top: 1px solid #ccc;
@@ -51,6 +58,7 @@ Removes the "radio button circle"
 */
   input[type="radio"] {
   display: none;
+ 
   &:not(:disabled) ~ label {
     cursor: pointer;
   }
@@ -63,13 +71,14 @@ input[type="checkbox"] {
 }
 label {
   height: 100%;
+  display:inline-block;
   background: white;
   border: 2px solid #006241;
   border-radius: 20px;
   padding: 1rem;
   margin-bottom: 1rem;
   text-align: center;
-  position: relative;
+  
 }
 
 input[type="radio"]:checked + label {
@@ -98,24 +107,24 @@ input[type="checkbox"]:checked + label {
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" >Server</a>
+        <a class="nav-link" >Customer</a>
       </li>
       
       <li class="nav-item">
-        <a class="nav-link" href="/Server/CoffeeMenu">Coffee</a>
+        <a class="nav-link" href="/Customer/CoffeeMenu">Coffee</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/Server/TeaMenu">Tea</a>
+        <a class="nav-link" href="/Customer/TeaMenu">Tea</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/Server/BreakfastMenu">Breakfast</a>
+        <a class="nav-link" href="/Customer/BreakfastMenu">Breakfast</a>
       </li>
       
       <li class="nav-item">
-        <a class="nav-link" href="/Server/BakeryMenu">Bakery</a>
+        <a class="nav-link" href="/Customer/BakeryMenu">Bakery</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/Server/SeasonalMenu">Seasonal</a>
+        <a class="nav-link" href="/Customer/SeasonalMenu">Seasonal</a>
       </li>
       
     </ul>
@@ -126,6 +135,75 @@ input[type="checkbox"]:checked + label {
 <div class="container-md">
   <div class="row">
     <!-- column 1-->
+
+<div class="col">
+        <td class = "Radio">
+          <h3><%=id %></h3>
+      <form action="/orderItem" method="post">
+        <div>
+          
+          <img src="<%= ('../'+serverMenu[0].item+'.jpg').replace( /\s/g, '')%>">
+          
+          
+        <input  type = "radio" id="<%= serverMenu[0].item%>" value="<%= serverMenu[0].item%>:<%= serverMenu[0].category%>:<%= serverMenu[0].subcategory%>:<%= serverMenu[0].tall%>:<%= serverMenu[0].grande%>:<%= serverMenu[0].venti%>" name= "drinkOrder" checked></input>
+        <label for="<%= serverMenu[0].item%>"><%= serverMenu[0].item%></label>
+        </div>
+      <% for (var i = 1; i < serverMenu.length; i++) { %>
+        <div>
+            <img src="<%= ('../'+serverMenu[0].item+'.jpg').replace( /\s/g, '')%>">
+            <input  type = "radio" id="<%= serverMenu[i].item%>" value="<%= serverMenu[i].item%>:<%= serverMenu[i].category%>:<%= serverMenu[i].subcategory%>:<%= serverMenu[i].tall%>:<%= serverMenu[i].grande%>:<%= serverMenu[i].venti%>" name= "drinkOrder"></input>
+            <label for="<%= serverMenu[i].item%>"><%= serverMenu[i].item%></label>
+           </div>
+      <% } %>
+
+      
+      <% if(serverMenu[0].category !='Food'){ %>
+         <br> 
+         <h3>Size</h3>
+      
+      
+      <input type = "radio" id="tall" name= "drinkSize" value="tall"></input>
+      <label for="tall">Tall </label>
+      
+      <input type = "radio" id="grande"name= "drinkSize"  value="grande" checked></input>
+      <label for="grande">Grande</label>
+      
+      <input type = "radio"  id="venti" name= "drinkSize" value="venti"></input>
+      <label for="venti">Venti</label>
+      <h3>Customizations</h3>
+      <input type = "checkbox" id="shot" name= "shot" ></input>
+      <label for="shot">Espresso Shot</label>
+      <input type = "checkbox" id="iced" name= "iced" ></input>
+      <label for="iced">Iced </label>
+      <input type = "checkbox" id="syrup" name= "syrup" ></input>
+      <label for="syrup">Syrup Pump </label>
+      <input type = "checkbox" id="nondairy" name= "nondairy" ></input>
+      <label for="nondairy">nondairy </label>
+   
+     <%} %>
+       <br>  
+       <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Add to Cart</button> 
+      </form>
+      <% if(serverMenu[0].category =='Food'){ %>
+        <form>
+     <br>
+     <h3>Check Out</h3>
+     <input type = "radio" id="Card"name= "payment"  value="<%= serverMenu[0].subcategory%>" checked></input>
+   <label for="Card">Card</label>
+   
+   <input type = "radio"  id="Paypal" name= "payment" value="<%= serverMenu[0].subcategory%>"></input>
+   <label for="Paypal">Cash</label>
+   <br>
+   <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Process Order</button> 
+   </form>
+  <%}  %>
+      
+    </div>
+
+
+
+
+
     <div class="col">
       <h3>Cart</h3>
       <div class="table-wrapper-scroll-y my-custom-scrollbar">
@@ -174,111 +252,9 @@ input[type="checkbox"]:checked + label {
 
 
     <!-- column 2-->
-    <div class="col">
-        <td class = "Radio">
-          <h3>Order</h3>
-      <form action="/orderItem" method="post">
-        <input class = "radioBtn" type = "radio" id="<%= serverMenu[0].item%>" value="<%= serverMenu[0].item%>:<%= serverMenu[0].category%>:<%= serverMenu[0].subcategory%>:<%= serverMenu[0].tall%>:<%= serverMenu[0].grande%>:<%= serverMenu[0].venti%>" name= "drinkOrder" checked></input>
-        <label for="<%= serverMenu[0].item%>"><%= serverMenu[0].item%></label>
-      <% for (var i = 1; i < serverMenu.length; i++) { %>
-            <input class = "radioBtn" type = "radio" id="<%= serverMenu[i].item%>" value="<%= serverMenu[i].item%>:<%= serverMenu[i].category%>:<%= serverMenu[i].subcategory%>:<%= serverMenu[i].tall%>:<%= serverMenu[i].grande%>:<%= serverMenu[i].venti%>" name= "drinkOrder"></input>
-            <label for="<%= serverMenu[i].item%>"><%= serverMenu[i].item%></label>
-           
-      <% } %>
-      
-      <% if(serverMenu[0].category !='Food'){ %>
-         <br> 
-         <h3>Size</h3>
-      
-      
-      <input type = "radio" id="tall" name= "drinkSize" value="tall"></input>
-      <label for="tall">Tall </label>
-      
-      <input type = "radio" id="grande"name= "drinkSize"  value="grande" checked></input>
-      <label for="grande">Grande</label>
-      
-      <input type = "radio"  id="venti" name= "drinkSize" value="venti"></input>
-      <label for="venti">Venti</label>
-      <h3>Customizations</h3>
-      <input type = "checkbox" id="shot" name= "shot" ></input>
-      <label for="shot">Espresso Shot</label>
-      <input type = "checkbox" id="iced" name= "iced" ></input>
-      <label for="iced">Iced </label>
-      <input type = "checkbox" id="syrup" name= "syrup" ></input>
-      <label for="syrup">Syrup Pump </label>
-      <input type = "checkbox" id="nondairy" name= "nondairy" ></input>
-      <label for="nondairy">nondairy </label>
-   
-     <%} %>
-       <br>  
-       <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Add to Cart</button> 
-      </form>
-      <% if(serverMenu[0].category =='Food'){ %>
-        <form>
-     <br>
-     <h3>Check Out</h3>
-     <input type = "radio" id="Card"name= "payment"  value="<%= serverMenu[0].subcategory%>" checked></input>
-   <label for="Card">Card</label>
-   
-   <input type = "radio"  id="Paypal" name= "payment" value="<%= serverMenu[0].subcategory%>"></input>
-   <label for="Paypal">Cash</label>
-   <br>
-   <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Process Order</button> 
-   </form>
-  <%}  %>
-      
-    </div>
+    
   </div>
 </div>
-
-
-
-<!--Inventory -->
-<div class="container-md">
-  <div class="row">
-    <div class="col">
-  
-  <h3><%= id%></h3>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Item</th>
-        <% if(serverMenu[0].category =='Food'){ %>
-          
-          <th>Price</th>
-     
-       <%} else{ %>
-        <th>Tall</th>
-        <th>Grande</th>
-        <th>Venti</th>
-        
-        <% } %>
-      
-      </tr>
-    </thead>
-    <tbody>
-      
-      <% for(var i in serverMenu) { %>
-          <tr>
-            <td><%= serverMenu[i].item%></td>
-            <% if( serverMenu[0].category=='Food'){ %>
-              <td>$<%= serverMenu[i].tall%></td>
-           <% } else{ %>
-            
-
-            <td>$<%= serverMenu[i].tall%></td>
-              <td>$<%= serverMenu[i].grande%></td>
-              <td>$<%= serverMenu[i].venti%></td>
-            <% } %>
-            
-          </tr>
-       <% } %>
-      
-    </tbody>
-  </table>
-    </div>
-    </div>
-
 
 
 
