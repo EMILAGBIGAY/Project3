@@ -27,6 +27,14 @@
       margin-left: 10px;
       margin-right: 10px;
     }
+    .my-custom-scrollbar {
+      position: relative;
+      height: 400px;
+      overflow: auto;
+    }
+    .table-wrapper-scroll-y {
+      display: block;
+    }
 /*
 radio button styling
 */
@@ -125,8 +133,8 @@ input[type="checkbox"]:checked + label {
 
           <% for(var i in currentOrder) { %>
               <tr>
-                <td><%= currentOrder[i].size%> <%= currentOrder[i].name%></td>
-                <td><%= currentOrder[i].price%></td>
+                <td><%= currentOrder[i].name%></td>
+                <td>$<%= currentOrder[i].price%></td>
                 <td>
                    <form action="/"method="post" >
 
@@ -140,14 +148,31 @@ input[type="checkbox"]:checked + label {
           </tbody>
       </table>
       </div>
+      <% if(serverMenu[0].category !='Food'){ %>
+           <form>
+        <br>
+        <h3>Check Out</h3>
+        <input type = "radio" id="Card"name= "payment"  value="<%= serverMenu[0].subcategory%>" checked></input>
+      <label for="Card">Card</label>
+      
+      <input type = "radio"  id="Paypal" name= "payment" value="<%= serverMenu[0].subcategory%>"></input>
+      <label for="Paypal">Paypal</label>
+      <br>
+      <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Process Order</button> 
+      </form>
+     <%}  %>
+      
     </div>
+
+
     <!-- column 2-->
     <div class="col">
         <td class = "Radio">
           <h3>Order</h3>
       <form action="/orderItem" method="post">
-          
-      <% for (var i = 0; i < serverMenu.length; i++) { %>
+        <input class = "radioBtn" type = "radio" id="<%= serverMenu[0].item%>" value="<%= serverMenu[0].item%>:<%= serverMenu[0].category%>:<%= serverMenu[0].subcategory%>:<%= serverMenu[0].tall%>:<%= serverMenu[0].grande%>:<%= serverMenu[0].venti%>" name= "drinkOrder" checked></input>
+        <label for="<%= serverMenu[0].item%>"><%= serverMenu[0].item%></label>
+      <% for (var i = 1; i < serverMenu.length; i++) { %>
             <input class = "radioBtn" type = "radio" id="<%= serverMenu[i].item%>" value="<%= serverMenu[i].item%>:<%= serverMenu[i].category%>:<%= serverMenu[i].subcategory%>:<%= serverMenu[i].tall%>:<%= serverMenu[i].grande%>:<%= serverMenu[i].venti%>" name= "drinkOrder"></input>
             <label for="<%= serverMenu[i].item%>"><%= serverMenu[i].item%></label>
            
@@ -177,9 +202,22 @@ input[type="checkbox"]:checked + label {
       <label for="nondairy">nondairy </label>
    
      <%} %>
-       <br><br>   
-       <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Order</button> 
-
+       <br>  
+       <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Add to Cart</button> 
+      </form>
+      <% if(serverMenu[0].category =='Food'){ %>
+        <form>
+     <br>
+     <h3>Check Out</h3>
+     <input type = "radio" id="Card"name= "payment"  value="<%= serverMenu[0].subcategory%>" checked></input>
+   <label for="Card">Card</label>
+   
+   <input type = "radio"  id="Paypal" name= "payment" value="<%= serverMenu[0].subcategory%>"></input>
+   <label for="Paypal">Paypal</label>
+   <br>
+   <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Process Order</button> 
+   </form>
+  <%}  %>
       
     </div>
   </div>
