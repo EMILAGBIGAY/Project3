@@ -1,5 +1,21 @@
 <!DOCTYPE html>
 <html>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <style>
+    .navbar{
+      background-color:RGB(0,112,74);
+    }
+
+    .sticky {
+      position: sticky; 
+      top: 0;
+      z-index: 100;
+    }
+  </style>
   <head>
     <title>Starbucks Locations Map</title>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwxyr_8dczpsmNJBIj165H0BZ5Y1iQLKo&libraries=places"></script>
@@ -55,7 +71,40 @@
       }
     </script>
   </head>
-  <body onload="initMap()">
-    <div id="map" style="height: 400px; width: 100%;"></div>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <a class="navbar-brand" href="/">
+        <img src ="https://cdn-icons-png.flaticon.com/512/5977/5977591.png" height = 50px />
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" >Home</a>
+          </li>
+  
+          <li class="nav-item">
+            <a class="nav-link" href="/Manager">Manager</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/Server/CoffeeMenu">Server</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/Customer/CoffeeMenu">Customer</a>
+          </li>
+          <li>
+            <a class="nav-link" href="/finder">Find one near you</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    </body>
+
+    <body onload="initMap()">
+      <div id="map" style="height: 600px; width: 90%;  margin:0 auto; "></div>
+    </body>
+
   </body>
 </html>
