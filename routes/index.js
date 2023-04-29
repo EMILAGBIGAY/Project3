@@ -280,6 +280,10 @@ router.post('/orderItem', (req, res) => {
     var shot = false;
     if (req.body.shot == 'on') {
         shot = true;
+        pool.query("update inventory set quantity = quantity - 1 where id = 42")
+            .then(() => {
+                console.log("shot removed from inventory");
+            });
     }
     var iced = false;
     if (req.body.iced == 'on') {
@@ -288,11 +292,21 @@ router.post('/orderItem', (req, res) => {
     var syrup = false;
     if (req.body.syrup == 'on') {
         syrup = true;
+        pool.query("update inventory set quantity = quantity - 1 where id = 10")
+            .then(() => {
+                console.log("syrup removed from inventory");
+            });
     }
     var nondairy = false;
     if (req.body.nondairy == 'on') {
-        iced = true;
+        nondairy = true;
+        pool.query("update inventory set quantity = quantity - 6 where id = 9")
+            .then(() => {
+                console.log("soy milk for drink removed from inventory");
+            });
     }
+
+
 
     //get current time and new order id
     const currentTimeStamp = moment().format('YYYY-MM-DD HH:mm:ss');
@@ -307,7 +321,6 @@ router.post('/orderItem', (req, res) => {
             console.error(err);
             res.status(500).send('Internal Server Error');
         });
-
 
 
     pool.query("insert into current_order (date, subcategory, price, name, shot, iced, syrup, nondairy, orderid) values ( $1, $2, $3, $4, $5, $6, $7, $8, $9)", [currentTimeStamp, subcategory, price, name, shot, iced, syrup, nondairy, newOrderId])
@@ -335,6 +348,7 @@ router.post('/orderItem', (req, res) => {
     res.redirect(serverPath);
 
 });
+
 router.get('/XReport', (req, res) => {
     let revenue = 0.0;
     let report_arr = [];
@@ -366,6 +380,7 @@ router.get('/XReport', (req, res) => {
         });
 
 });
+
 router.get('/ZReport', (req, res) => {
     let revenue = 0.0;
     let report_arr = [];
