@@ -257,9 +257,24 @@ router.post('/orderItem', (req, res) => {
     if (category == 'Drink') {
         if (size == 'grande') {
             price = grande;
+            pool.query("update inventory set quantity = quantity - 1 where id = 2")
+                .then(() => {
+                    console.log("Grande cup removed from inventory");
+                });
         } else if (size == 'venti') {
             price = venti;
+            pool.query("update inventory set quantity = quantity - 1 where id = 3")
+                .then(() => {
+                    console.log("Venti cup removed from inventory");
+                });
         }
+    }
+    
+    if(category == 'Drink'){
+        pool.query("update inventory set quantity = quantity - 1 where id = 1")
+            .then(() => {
+                console.log("Tall cup removed from inventory");
+            });
     }
 
 
@@ -282,7 +297,7 @@ router.post('/orderItem', (req, res) => {
         shot = true;
         pool.query("update inventory set quantity = quantity - 1 where id = 42")
             .then(() => {
-                console.log("shot removed from inventory");
+                console.log("Espresso shot removed from inventory");
             });
     }
     var iced = false;
@@ -294,7 +309,7 @@ router.post('/orderItem', (req, res) => {
         syrup = true;
         pool.query("update inventory set quantity = quantity - 1 where id = 10")
             .then(() => {
-                console.log("syrup removed from inventory");
+                console.log("Caramel Syrup pump removed from inventory");
             });
     }
     var nondairy = false;
@@ -302,7 +317,7 @@ router.post('/orderItem', (req, res) => {
         nondairy = true;
         pool.query("update inventory set quantity = quantity - 6 where id = 9")
             .then(() => {
-                console.log("soy milk for drink removed from inventory");
+                console.log("Soy milk for drink removed from inventory");
             });
     }
 
