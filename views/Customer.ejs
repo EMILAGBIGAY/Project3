@@ -178,15 +178,18 @@ input[type="checkbox"]:checked + label {
       <form action="/orderItem" method="post">
         <div>
           
+          <% if(serverMenu[0].subcategory!='seasonal') { %>
           <img class="icon" src="<%= ('../'+serverMenu[0].item+'.jpg').replace( /\s/g, '')%>">
-          
-          
+          <%}%>
         <input  type = "radio" id="<%= serverMenu[0].item%>" value="<%= serverMenu[0].item%>:<%= serverMenu[0].category%>:<%= serverMenu[0].subcategory%>:<%= serverMenu[0].tall%>:<%= serverMenu[0].grande%>:<%= serverMenu[0].venti%>" name= "drinkOrder" checked></input>
+        
         <label for="<%= serverMenu[0].item%>"><%= serverMenu[0].item%></label>
         </div>
       <% for (var i = 1; i < serverMenu.length; i++) { %>
         <div>
+          <% if(serverMenu[0].subcategory!='seasonal') { %>
             <img class="icon" src="<%= ('../'+serverMenu[i].item+'.jpg').replace( /\s/g, '')%>">
+            <%}%>
             <input  type = "radio" id="<%= serverMenu[i].item%>" value="<%= serverMenu[i].item%>:<%= serverMenu[i].category%>:<%= serverMenu[i].subcategory%>:<%= serverMenu[i].tall%>:<%= serverMenu[i].grande%>:<%= serverMenu[i].venti%>" name= "drinkOrder"></input>
             <label for="<%= serverMenu[i].item%>"><%= serverMenu[i].item%></label>
            </div>
