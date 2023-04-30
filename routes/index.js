@@ -326,7 +326,7 @@ router.post('/orderItem', (req, res) => {
     //get current time and new order id
     const currentTimeStamp = moment().format('YYYY-MM-DD HH:mm:ss');
     var lastOrderId = 0;
-    const newOrderId = 0;
+    var newOrderId = 0;
     pool.query("select orderid from sales order by orderid desc limit 1")
         .then(query_res => {
             lastOrderId = query_res.rows[0].orderid;
