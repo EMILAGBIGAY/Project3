@@ -73,7 +73,7 @@ a.currentPage, a.currentPage:hover, a.currentPage:visited{
     }
     .my-custom-scrollbar {
       position: relative;
-      height: 250px;
+      height: 245px;
       overflow: auto;
     }
     .table-wrapper-scroll-y {
@@ -290,15 +290,15 @@ input[type="checkbox"]:checked + label {
                 Subtotal...
               </th>
               <td>
-                $5
+                $<%=parseFloat(revenue).toFixed(2)%>
               </td>
             </tr>
             <tr>
               <th>
-                Sales Tax...
+                Sales Tax(8.25%)...
               </th>
               <td>
-                $1
+                $<%=parseFloat(tax).toFixed(2)%>
               </td>
             </tr>
             <tr>
@@ -306,7 +306,7 @@ input[type="checkbox"]:checked + label {
                 Grand Total....
               </th>
               <td>
-                $6
+                $<%=parseFloat(grandTotal).toFixed(2)%>
               </td>
             </tr>
             

@@ -12,6 +12,13 @@
     .btn{
       background-color:#006241;
     }
+    .sizeBtn{
+      width: 30%;
+    }
+    .customBtn{
+      width: 22%;
+    }
+
 
     .navbar{
       background-color:#006241;
@@ -204,15 +211,15 @@ input[type="checkbox"]:checked + label {
               Subtotal...
             </th>
             <td>
-              $5
+              $<%=parseFloat(revenue).toFixed(2)%>
             </td>
           </tr>
           <tr>
             <th>
-              Sales Tax...
+              Sales Tax(8.25%)...
             </th>
             <td>
-              $1
+              $<%=parseFloat(tax).toFixed(2)%>
             </td>
           </tr>
           <tr>
@@ -220,7 +227,7 @@ input[type="checkbox"]:checked + label {
               Grand Total....
             </th>
             <td>
-              $6
+              $<%=parseFloat(grandTotal).toFixed(2)%>
             </td>
           </tr>
           
@@ -262,22 +269,22 @@ input[type="checkbox"]:checked + label {
       
       
       <input type = "radio" id="tall" name= "drinkSize" value="tall"></input>
-      <label for="tall">Tall </label>
+      <label  class="sizeBtn" for="tall">Tall </label>
       
       <input type = "radio" id="grande"name= "drinkSize"  value="grande" checked></input>
-      <label for="grande">Grande</label>
+      <label class="sizeBtn" for="grande">Grande</label>
       
       <input type = "radio"  id="venti" name= "drinkSize" value="venti"></input>
-      <label for="venti">Venti</label>
+      <label class="sizeBtn" for="venti">Venti</label>
       <h3>Customizations</h3>
       <input type = "checkbox" id="shot" name= "shot" ></input>
-      <label for="shot">Espresso Shot</label>
+      <label class="customBtn" for="shot">Espresso Shot</label>
       <input type = "checkbox" id="iced" name= "iced" ></input>
-      <label for="iced">Iced </label>
+      <label class="customBtn" for="iced">Iced </label>
       <input type = "checkbox" id="syrup" name= "syrup" ></input>
-      <label for="syrup">Syrup Pump </label>
+      <label class="customBtn" for="syrup">Syrup Pump </label>
       <input type = "checkbox" id="nondairy" name= "nondairy" ></input>
-      <label for="nondairy">nondairy </label>
+      <label class="customBtn" for="nondairy">nondairy </label>
    
      <%} %>
        <br>  
