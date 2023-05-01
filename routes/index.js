@@ -256,6 +256,9 @@ router.post('/orderItem', (req, res) => {
     var price = 0.00;
     const size = req.body.drinkSize;
 
+    let subtotal = 0.00;
+    let tax = 0.00;
+    let total = 0.00;
 
 
     price = tall;
@@ -395,21 +398,21 @@ router.post('/orderItem', (req, res) => {
             pool.query("insert into current_order (date, subcategory, price, name, shot, iced, syrup, nondairy, orderid) values ( $1, $2, $3, $4, $5, $6, $7, $8, $9)", [currentTimeStamp, subcategory, price, name, shot, iced, syrup, nondairy, newOrderId])
                 .then(() => {
                     console.log("added to current order");
-            console.log("( $1, $2, $3, $4, $5, $6, $7, $8, $9)", [currentTimeStamp, subcategory, price, name, shot, iced, syrup, nondairy, newOrderId]);
+                    console.log("($1, $2, $3, $4, $5, $6, $7, $8, $9)", [currentTimeStamp, subcategory, price, name, shot, iced, syrup, nondairy, newOrderId]);
 
-            console.log(req.body);
-    pool.query("insert into xreport (item, price) values ($1,$2)", [name, price])
-        .then(() => {
-            console.log("order added to x report");
-            console.log(itemArray);
-            const serverPath = "../"+ page+"/" + menuType;
-      res.redirect(serverPath);
+                    console.log(req.body);
+                    pool.query("insert into xreport (item, price) values ($1,$2)", [name, price])
+                        .then(() => {
+                            console.log("order added to x report");
+                            console.log(itemArray);
+                            const serverPath = "../" + page + "/" + menuType;
+                            res.redirect(serverPath);
 
-        })
-        .catch(err => {
-            console.error(err);
-            res.status(500).send('Internal Server Error');
-        });
+                        })
+                        .catch(err => {
+                            console.error(err);
+                            res.status(500).send('Internal Server Error');
+                        });
 
                 })
                 .catch(err => {
@@ -422,8 +425,21 @@ router.post('/orderItem', (req, res) => {
             res.status(500).send('Internal Server Error');
         });
 
-
-
+    pool.query("select * from current_order")
+        .then(query_res => {
+            for (var i = 0; i < query_res.rows.length; i++) {
+                subtotal += query_res.rows[i].price;
+            }
+            console.log(subtotal);
+            tax = subtotal * 0.065;
+            total = subtotal + tax;
+            console.log(total);
+            res.render('payment', { subtotal: subtotal, tax: tax, total: total });
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+        });
 
 });
 
@@ -472,6 +488,7 @@ router.post('/clear-current', (req, res) => {
 
     res.redirect(serverPath);
 });
+
 router.post('/deleteCartItem', (req, res) => {
     //add current order to sales
     const bodyData = req.body.deleteWhat;
@@ -497,10 +514,10 @@ router.post('/deleteCartItem', (req, res) => {
         menuType = "SeasonalMenu";
     }
 
-    const serverPath = '../'+page+'/'+menuType;
+    const serverPath = '../' + page + '/' + menuType;
     console.log(serverPath);
 
-    pool.query("DELETE FROM current_order WHERE date IN (SELECT date FROM current_order ORDER BY date OFFSET $1 LIMIT 1)",[item])
+    pool.query("DELETE FROM current_order WHERE date IN (SELECT date FROM current_order ORDER BY date OFFSET $1 LIMIT 1)", [item])
         .then(() => {
             console.log("item deleted from current order");
             res.redirect(serverPath);
@@ -512,6 +529,8 @@ router.post('/deleteCartItem', (req, res) => {
 
 
 });
+
+
 
 router.get('/XReport', (req, res) => {
     let revenue = 0.0;
@@ -563,14 +582,14 @@ router.get('/ZReport', (req, res) => {
                     console.log(data);
 
                     pool.query("truncate xreport")
-                     .then(() => {
-                    console.log("report cleared");
-                        res.render('XReport', data);
-                    })
-                    .catch(err => {
-                        console.error(err);
-                     res.status(500).send('Internal Server Error');
-                      });
+                        .then(() => {
+                            console.log("report cleared");
+                            res.render('XReport', data);
+                        })
+                        .catch(err => {
+                            console.error(err);
+                            res.status(500).send('Internal Server Error');
+                        });
 
                 })
                 .catch(err => {
