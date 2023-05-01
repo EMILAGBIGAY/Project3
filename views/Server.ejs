@@ -39,7 +39,7 @@
     }
     .my-custom-scrollbar {
       position: relative;
-      height: 400px;
+      height: 255px;
       overflow: auto;
     }
     .table-wrapper-scroll-y {
@@ -164,7 +164,7 @@ input[type="checkbox"]:checked + label {
   <div class="row">
     <!-- column 1-->
     <div class="col">
-      <h3>Cart</h3>
+      <h3>Current Order</h3>
       <div class="table-wrapper-scroll-y my-custom-scrollbar">
       <table class="table table-sm" cellspacing="0">
         <thead>
@@ -194,10 +194,41 @@ input[type="checkbox"]:checked + label {
           </tbody>
       </table>
       </div>
+      <h3>Process Order</h3>
+
+      <table class="table table-sm" cellspacing="0">
+       
+        <tbody>
+          <tr>
+            <th>
+              Subtotal...
+            </th>
+            <td>
+              $5
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Sales Tax...
+            </th>
+            <td>
+              $1
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Grand Total....
+            </th>
+            <td>
+              $6
+            </td>
+          </tr>
+          
+        </tbody>
+      </table>
       <% if(serverMenu[0].category !='Food'){ %>
            <form action="/clear-current"  method ="post">
-        <br>
-        <h3>Check Out</h3>
+    
         <input type = "radio" id="Card"name= "payment"  value="<%= serverMenu[0].subcategory%>:Server" checked></input>
       <label for="Card">Card</label>
       
@@ -208,13 +239,14 @@ input[type="checkbox"]:checked + label {
       </form>
      <%}  %>
       
+    
     </div>
 
 
     <!-- column 2-->
     <div class="col">
         <td class = "Radio">
-          <h3>Order</h3>
+        
       <form action="/orderItem" method="post">
         <input class = "radioBtn" type = "radio" id="<%= serverMenu[0].item%>" value="<%= serverMenu[0].item%>:<%= serverMenu[0].category%>:<%= serverMenu[0].subcategory%>:<%= serverMenu[0].tall%>:<%= serverMenu[0].grande%>:<%= serverMenu[0].venti%>:Server" name= "drinkOrder" checked></input>
         <label for="<%= serverMenu[0].item%>"><%= serverMenu[0].item%></label>
