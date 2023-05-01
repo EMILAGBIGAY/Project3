@@ -299,21 +299,47 @@ router.post('/orderItem', (req, res) => {
             });
         menuType = "BakeryMenu";
     } else if (subcategory == "Coffee") {
-        if (size == 'tall') {
-            pool.query("update inventory set quantity = quantity - 6 where id = 6")
-                .then(() => {
-                    console.log("Coffee beans removed from inventory for tall");
-                });
-        } else if (size == 'grande') {
-            pool.query("update inventory set quantity = quantity - 9 where id = 6")
-                .then(() => {
-                    console.log("Coffee beans removed from inventory for grande");
-                });
-        } else if (size == 'venti') {
-            pool.query("update inventory set quantity = quantity - 12 where id = 6")
-                .then(() => {
-                    console.log("Coffee beans removed from inventory for venti");
-                });
+        if (req.body.nondairy == 'off') {
+            if (size == 'tall') {
+                pool.query("update inventory set quantity = quantity - 6 where id = 6")
+                    .then(() => {
+                        console.log("Coffee beans removed from inventory for tall");
+                    });
+                pool.query("update inventory set quantity = quantity - 6 where id = 8")
+                    .then(() => {
+                        console.log("Milk removed from inventory for tall");
+                    });
+                pool.query("update inventory set quantity = quantity - 1 where id = 21")
+                    .then(() => {
+                        console.log("Creamer removed from inventory for tall");
+                    });
+            } else if (size == 'grande') {
+                pool.query("update inventory set quantity = quantity - 9 where id = 6")
+                    .then(() => {
+                        console.log("Coffee beans removed from inventory for grande");
+                    });
+                pool.query("update inventory set quantity = quantity - 9 where id = 8")
+                    .then(() => {
+                        console.log("Milk removed from inventory for grande");
+                    });
+                pool.query("update inventory set quantity = quantity - 2 where id = 21")
+                    .then(() => {
+                        console.log("Creamer removed from inventory for grande");
+                    });
+            } else if (size == 'venti') {
+                pool.query("update inventory set quantity = quantity - 12 where id = 6")
+                    .then(() => {
+                        console.log("Coffee beans removed from inventory for venti");
+                    });
+                pool.query("update inventory set quantity = quantity - 12 where id = 8")
+                    .then(() => {
+                        console.log("Milk removed from inventory for venti");
+                    });
+                pool.query("update inventory set quantity = quantity - 3 where id = 21")
+                    .then(() => {
+                        console.log("Creamer removed from inventory for venti");
+                    });
+            }
         }
         menuType = "CoffeeMenu";
     } else if (subcategory == "seasonal") {
@@ -358,25 +384,21 @@ router.post('/orderItem', (req, res) => {
             lastOrderId = query_res.rows[0].orderid;
             newOrderId = lastOrderId + 1;
             console.log(newOrderId);
-//add to current order table
-    pool.query("insert into current_order (date, subcategory, price, name, shot, iced, syrup, nondairy, orderid) values ( $1, $2, $3, $4, $5, $6, $7, $8, $9)", [currentTimeStamp, subcategory, price, name, shot, iced, syrup, nondairy, newOrderId])
-        .then(() => {
-            console.log("added to current order");
+            //add to current order table
+            pool.query("insert into current_order (date, subcategory, price, name, shot, iced, syrup, nondairy, orderid) values ( $1, $2, $3, $4, $5, $6, $7, $8, $9)", [currentTimeStamp, subcategory, price, name, shot, iced, syrup, nondairy, newOrderId])
+                .then(() => {
+                    console.log("added to current order");
+                })
+                .catch(err => {
+                    console.error(err);
+                    res.status(500).send('Internal Server Error');
+                });
         })
         .catch(err => {
             console.error(err);
             res.status(500).send('Internal Server Error');
         });
 
-
-
-        })
-        .catch(err => {
-            console.error(err);
-            res.status(500).send('Internal Server Error');
-        });
-
-    
 
     //add to x report
     console.log(req.body);
@@ -395,6 +417,7 @@ router.post('/orderItem', (req, res) => {
 
 });
 
+//add to sales and clear current order
 router.post('/clear-current', (req, res) => {
     //add current order to sales
     const bodyData = req.body.payment;
@@ -415,7 +438,7 @@ router.post('/clear-current', (req, res) => {
         menuType = "SeasonalMenu";
     }
 
-    const serverPath = '../'+page+'/'+menuType;
+    const serverPath = '../' + page + '/' + menuType;
     console.log(serverPath);
 
     pool.query("insert into sales select * from current_order")
@@ -436,7 +459,7 @@ router.post('/clear-current', (req, res) => {
             console.error(err);
             res.status(500).send('Internal Server Error');
         });
-    
+
     res.redirect(serverPath);
 });
 
