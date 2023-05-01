@@ -1,85 +1,210 @@
-
 <!DOCTYPE html>
 <html lang="en">
-  <link rel="stylesheet" type="text/css" href="/style.css" />
-<meta charset="UTF-8">
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
-<title>Starbucks</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <title>Customer Home</title>
   <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/5977/5977591.png">
-<style>
-  .btn{
+  <style>
+    
+    .btn{
+      background-color:#5C4033;
+     
+    }
+
+    .btnbg{
+        background-color: red;
+    }
+
+    .navbar{
       background-color:#006241;
-  }
+    }
 
-  .navbar{
-    background-color:#006241;
-  }
+    .sticky {
+      position: sticky; 
+      top: 0;
+      z-index: 100;
+    }
+    
+      img.icon {
+  border-radius: 50%;
+  width: 75px;
+  height: 75px;
+}
+    
+.menuNav {
+    color: black;
+      
+    font-size: 1.5em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    
+   
+    font-weight:500;
+    }
+    .menuNavItem{
+      margin-left: 1em;
+      
+    }
+  a.page, a.page:hover, a.page:visited{
+  color: black;
+  text-decoration: none;
+ 
+}
+a.currentPage, a.currentPage:hover, a.currentPage:visited{
+  color: black;
+  text-decoration: underline;
+  text-decoration-color: #006241;
+  text-decoration-thickness: 3px;
+ 
+}
 
-  .row {
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 10px;
+    .row {
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      border-left: 1px solid #ccc;
+      border-right: 1px solid #ccc;
+      /* padding-top: 10px;
+      padding-bottom: 10px;
+      padding-left: 10px; */
+      
+      margin-top: 10px;
+      margin-bottom: 10px;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+    .my-custom-scrollbar {
+      position: relative;
+      height: 400px;
+      overflow: auto;
+    }
+    .table-wrapper-scroll-y {
+      display: block;
+    }
+/*
+radio button styling
+*/
+/*
+Removes the "radio button circle"
+*/
+.center {
+  margin: auto;
+  width: 50%;
+  display: inline-block;
+  vertical-align: middle;
+}
 
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-</style>
+.col{
+    background-color:#d3b683;
+}
 
+.col-6{
+    background-color: #006241;
+}
 
+label {
+  height: 100%;
+  display:inline-block;
+  background: white;
+  border: 2px solid #006241;
+  border-radius: 20px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  width: 80%;
+  
+}
+
+input[type="radio"]:checked + label {
+  background: #006241;
+  color: hsla(215, 0%, 100%, 1);
+  box-shadow: 0px 0px 20px #006241;
+}
+input[type="checkbox"]:checked + label {
+  background: #006241;
+  color: hsla(215, 0%, 100%, 1);
+  box-shadow: 0px 0px 20px #006241;
+}
+  </style>
+
+</head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark">
+
+<!--Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky">
     <a class="navbar-brand" href="/">
-      <img src ="https://cdn-icons-png.flaticon.com/512/5977/5977591.png" height = 50px />
+        <img src ="https://cdn-icons-png.flaticon.com/512/5977/5977591.png" height = 50px alt ="Your logo"/> 
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" >Home</a>
-        </li>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+            <li class="nav-item ">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="/Customer/CoffeeMenu">Menu</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/finder">Locations</a>
+            </li>
+            </ul>
+        </div>
+    </nav>
 
-        <li class="nav-item">
-          <a class="nav-link" href="/Manager">Manager</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/Server/CoffeeMenu">Server</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/Customer/CoffeeMenu">Customer</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/finder">Locations</a>
-        </li>
-      </ul>
+    <div class="container-lg">
+        <div class="row rounded">
+            <div class="col">
+                <img src="https://weproudlyservestarbucks.com/gb/sites/default/files/styles/profiler_question_small/public/2021-08/Profiler-WPSS-Cup-illustration.png?itok=93w60noC" width="80%" height="600px"/>
+            </div>
+            <div class="col d-flex align-items-center justify-content-center">
+                <div class="text-center">
+                    <h3 style="font-size: 40px;">wowowowwowo</h3>
+                    <p style="font-size: 25px;">Look at how amazing this drink is!!!</p>
+                    <p style="font-size: 25px;">Please order it!!!!awrliughawroiugaw</p>
+                    <button class="btn align-middle text-light" type="submit" aria-haspopup="true" aria-expanded="false">
+                        Order now!
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
-  </nav>
 
+    <div class="container-lg">
+        <div class="row rounded">
+            <div class="col-6 d-flex align-items-center justify-content-center">
+                <div class="text-center text-light">
+                    <h3 style="font-size: 40px; ">Try out our seaonal menu!</h3>
+                    <p style="font-size: 25px;">Look at how amazing this drink is!!!</p>
+                    <p style="font-size: 25px;">Its GGGREATT</p>
+                    <button class="btn align-middle text-light btnbg" type="submit" aria-haspopup="true" aria-expanded="false">
+                        Seasoanl Menu
+                    </button>
+                </div>
+            </div>
+            <div class="col-6">
+                <img src="https://media.glamour.com/photos/63628dba780dd126aac5f18e/16:9/w_1280,c_limit/Starbucks%20Holiday%20Drinks%203.jpg"
+                width="100%"/>
+            </div>
+        </div>
+    </div>
+    <p><%=price%></p>
 
-  <p><%=price%></p>
+    <div id="google_translate_element"></div>
 
-  <div id="google_translate_element"></div>
+    <script type="text/javascript">
+    function googleTranslateElementInit() {
+    new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+    }
+    </script>
 
-<script type="text/javascript">
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
-}
-</script>
-
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 
 </body>
-</html>
+
+
+
