@@ -72,7 +72,7 @@ a.currentPage, a.currentPage:hover, a.currentPage:visited{
     }
     .my-custom-scrollbar {
       position: relative;
-      height: 400px;
+      height: 300px;
       overflow: auto;
     }
     .table-wrapper-scroll-y {
@@ -262,13 +262,13 @@ input[type="checkbox"]:checked + label {
       </table>
       </div>
       
-           <form>
+           <form action="/clear-current"  method ="post">
         <br>
         <h3>Check Out</h3>
-        <input type = "radio" id="Card"name= "payment"  value="<%= serverMenu[0].subcategory%>" checked></input>
+        <input type = "radio" id="Card"name= "payment"  value="<%= serverMenu[0].subcategory%>:Customer" checked></input>
       <label for="Card">Card</label>
       
-      <input type = "radio"  id="Paypal" name= "payment" value="<%= serverMenu[0].subcategory%>"></input>
+      <input type = "radio"  id="Paypal" name= "payment" value="<%= serverMenu[0].subcategory%>:Customer"></input>
       <label for="Paypal">Cash</label>
       <br>
       <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Process Order</button> 

@@ -357,13 +357,8 @@ router.post('/orderItem', (req, res) => {
         .then(query_res => {
             lastOrderId = query_res.rows[0].orderid;
             newOrderId = lastOrderId + 1;
-        })
-        .catch(err => {
-            console.error(err);
-            res.status(500).send('Internal Server Error');
-        });
-
-    //add to current order table
+            console.log(newOrderId);
+//add to current order table
     pool.query("insert into current_order (date, subcategory, price, name, shot, iced, syrup, nondairy, orderid) values ( $1, $2, $3, $4, $5, $6, $7, $8, $9)", [currentTimeStamp, subcategory, price, name, shot, iced, syrup, nondairy, newOrderId])
         .then(() => {
             console.log("added to current order");
@@ -372,6 +367,16 @@ router.post('/orderItem', (req, res) => {
             console.error(err);
             res.status(500).send('Internal Server Error');
         });
+
+
+
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+        });
+
+    
 
     //add to x report
     console.log(req.body);
@@ -392,6 +397,27 @@ router.post('/orderItem', (req, res) => {
 
 router.post('/clear-current', (req, res) => {
     //add current order to sales
+    const bodyData = req.body.payment;
+    const itemArray = bodyData.split(':');
+
+    const id = itemArray[0];
+    const page = itemArray[1];
+    var menuType = "CoffeeMenu";
+    if (id == "Tea") {
+        menuType = "TeaMenu";
+    } else if (id == "Breakfast") {
+        menuType = "BreakfastMenu";
+    } else if (id == "Bakery") {
+        menuType = "BakeryMenu";
+    } else if (id == "Coffee") {
+        menuType = "CoffeeMenu";
+    } else if (id == "seasonal") {
+        menuType = "SeasonalMenu";
+    }
+
+    const serverPath = '../'+page+'/'+menuType;
+    console.log(serverPath);
+
     pool.query("insert into sales select * from current_order")
         .then(() => {
             console.log("current order added to sales");
@@ -410,7 +436,7 @@ router.post('/clear-current', (req, res) => {
             console.error(err);
             res.status(500).send('Internal Server Error');
         });
-    const serverPath = '../Server/CoffeeMenu';
+    
     res.redirect(serverPath);
 });
 
