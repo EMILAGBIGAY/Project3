@@ -269,7 +269,7 @@ router.post('/orderItem', (req, res) => {
                 });
         }
     }
-    
+
     if(category == 'Drink'){
         pool.query("update inventory set quantity = quantity - 1 where id = 1")
             .then(() => {
@@ -281,12 +281,40 @@ router.post('/orderItem', (req, res) => {
 
     var menuType = "CoffeeMenu";
     if (subcategory == "Tea") {
+        pool.query("update inventory set quantity = quantity - 1 where id = 7")
+            .then(() => {
+                console.log("Tea bag removed from inventory");
+            });
         menuType = "TeaMenu";
     } else if (subcategory == 'Breakfast') {
+        pool.query("update inventory set quantity = quantity - 1 where item = $1", [name])
+            .then(() => {
+                console.log("Breakfast item removed from inventory");
+            });
         menuType = "BreakfastMenu";
     } else if (subcategory == "Bakery") {
+        pool.query("update inventory set quantity = quantity - 1 where item = $1", [name])
+            .then(() => {
+                console.log("Bakery item removed from inventory");
+            });
         menuType = "BakeryMenu";
     } else if (subcategory == "Coffee") {
+        if(size == 'tall'){
+            pool.query("update inventory set quantity = quantity - 6 where id = 6")
+                .then(() => {
+                    console.log("Coffee beans removed from inventory for tall");
+                });
+        }else if(size == 'grande'){
+            pool.query("update inventory set quantity = quantity - 9 where id = 6")
+                .then(() => {
+                    console.log("Coffee beans removed from inventory for grande");
+                });
+        }else if(size == 'venti'){
+            pool.query("update inventory set quantity = quantity - 12 where id = 6")
+                .then(() => {
+                    console.log("Coffee beans removed from inventory for venti");
+                });
+        }
         menuType = "CoffeeMenu";
     } else if (subcategory == "seasonal") {
         menuType = "SeasonalMenu";
@@ -321,8 +349,6 @@ router.post('/orderItem', (req, res) => {
             });
     }
 
-
-
     //get current time and new order id
     const currentTimeStamp = moment().format('YYYY-MM-DD HH:mm:ss');
     var lastOrderId = 0;
@@ -341,7 +367,6 @@ router.post('/orderItem', (req, res) => {
     pool.query("insert into current_order (date, subcategory, price, name, shot, iced, syrup, nondairy, orderid) values ( $1, $2, $3, $4, $5, $6, $7, $8, $9)", [currentTimeStamp, subcategory, price, name, shot, iced, syrup, nondairy, newOrderId])
         .then(() => {
             console.log("added to current order");
-
         })
         .catch(err => {
             console.error(err);
