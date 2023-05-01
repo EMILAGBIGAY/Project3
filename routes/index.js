@@ -131,7 +131,7 @@ router.get('/Server/:id', (req, res) => {
                         currentOrder: currentOrder,
                         id: id
                     };
-                   
+
                     res.render('Server', data);
 
                 })
@@ -179,15 +179,15 @@ router.get('/Customer/:id', (req, res) => {
                         currentOrder.push(query_res.rows[i]);
 
                     }
-                    
+
                     const data = {
                         serverMenu: serverMenu,
                         currentOrder: currentOrder,
                         id: id
 
                     };
-                 
-                   
+
+
                     res.render('Customer', data);
 
                 })
@@ -358,6 +358,7 @@ router.post('/orderItem', (req, res) => {
             .then(() => {
                 console.log("Espresso shot removed from inventory");
             });
+        price = price + 0.50;
     }
     var iced = false;
     if (req.body.iced == 'on') {
@@ -370,6 +371,7 @@ router.post('/orderItem', (req, res) => {
             .then(() => {
                 console.log("Caramel Syrup pump removed from inventory");
             });
+        price = price + 0.50;
     }
     var nondairy = false;
     if (req.body.nondairy == 'on') {
@@ -421,7 +423,7 @@ router.post('/orderItem', (req, res) => {
         });
 
 
-  
+
 
 });
 
@@ -474,13 +476,13 @@ router.post('/deleteCartItem', (req, res) => {
     //add current order to sales
     const bodyData = req.body.deleteWhat;
     const itemArray = bodyData.split(':');
-    
+
     console.log(itemArray);
     const id = itemArray[0];
     const page = itemArray[1];
     var item = 0;
     item = itemArray[2];
-    
+
 
     var menuType = "CoffeeMenu";
     if (id == "Tea") {
@@ -497,7 +499,7 @@ router.post('/deleteCartItem', (req, res) => {
 
     const serverPath = '../'+page+'/'+menuType;
     console.log(serverPath);
-    
+
     pool.query("DELETE FROM current_order WHERE date IN (SELECT date FROM current_order ORDER BY date OFFSET $1 LIMIT 1)",[item])
         .then(() => {
             console.log("item deleted from current order");
@@ -508,7 +510,7 @@ router.post('/deleteCartItem', (req, res) => {
             res.status(500).send('Internal Server Error');
         });
 
-    
+
 });
 
 router.get('/XReport', (req, res) => {
@@ -569,7 +571,7 @@ router.get('/ZReport', (req, res) => {
                         console.error(err);
                      res.status(500).send('Internal Server Error');
                       });
-                   
+
                 })
                 .catch(err => {
                     console.error(err);
