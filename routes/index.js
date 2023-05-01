@@ -100,6 +100,7 @@ router.get('/Server/:id', (req, res) => {
     const id = req.params.id;
     let serverMenu = [];
     let currentOrder = [];
+    let revenue = 0.0;
 
     var menuType = "Coffee";
     if (id == "TeaMenu") {
@@ -126,13 +127,34 @@ router.get('/Server/:id', (req, res) => {
                         currentOrder.push(query_res.rows[i]);
 
                     }
+                    pool.query("select SUM(price) from current_order")
+                .then(query_res => {
+                    for (let i = 0; i < query_res.rowCount; i++) {
+                        revenue = query_res.rows[i];
+                    }
+                    console.log(revenue);
+                    if(revenue.sum == null){
+                        revenue.sum = 0.00;
+                    }
+                   const tax = revenue.sum*.0825;
+                   const grandTotal = revenue.sum+tax;
+                    
                     const data = {
                         serverMenu: serverMenu,
                         currentOrder: currentOrder,
-                        id: id
+                        id: id,
+                        revenue:revenue.sum,
+                        tax: tax,
+                        grandTotal: grandTotal
                     };
-
+                    console.log(data);
                     res.render('Server', data);
+                })
+                .catch(err => {
+                    console.error(err);
+                    res.status(500).send('Internal Server Error');
+                });
+                    
 
                 })
                 .catch(err => {
@@ -180,15 +202,33 @@ router.get('/Customer/:id', (req, res) => {
 
                     }
 
+                    pool.query("select SUM(price) from current_order")
+                .then(query_res => {
+                    for (let i = 0; i < query_res.rowCount; i++) {
+                        revenue = query_res.rows[i];
+                    }
+                    console.log(revenue);
+                    if(revenue.sum == null){
+                        revenue.sum = 0.00;
+                    }
+                   const tax = revenue.sum*.0825;
+                   const grandTotal = revenue.sum+tax;
+                    
                     const data = {
                         serverMenu: serverMenu,
                         currentOrder: currentOrder,
-                        id: id
-
+                        id: id,
+                        revenue:revenue.sum,
+                        tax: tax,
+                        grandTotal: grandTotal
                     };
-
-
+                    console.log(data);
                     res.render('Customer', data);
+                })
+                .catch(err => {
+                    console.error(err);
+                    res.status(500).send('Internal Server Error');
+                });
 
                 })
                 .catch(err => {
@@ -230,13 +270,14 @@ router.post('/update-inventory/:id', (req, res) => {
     pool.query("update inventory set quantity = quantity + 10000 where id = $1", [id])
         .then(() => {
             console.log("Item quantity updated");
+             res.redirect("../Manager");
         })
         .catch(err => {
             console.error(err);
             res.status(500).send('Internal Server Error');
 
         });
-    res.redirect("../Manager");
+   
 });
 
 
@@ -253,7 +294,7 @@ router.post('/orderItem', (req, res) => {
     const venti = itemArray[5];
     const page = itemArray[6];
 
-    var price = 0.00;
+    var price = Number(0.00);
     const size = req.body.drinkSize;
 
     let subtotal = 0.00;
@@ -261,16 +302,16 @@ router.post('/orderItem', (req, res) => {
     let total = 0.00;
 
 
-    price = tall;
+    price = Number(tall);
     if (category == 'Drink') {
         if (size == 'grande') {
-            price = grande;
+            price = Number(grande);
             pool.query("update inventory set quantity = quantity - 1 where id = 2")
                 .then(() => {
                     console.log("Grande cup removed from inventory");
                 });
         } else if (size == 'venti') {
-            price = venti;
+            price = Number(venti);
             pool.query("update inventory set quantity = quantity - 1 where id = 3")
                 .then(() => {
                     console.log("Venti cup removed from inventory");
@@ -361,7 +402,7 @@ router.post('/orderItem', (req, res) => {
             .then(() => {
                 console.log("Espresso shot removed from inventory");
             });
-        price = price + 0.50;
+        price = Number(price)+ 0.50;
     }
     var iced = false;
     if (req.body.iced == 'on') {
@@ -374,7 +415,7 @@ router.post('/orderItem', (req, res) => {
             .then(() => {
                 console.log("Caramel Syrup pump removed from inventory");
             });
-        price = price + 0.50;
+        price = Number(price) + 0.50;
     }
     var nondairy = false;
     if (req.body.nondairy == 'on') {
@@ -389,6 +430,8 @@ router.post('/orderItem', (req, res) => {
     const currentTimeStamp = moment().format('YYYY-MM-DD HH:mm:ss');
     var lastOrderId = 0;
     var newOrderId = 0;
+    console.log("THIS IS WHAT IT COSTS");
+    console.log(price);
     pool.query("select orderid from sales order by orderid desc limit 1")
         .then(query_res => {
             lastOrderId = query_res.rows[0].orderid;
@@ -424,7 +467,7 @@ router.post('/orderItem', (req, res) => {
             console.error(err);
             res.status(500).send('Internal Server Error');
         });
-
+/*
     pool.query("select * from current_order")
         .then(query_res => {
             for (var i = 0; i < query_res.rows.length; i++) {
@@ -440,6 +483,7 @@ router.post('/orderItem', (req, res) => {
             console.error(err);
             res.status(500).send('Internal Server Error');
         });
+        */
 
 });
 
