@@ -8,6 +8,19 @@
   <title>Reports</title>
   <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/5977/5977591.png">
 <style>
+    .btn{
+    background-color:#006241;
+  }
+
+  .navbar{
+    background-color:#006241;
+  }
+
+  .sticky {
+      position: sticky; 
+      top: 0;
+      z-index: 100;
+    }
     .row {
       border-top: 1px solid #ccc;
       border-bottom: 1px solid #ccc;
@@ -21,6 +34,15 @@
       margin-bottom: 10px;
       margin-left: 10px;
       margin-right: 10px;
+    }
+
+    .my-custom-scrollbar {
+      position: relative;
+      height: 700px;
+      overflow: auto;
+    }
+    .table-wrapper-scroll-y {
+      display: block;
     }
   </style>
 
@@ -37,12 +59,21 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" >Reports</a>
+      <li class="nav-item ">
+        <a class="nav-link" href="/">Home</a>
       </li>
-      
+
+      <li class="nav-item active">
+        <a class="nav-link" href="/Manager">Manager</a>
+      </li>
       <li class="nav-item">
-        <a class="nav-link" href="/Manager">Back to Manager</a>
+        <a class="nav-link"  href="/Server/CoffeeMenu">Server</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/Customer/CoffeeMenu">Customer</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/finder">Locations</a>
       </li>
     </ul>
   </div>

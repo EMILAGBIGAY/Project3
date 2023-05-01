@@ -181,7 +181,8 @@ input[type="checkbox"]:checked + label {
                 <td><%= currentOrder[i].name%></td>
                 <td>$<%= currentOrder[i].price%></td>
                 <td>
-                   <form action="/"method="post" >
+                   <form action="/deleteCartItem"method="post" >
+                    <input type="hidden" name="deleteWhat" value="<%= serverMenu[0].subcategory%>:Server:<%=i%>"></input>
 
                     <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">
                       delete
@@ -215,10 +216,10 @@ input[type="checkbox"]:checked + label {
         <td class = "Radio">
           <h3>Order</h3>
       <form action="/orderItem" method="post">
-        <input class = "radioBtn" type = "radio" id="<%= serverMenu[0].item%>" value="<%= serverMenu[0].item%>:<%= serverMenu[0].category%>:<%= serverMenu[0].subcategory%>:<%= serverMenu[0].tall%>:<%= serverMenu[0].grande%>:<%= serverMenu[0].venti%>" name= "drinkOrder" checked></input>
+        <input class = "radioBtn" type = "radio" id="<%= serverMenu[0].item%>" value="<%= serverMenu[0].item%>:<%= serverMenu[0].category%>:<%= serverMenu[0].subcategory%>:<%= serverMenu[0].tall%>:<%= serverMenu[0].grande%>:<%= serverMenu[0].venti%>:Server" name= "drinkOrder" checked></input>
         <label for="<%= serverMenu[0].item%>"><%= serverMenu[0].item%></label>
       <% for (var i = 1; i < serverMenu.length; i++) { %>
-            <input class = "radioBtn" type = "radio" id="<%= serverMenu[i].item%>" value="<%= serverMenu[i].item%>:<%= serverMenu[i].category%>:<%= serverMenu[i].subcategory%>:<%= serverMenu[i].tall%>:<%= serverMenu[i].grande%>:<%= serverMenu[i].venti%>" name= "drinkOrder"></input>
+            <input class = "radioBtn" type = "radio" id="<%= serverMenu[i].item%>" value="<%= serverMenu[i].item%>:<%= serverMenu[i].category%>:<%= serverMenu[i].subcategory%>:<%= serverMenu[i].tall%>:<%= serverMenu[i].grande%>:<%= serverMenu[i].venti%>:Server" name= "drinkOrder"></input>
             <label for="<%= serverMenu[i].item%>"><%= serverMenu[i].item%></label>
            
       <% } %>
