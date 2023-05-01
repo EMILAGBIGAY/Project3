@@ -128,33 +128,33 @@ router.get('/Server/:id', (req, res) => {
 
                     }
                     pool.query("select SUM(price) from current_order")
-                .then(query_res => {
-                    for (let i = 0; i < query_res.rowCount; i++) {
-                        revenue = query_res.rows[i];
-                    }
-                    console.log(revenue);
-                    if(revenue.sum == null){
-                        revenue.sum = 0.00;
-                    }
-                   const tax = revenue.sum*.0825;
-                   const grandTotal = revenue.sum+tax;
-                    
-                    const data = {
-                        serverMenu: serverMenu,
-                        currentOrder: currentOrder,
-                        id: id,
-                        revenue:revenue.sum,
-                        tax: tax,
-                        grandTotal: grandTotal
-                    };
-                    console.log(data);
-                    res.render('Server', data);
-                })
-                .catch(err => {
-                    console.error(err);
-                    res.status(500).send('Internal Server Error');
-                });
-                    
+                        .then(query_res => {
+                            for (let i = 0; i < query_res.rowCount; i++) {
+                                revenue = query_res.rows[i];
+                            }
+                            console.log(revenue);
+                            if (revenue.sum == null) {
+                                revenue.sum = 0.00;
+                            }
+                            const tax = revenue.sum * .0825;
+                            const grandTotal = revenue.sum + tax;
+
+                            const data = {
+                                serverMenu: serverMenu,
+                                currentOrder: currentOrder,
+                                id: id,
+                                revenue: revenue.sum,
+                                tax: tax,
+                                grandTotal: grandTotal
+                            };
+                            console.log(data);
+                            res.render('Server', data);
+                        })
+                        .catch(err => {
+                            console.error(err);
+                            res.status(500).send('Internal Server Error');
+                        });
+
 
                 })
                 .catch(err => {
@@ -203,32 +203,32 @@ router.get('/Customer/:id', (req, res) => {
                     }
 
                     pool.query("select SUM(price) from current_order")
-                .then(query_res => {
-                    for (let i = 0; i < query_res.rowCount; i++) {
-                        revenue = query_res.rows[i];
-                    }
-                    console.log(revenue);
-                    if(revenue.sum == null){
-                        revenue.sum = 0.00;
-                    }
-                   const tax = revenue.sum*.0825;
-                   const grandTotal = revenue.sum+tax;
-                    
-                    const data = {
-                        serverMenu: serverMenu,
-                        currentOrder: currentOrder,
-                        id: id,
-                        revenue:revenue.sum,
-                        tax: tax,
-                        grandTotal: grandTotal
-                    };
-                    console.log(data);
-                    res.render('Customer', data);
-                })
-                .catch(err => {
-                    console.error(err);
-                    res.status(500).send('Internal Server Error');
-                });
+                        .then(query_res => {
+                            for (let i = 0; i < query_res.rowCount; i++) {
+                                revenue = query_res.rows[i];
+                            }
+                            console.log(revenue);
+                            if (revenue.sum == null) {
+                                revenue.sum = 0.00;
+                            }
+                            const tax = revenue.sum * .0825;
+                            const grandTotal = revenue.sum + tax;
+
+                            const data = {
+                                serverMenu: serverMenu,
+                                currentOrder: currentOrder,
+                                id: id,
+                                revenue: revenue.sum,
+                                tax: tax,
+                                grandTotal: grandTotal
+                            };
+                            console.log(data);
+                            res.render('Customer', data);
+                        })
+                        .catch(err => {
+                            console.error(err);
+                            res.status(500).send('Internal Server Error');
+                        });
 
                 })
                 .catch(err => {
@@ -270,14 +270,14 @@ router.post('/update-inventory/:id', (req, res) => {
     pool.query("update inventory set quantity = quantity + 10000 where id = $1", [id])
         .then(() => {
             console.log("Item quantity updated");
-             res.redirect("../Manager");
+            res.redirect("../Manager");
         })
         .catch(err => {
             console.error(err);
             res.status(500).send('Internal Server Error');
 
         });
-   
+
 });
 
 
@@ -297,9 +297,9 @@ router.post('/orderItem', (req, res) => {
     var price = Number(0.00);
     const size = req.body.drinkSize;
 
-    let subtotal = 0.00;
-    let tax = 0.00;
-    let total = 0.00;
+    // let subtotal = 0.00;
+    // let tax = 0.00;
+    // let total = 0.00;
 
 
     price = Number(tall);
@@ -402,7 +402,7 @@ router.post('/orderItem', (req, res) => {
             .then(() => {
                 console.log("Espresso shot removed from inventory");
             });
-        price = Number(price)+ 0.50;
+        price = Number(price) + 0.50;
     }
     var iced = false;
     if (req.body.iced == 'on') {
@@ -467,23 +467,23 @@ router.post('/orderItem', (req, res) => {
             console.error(err);
             res.status(500).send('Internal Server Error');
         });
-/*
-    pool.query("select * from current_order")
-        .then(query_res => {
-            for (var i = 0; i < query_res.rows.length; i++) {
-                subtotal += query_res.rows[i].price;
-            }
-            console.log(subtotal);
-            tax = subtotal * 0.065;
-            total = subtotal + tax;
-            console.log(total);
-            res.render('payment', { subtotal: subtotal, tax: tax, total: total });
-        })
-        .catch(err => {
-            console.error(err);
-            res.status(500).send('Internal Server Error');
-        });
-        */
+    /*
+        pool.query("select * from current_order")
+            .then(query_res => {
+                for (var i = 0; i < query_res.rows.length; i++) {
+                    subtotal += query_res.rows[i].price;
+                }
+                console.log(subtotal);
+                tax = subtotal * 0.065;
+                total = subtotal + tax;
+                console.log(total);
+                res.render('payment', { subtotal: subtotal, tax: tax, total: total });
+            })
+            .catch(err => {
+                console.error(err);
+                res.status(500).send('Internal Server Error');
+            });
+            */
 
 });
 
