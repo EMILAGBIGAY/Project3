@@ -270,7 +270,7 @@ router.post('/orderItem', (req, res) => {
         }
     }
 
-    if(category == 'Drink'){
+    if (category == 'Drink') {
         pool.query("update inventory set quantity = quantity - 1 where id = 1")
             .then(() => {
                 console.log("Tall cup removed from inventory");
@@ -299,17 +299,17 @@ router.post('/orderItem', (req, res) => {
             });
         menuType = "BakeryMenu";
     } else if (subcategory == "Coffee") {
-        if(size == 'tall'){
+        if (size == 'tall') {
             pool.query("update inventory set quantity = quantity - 6 where id = 6")
                 .then(() => {
                     console.log("Coffee beans removed from inventory for tall");
                 });
-        }else if(size == 'grande'){
+        } else if (size == 'grande') {
             pool.query("update inventory set quantity = quantity - 9 where id = 6")
                 .then(() => {
                     console.log("Coffee beans removed from inventory for grande");
                 });
-        }else if(size == 'venti'){
+        } else if (size == 'venti') {
             pool.query("update inventory set quantity = quantity - 12 where id = 6")
                 .then(() => {
                     console.log("Coffee beans removed from inventory for venti");
@@ -363,7 +363,7 @@ router.post('/orderItem', (req, res) => {
             res.status(500).send('Internal Server Error');
         });
 
-
+    //add to current order table
     pool.query("insert into current_order (date, subcategory, price, name, shot, iced, syrup, nondairy, orderid) values ( $1, $2, $3, $4, $5, $6, $7, $8, $9)", [currentTimeStamp, subcategory, price, name, shot, iced, syrup, nondairy, newOrderId])
         .then(() => {
             console.log("added to current order");
@@ -373,6 +373,7 @@ router.post('/orderItem', (req, res) => {
             res.status(500).send('Internal Server Error');
         });
 
+    //add to x report
     console.log(req.body);
     pool.query("insert into xreport (item, price) values ($1,$2)", [name, price])
         .then(() => {
@@ -387,6 +388,30 @@ router.post('/orderItem', (req, res) => {
     const serverPath = '../Server/' + menuType;
     res.redirect(serverPath);
 
+});
+
+router.post('/clear-current', (req, res) => {
+    //add current order to sales
+    pool.query("insert into sales select * from current_order")
+        .then(() => {
+            console.log("current order added to sales");
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+        });
+
+    //clear current order
+    pool.query("truncate current_order")
+        .then(() => {
+            console.log("current order cleared");
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+        });
+    const serverPath = '../Server/CoffeeMenu';
+    res.redirect(serverPath);
 });
 
 router.get('/XReport', (req, res) => {
