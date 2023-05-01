@@ -17,6 +17,23 @@
       top: 0;
       z-index: 100;
     }
+
+    .row {
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      border-left: 1px solid #ccc;
+      border-right: 1px solid #ccc;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-left: 10px;
+      
+      margin-top: 10px;
+      margin-bottom: 10px;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+
   </style>
   <head>
     <title>Starbucks Locations Map</title>
@@ -106,7 +123,14 @@
     </body>
 
     <body onload="initMap()">
-      <div id="map" style="height: 600px; width: 90%;  margin:0 auto; "></div>
+      <div class="container-lg">
+        <div class="row">
+          <div class="col">
+            <div id="map" style="height: 800px; width: 100%;  margin:0 auto; ">
+            </div>
+          </div>
+        </div>
+      </div>
     </body>
 
   </body>
