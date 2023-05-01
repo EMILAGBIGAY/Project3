@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <title>Order</title>
+  <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/5977/5977591.png">
+  <style>
+    .btn{
+      background-color:#006241;
+     
+    }
+
+    .navbar{
+      background-color:#006241;
+    }
+
+    .sticky {
+      position: sticky; 
+      top: 0;
+      z-index: 100;
+    }
+    
+      img.icon {
+  border-radius: 50%;
+  width: 75px;
+  height: 75px;
+}
+    
+.menuNav {
+    color: black;
+      
+    font-size: 1.5em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    
+   
+    font-weight:500;
+    }
+    .menuNavItem{
+      margin-left: 1em;
+      
+    }
+  a.page, a.page:hover, a.page:visited{
+  color: black;
+  text-decoration: none;
+ 
+}
+a.currentPage, a.currentPage:hover, a.currentPage:visited{
+  color: black;
+  text-decoration: underline;
+  text-decoration-color: #006241;
+  text-decoration-thickness: 3px;
+ 
+}
+
+    .row {
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      border-left: 1px solid #ccc;
+      border-right: 1px solid #ccc;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-left: 10px;
+      
+      margin-top: 10px;
+      margin-bottom: 10px;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+    .my-custom-scrollbar {
+      position: relative;
+      height: 400px;
+      overflow: auto;
+    }
+    .table-wrapper-scroll-y {
+      display: block;
+    }
+/*
+radio button styling
+*/
+/*
+Removes the "radio button circle"
+*/
+  input[type="radio"] {
+  display: none;
+ 
+  &:not(:disabled) ~ label {
+    cursor: pointer;
+  }
+}
+input[type="checkbox"] {
+  display: none;
+  &:not(:disabled) ~ label {
+    cursor: pointer;
+  }
+}
+label {
+  height: 100%;
+  display:inline-block;
+  background: white;
+  border: 2px solid #006241;
+  border-radius: 20px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  width: 80%;
+  
+}
+
+input[type="radio"]:checked + label {
+  background: #006241;
+  color: hsla(215, 0%, 100%, 1);
+  box-shadow: 0px 0px 20px #006241;
+}
+input[type="checkbox"]:checked + label {
+  background: #006241;
+  color: hsla(215, 0%, 100%, 1);
+  box-shadow: 0px 0px 20px #006241;
+}
+  </style>
+
+</head>
+<body>
+
+<!--Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark sticky">
+  <a class="navbar-brand" href="/">
+    <img src ="https://cdn-icons-png.flaticon.com/512/5977/5977591.png" height = 50px alt ="Your logo"/> 
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item ">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/Customer">Customer</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/finder">Locations</a>
+      </li>
+      
+    </ul>
+  </div>
+</nav>
+<div class="menuNav">
+  <a   <% if(serverMenu[0].subcategory =='Coffee'){ %>class="menuNavItem currentPage" <% }else{ %>class="menuNavItem page" <% } %> href="/Customer/CoffeeMenu">Coffee</a>
+
+  <a  <% if(serverMenu[0].subcategory =='Tea'){ %>class="menuNavItem currentPage" <% }else{ %>class="menuNavItem page" <% } %>  href="/Customer/TeaMenu">Tea</a>
+
+  <a  <% if(serverMenu[0].subcategory =='Breakfast'){ %>class="menuNavItem currentPage" <% }else{ %>class="menuNavItem page" <% } %>  href="/Customer/BreakfastMenu">Breakfast</a>
+
+  <a   <% if(serverMenu[0].subcategory =='Bakery'){ %>class="menuNavItem currentPage" <% }else{ %>class="menuNavItem page" <% } %>  href="/Customer/BakeryMenu">Bakery</a>
+
+  <a  <% if(serverMenu[0].subcategory =='seasonal'){ %>class="menuNavItem currentPage" <% }else{ %>class="menuNavItem page" <% } %>  href="/Customer/SeasonalMenu">Seasonal</a>
+
+    </div>
+<!--Inventory -->
+<div class="container-md">
+  <div class="row">
+    <!-- column 1-->
+
+<div class="col">
+        <td class = "Radio">
+          
+      <form action="/orderItem" method="post">
+        <div>
+          
+          <% if(serverMenu[0].subcategory!='seasonal') { %>
+          <img class="icon" src="<%= ('../'+serverMenu[0].item+'.jpg').replace( /\s/g, '')%>">
+          <%}%>
+        <input  type = "radio" id="<%= serverMenu[0].item%>" value="<%= serverMenu[0].item%>:<%= serverMenu[0].category%>:<%= serverMenu[0].subcategory%>:<%= serverMenu[0].tall%>:<%= serverMenu[0].grande%>:<%= serverMenu[0].venti%>" name= "drinkOrder" checked></input>
+        
+        <label for="<%= serverMenu[0].item%>"><%= serverMenu[0].item%></label>
+        </div>
+      <% for (var i = 1; i < serverMenu.length; i++) { %>
+        <div>
+          <% if(serverMenu[0].subcategory!='seasonal') { %>
+            <img class="icon" src="<%= ('../'+serverMenu[i].item+'.jpg').replace( /\s/g, '')%>">
+            <%}%>
+            <input  type = "radio" id="<%= serverMenu[i].item%>" value="<%= serverMenu[i].item%>:<%= serverMenu[i].category%>:<%= serverMenu[i].subcategory%>:<%= serverMenu[i].tall%>:<%= serverMenu[i].grande%>:<%= serverMenu[i].venti%>" name= "drinkOrder"></input>
+            <label for="<%= serverMenu[i].item%>"><%= serverMenu[i].item%></label>
+           </div>
+      <% } %>
+
+      
+      <% if(serverMenu[0].category !='Food'){ %>
+         <br> 
+         <h3>Size</h3>
+      
+      
+      <input type = "radio" id="tall" name= "drinkSize" value="tall"></input>
+      <label for="tall">Tall </label>
+      
+      <input type = "radio" id="grande"name= "drinkSize"  value="grande" checked></input>
+      <label for="grande">Grande</label>
+      
+      <input type = "radio"  id="venti" name= "drinkSize" value="venti"></input>
+      <label for="venti">Venti</label>
+      <h3>Customizations</h3>
+      <input type = "checkbox" id="shot" name= "shot" ></input>
+      <label for="shot">Espresso Shot</label>
+      <input type = "checkbox" id="iced" name= "iced" ></input>
+      <label for="iced">Iced </label>
+      <input type = "checkbox" id="syrup" name= "syrup" ></input>
+      <label for="syrup">Syrup Pump </label>
+      <input type = "checkbox" id="nondairy" name= "nondairy" ></input>
+      <label for="nondairy">nondairy </label>
+   
+     <%} %>
+       <br>  
+       <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Add to Cart</button> 
+      </form>
+     
+      
+    </div>
+
+
+
+
+
+    <div class="col">
+      <h3>Cart</h3>
+      <div class="table-wrapper-scroll-y my-custom-scrollbar">
+      <table class="table table-sm" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <% for(var i in currentOrder) { %>
+              <tr>
+                <td><%= currentOrder[i].name%></td>
+                <td>$<%= currentOrder[i].price%></td>
+                <td>
+                   <form action="/"method="post" >
+
+                    <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">
+                      delete
+                    </button>
+               </form>
+           </td>
+              </tr>
+           <% } %>
+          </tbody>
+      </table>
+      </div>
+      
+           <form>
+        <br>
+        <h3>Check Out</h3>
+        <input type = "radio" id="Card"name= "payment"  value="<%= serverMenu[0].subcategory%>" checked></input>
+      <label for="Card">Card</label>
+      
+      <input type = "radio"  id="Paypal" name= "payment" value="<%= serverMenu[0].subcategory%>"></input>
+      <label for="Paypal">Cash</label>
+      <br>
+      <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Process Order</button> 
+      </form>
+   
+      
+    </div>
+
+
+    <!-- column 2-->
+    
+  </div>
+</div>
+
+
+
+</body>
+</html>
