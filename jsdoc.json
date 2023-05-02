@@ -12,7 +12,7 @@
     },
     "opts": {
       "recurse": true,
-      "destination": "./docs/"
+      "destination": "./docs2/"
       
     }
   }
