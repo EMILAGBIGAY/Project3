@@ -28,6 +28,10 @@
     background-color: red;
   }
 
+  .btns{
+    background-color: #006241;
+  }
+
   .navbar {
     background-color: #006241;
   }
@@ -164,7 +168,7 @@ Removes the "radio button circle"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="collapse-4 navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item ">
           <a class="nav-link" href="/">Home</a>
@@ -178,14 +182,16 @@ Removes the "radio button circle"
       </ul>
     </div>
 
-    <!--login-->
-    <button class="btn align-middle text-light" type="submit" aria-haspopup="true" aria-expanded="false">
-      <a class="nav-link text-light" href="/login">login</a>
-    </button>
-    <!--logout-->
-    <button class="btn align-middle text-light" type="submit" aria-haspopup="true" aria-expanded="false">
-      <a class="nav-link text-light" href="/logout">logout</a>
-    </button>
+    <!--sign in features-->
+    <div class="dropdown">
+      <button class="btn btns btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <img src="https://dq5pwpg1q8ru0.cloudfront.net/2023/03/30/11/54/02/f81c2504-1084-467a-8f5a-858db63ce6b3/blank-profile-circle.png" height="auto" width="15%"/>
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="/login">Sign in</a>
+        <a class="dropdown-item" href="/logout">Sign out</a>
+      </div>
+    </div>
   </nav>
 
   <div class="container-lg">
