@@ -11,7 +11,7 @@
  * @property {number} Price - price of the item
  * @property {boolean} Shot - add espresso shot
  * @property {boolean} iced - add ice
- * @property {boolean} syrup - add pump of syrup 
+ * @property {boolean} syrup - add pump of syrup
  * @property {boolean} nondairy - nondairy requirement
  */
 
@@ -120,8 +120,10 @@ router.get('/login', (req, res) => {
 });
 
 router.get('/profile', requiresAuth(), (req, res) => {
+    const name = req.oidc.user.name;
     const img = req.oidc.user.picture;
-    res.send(JSON.stringify(req.oidc.user));
+    console.log(req.oidc.user);
+    res.render('profile', { name: name, img: img });
 });
 
 router.get('/user', (req, res) => {
@@ -222,7 +224,7 @@ router.get('/Server/:id', requiresAuth(), requireServer, (req, res) => {
 });
 
 /**
- * Loads menu and current order data from SQL tables, then renders the customer page. Color blind filters are applied by changing the CSS colors used and filters over the images. 
+ * Loads menu and current order data from SQL tables, then renders the customer page. Color blind filters are applied by changing the CSS colors used and filters over the images.
  * @module CustomerGetFunction
  * @function
  * @param {Text} Menu - Menu Name passed as a URL parameter
@@ -343,7 +345,7 @@ function requireServer(req, res, next){
 }
 
 /**
- * Loads inventory data from SQL table, then renders the manager page. Manager page contains controls to make reports and add seasonal items as well. 
+ * Loads inventory data from SQL table, then renders the manager page. Manager page contains controls to make reports and add seasonal items as well.
  * @module ManagerGetFunction
  * @function
  * @returns {void} - renders the Manger page with current inventory table.
@@ -651,7 +653,7 @@ router.post('/clear-current', (req, res) => {
 
 
 /**
- * Post request that deletes an item from the current order SQL table AKA the cart. 
+ * Post request that deletes an item from the current order SQL table AKA the cart.
  * @module DeleteFromCartFunction
  * @function
  * @param {Number} Index- Index of the order item in current order that will be deleted.
