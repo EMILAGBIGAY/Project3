@@ -438,7 +438,7 @@ img.none {
 
      <%} %>
        <br>
-       <button class="btn   btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Add to Cart</button>
+       <button class="btn  text-light" type="submit" aria-haspopup="true" aria-expanded="false">Add to Cart</button>
       </form>
 
 
@@ -469,7 +469,7 @@ img.none {
                    <form action="/deleteCartItem"method="post" >
                     <input type="hidden" name="deleteWhat" value="<%= serverMenu[0].subcategory%>:Customer:<%=i%>:<%=color%>"></input>
 
-                    <button class="btn   btn-success" type="submit" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn text-light" type="submit" aria-haspopup="true" aria-expanded="false">
                       delete
                     </button>
                </form>
@@ -521,13 +521,13 @@ img.none {
       <input type = "radio"  id="Paypal" name= "payment" value="<%= serverMenu[0].subcategory%>:Customer:<%=color%>"></input>
       <label class="orderCusomizations  " for="Paypal">Paypal</label>
       <br>
-      <button class="btn   btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Process Order</button>
+      <button class="btn  text-light" type="submit" aria-haspopup="true" aria-expanded="false">Process Order</button>
       </form>
       <br>
       
 
       <div class="dropdown">
-        <button class="btn    btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button class="btn text-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Choose Filter
         </button>
         <div class="dropdown-menu" aria-labelledby="Colorblind filters">
