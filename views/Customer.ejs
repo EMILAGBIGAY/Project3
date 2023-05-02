@@ -8,10 +8,10 @@
   <title>Customer</title>
   <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/5977/5977591.png">
   <style>
- 
+
     .btn{
       background-color:#006241;
-     
+
     }
 
     .navbar{
@@ -19,42 +19,42 @@
     }
 
     .sticky {
-      position: sticky; 
+      position: sticky;
       top: 0;
       z-index: 100;
     }
-    
+
       img.icon {
   border-radius: 50%;
   width: 75px;
   height: 75px;
 }
-    
+
 .menuNav {
     color: black;
-      
+
     font-size: 1.5em;
     margin-top: 1em;
     margin-bottom: 1em;
-    
-   
+
+
     font-weight:500;
     }
     .menuNavItem{
       margin-left: 1em;
-      
+
     }
   a.page, a.page:hover, a.page:visited{
   color: black;
   text-decoration: none;
- 
+
 }
 a.currentPage, a.currentPage:hover, a.currentPage:visited{
   color: black;
   text-decoration: underline;
   text-decoration-color: #006241;
   text-decoration-thickness: 3px;
- 
+
 }
 
     .row {
@@ -65,7 +65,7 @@ a.currentPage, a.currentPage:hover, a.currentPage:visited{
       padding-top: 10px;
       padding-bottom: 10px;
       padding-left: 10px;
-      
+
       margin-top: 10px;
       margin-bottom: 10px;
       margin-left: 10px;
@@ -87,7 +87,7 @@ Removes the "radio button circle"
 */
   input[type="radio"] {
   display: none;
- 
+
   &:not(:disabled) ~ label {
     cursor: pointer;
   }
@@ -134,6 +134,77 @@ input[type="checkbox"]:checked + label {
   color: hsla(215, 0%, 100%, 1);
   box-shadow: 0px 0px 20px #006241;
 }
+
+
+.protanopia {
+  /* Change red colors to shades of green */
+  color: #00ff00;
+  background-color: #00ff00;
+  border-color: #00ff00;
+}
+
+.protanopia a {
+  /* Change red links to shades of green */
+  color: #00ff00;
+  border-bottom-color: #00ff00;
+}
+
+.protanopia img {
+  /* Change red images to shades of green */
+  filter: grayscale(100%) contrast(80%) brightness(120%) hue-rotate(-30deg) saturate(1.5) invert(1);
+}
+
+.deuteranopia {
+  /* Change green colors to shades of red */
+  color: #ff0000;
+  background-color: #ff0000;
+}
+
+.deuteranopia a {
+  /* Change green links to shades of red */
+  color: #ff0000;
+  border-bottom-color: #ff0000;
+}
+
+.deuteranopia img {
+  /*Change green images to shades of red */
+  filter: grayscale(100%) contrast(80%) brightness(120%) hue-rotate(150deg) saturate(1.5) invert(1);
+}
+
+.tritanopia {
+  /* Change blue colors to shades of yellow */
+  color: #ffff00;
+  background-color: #ffff00;
+}
+
+.tritanopia a {
+  /* Change blue links to shades of yellow */
+  color: #ffff00;
+  border-bottom-color: #ffff00;
+}
+
+.tritanopia img {
+  /* Change blue images to shades of yellow */
+  filter: grayscale(100%) contrast(80%) brightness(120%) hue-rotate(60deg) saturate(1.5) invert(1);
+}
+
+.greyscale {
+  /* Change all colors to shades of grey */
+  color: #808080;
+  background-color: #808080;
+}
+
+.greyscale a {
+  /* Change all links to shades of grey */
+  color: #808080;
+  border-bottom-color: #808080;
+}
+
+.greyscale img {
+  /* Change all images to shades of grey */
+  filter: grayscale(100%)
+}
+
   </style>
 
 </head>
@@ -142,7 +213,7 @@ input[type="checkbox"]:checked + label {
 <!--Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark sticky">
   <a class="navbar-brand" href="/">
-    <img src ="https://cdn-icons-png.flaticon.com/512/5977/5977591.png" height = 50px alt ="Your logo"/> 
+    <img src ="https://cdn-icons-png.flaticon.com/512/5977/5977591.png" height = 50px alt ="Your logo"/>
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -165,7 +236,7 @@ input[type="checkbox"]:checked + label {
       <li class="nav-item">
         <a class="nav-link" href="/finder">Locations</a>
       </li>
-      
+
     </ul>
   </div>
 </nav>
@@ -188,15 +259,15 @@ input[type="checkbox"]:checked + label {
 
 <div class="col">
         <td class = "Radio">
-          
+
       <form action="/orderItem" method="post">
         <div>
-          
+
           <% if(serverMenu[0].subcategory!='seasonal') { %>
           <img class="icon" src="<%= ('../'+serverMenu[0].item+'.jpg').replace( /\s/g, '')%>">
           <%}%>
         <input  type = "radio"  id="<%= serverMenu[0].item%>" value="<%= serverMenu[0].item%>:<%= serverMenu[0].category%>:<%= serverMenu[0].subcategory%>:<%= serverMenu[0].tall%>:<%= serverMenu[0].grande%>:<%= serverMenu[0].venti%>:Customer" name= "drinkOrder" checked></input>
-        
+
         <label  class="orderOptions" for="<%= serverMenu[0].item%>"><%= serverMenu[0].item%></label>
         </div>
       <% for (var i = 1; i < serverMenu.length; i++) { %>
@@ -209,21 +280,21 @@ input[type="checkbox"]:checked + label {
            </div>
       <% } %>
 
-      
+
       <% if(serverMenu[0].category !='Food'){ %>
-        
+
          <h3>Size</h3>
-      
+
       <input type = "radio" id="tall" name= "drinkSize" value="tall"></input>
       <label class="orderCusomizations" for="tall">Tall </label>
-     
+
       <input type = "radio" id="grande"name= "drinkSize"  value="grande" checked></input>
       <label class="orderCusomizations" for="grande">Grande</label>
-      
+
       <input type = "radio"  id="venti" name= "drinkSize" value="venti"></input>
       <label class="orderCusomizations" for="venti">Venti</label>
-     
- 
+
+
       <h3>Customizations</h3>
       <input type = "checkbox" id="shot" name= "shot" ></input>
       <label class="orderCusomizations" for="shot">Espresso Shot</label>
@@ -233,13 +304,13 @@ input[type="checkbox"]:checked + label {
       <label class="orderCusomizations" for="syrup">Syrup Pump </label>
       <input type = "checkbox" id="nondairy" name= "nondairy" ></input>
       <label class="orderCusomizations" for="nondairy">nondairy </label>
-   
+
      <%} %>
-       <br>  
-       <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Add to Cart</button> 
+       <br>
+       <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Add to Cart</button>
       </form>
-     
-      
+
+
     </div>
 
 
@@ -277,13 +348,13 @@ input[type="checkbox"]:checked + label {
           </tbody>
       </table>
       </div>
-      
+
            <form action="/clear-current"  method ="post">
         <br>
         <h4>Check Out</h4>
 
         <table class="table table-sm" cellspacing="0">
-         
+
           <tbody>
             <tr>
               <th>
@@ -309,25 +380,25 @@ input[type="checkbox"]:checked + label {
                 $<%=parseFloat(grandTotal).toFixed(2)%>
               </td>
             </tr>
-            
+
           </tbody>
         </table>
-        
+
         <input type = "radio" id="Card"name= "payment"  value="<%= serverMenu[0].subcategory%>:Customer" checked></input>
       <label class="orderCusomizations" for="Card">Card</label>
-      
+
       <input type = "radio"  id="Paypal" name= "payment" value="<%= serverMenu[0].subcategory%>:Customer"></input>
       <label class="orderCusomizations" for="Paypal">Paypal</label>
       <br>
-      <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Process Order</button> 
+      <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Process Order</button>
       </form>
-   
-      
+
+
     </div>
 
 
     <!-- column 2-->
-    
+
   </div>
 </div>
 
