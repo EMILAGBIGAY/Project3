@@ -5,6 +5,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <title>Customer Home</title>
 <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/5977/5977591.png">
 <style>
@@ -177,6 +178,19 @@ Removes the "radio button circle"
         </li>
       </ul>
     </div>
+
+    <!--login-->
+    <div id="login-section">
+      <div id="g_id_onload"
+           data-client_id="STOKOukfMw1BjEKxQ7pdXAOOxpFBHQxz"
+           data-callback="handleCredentialResponse"></div>
+      <div class="g_id_signin"></div>
+    </div>
+    <!--logout-->
+    <div id="logout-section" style="display: none;">
+      <p>Welcome, <span id="username"></span>!</p>
+      <button id="logout-button">Logout</button>
+    </div>
   </nav>
 
   <div class="container-lg">
@@ -220,6 +234,51 @@ Removes the "radio button circle"
   </div>
   <!-- <p><%=price%></p> -->
 
+  <script>
+    // Function to show/hide login and logout sections
+    function toggleSections() {
+      var loginSection = document.getElementById('login-section');
+      var logoutSection = document.getElementById('logout-section');
+
+      if (isLoggedIn()) {
+        loginSection.style.display = 'none';
+        logoutSection.style.display = 'block';
+        document.getElementById('username').textContent = getLoggedInUser();
+      } else {
+        loginSection.style.display = 'block';
+        logoutSection.style.display = 'none';
+      }
+    }
+
+    // Function to check if user is logged in
+    function isLoggedIn() {
+      return localStorage.getItem('loggedInUser') !== null;
+    }
+
+    // Function to get logged in user
+    function getLoggedInUser() {
+      return localStorage.getItem('loggedInUser');
+    }
+
+    // Function to handle the response from Google Sign-In API
+    function handleCredentialResponse(response) {
+      if (response.credential) {
+        var username = response.credential.id;
+        localStorage.setItem('loggedInUser', username);
+        toggleSections();
+      }
+    }
+
+    // Event listener for logout button
+    document.getElementById('logout-button').addEventListener('click', function() {
+      localStorage.removeItem('loggedInUser');
+      toggleSections();
+    });
+
+    // Initial function call to set initial state
+    toggleSections();
+  </script>
+
   <script type="application/javascript">
     document.addEventListener("DOMContentLoaded", function () {
       const selectEl = document.getElementById("colorblind-select");
@@ -231,14 +290,6 @@ Removes the "radio button circle"
   </script>
 
   <%- include('translate-script') %>
-
-  <select id="colorblind-select">
-    <option value="normal">Normal</option>
-    <option value="protanopia">Protanopia</option>
-    <option value="deuteranopia">Deuteranopia</option>
-    <option value="tritanopia">Tritanopia</option>
-    <option value="greyscale">Greyscale</option>
-  </select>
 
 
     <!-- footer -->
