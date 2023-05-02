@@ -1,4 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: index.js</title>
 
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: index.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>
 //Variable types
 //these are in the format of how they are used in the sql table. AKA the params are the col names of the SQL table.
 
@@ -11,7 +39,7 @@
  * @property {number} Price - price of the item
  * @property {boolean} Shot - add espresso shot
  * @property {boolean} iced - add ice
- * @property {boolean} syrup - add pump of syrup
+ * @property {boolean} syrup - add pump of syrup 
  * @property {boolean} nondairy - nondairy requirement
  */
 
@@ -60,7 +88,7 @@ const port = 3000;
  */
 router.get('/', (req, res) => {
     const host = 'api.frankfurter.app';
-    fetch(`https://${host}/latest?amount=10&from=GBP&to=USD`)
+    fetch(`https://${host}/latest?amount=10&amp;from=GBP&amp;to=USD`)
         .then(resp => resp.json())
         .then((data) => {
             const price = `10 GBP = ${data.rates.USD} USD`;
@@ -120,10 +148,8 @@ router.get('/login', (req, res) => {
 });
 
 router.get('/profile', requiresAuth(), (req, res) => {
-    const name = req.oidc.user.name;
     const img = req.oidc.user.picture;
-    console.log(req.oidc.user);
-    res.render('profile', { name: name, img: img });
+    res.send(JSON.stringify(req.oidc.user));
 });
 
 router.get('/user', (req, res) => {
@@ -131,7 +157,7 @@ router.get('/user', (req, res) => {
     pool
         .query('SELECT * FROM inventory')
         .then(query_res => {
-            for (let i = 0; i < query_res.rowCount; i++) {
+            for (let i = 0; i &lt; query_res.rowCount; i++) {
                 arr.push(query_res.rows[i]);
             }
             const data = { arr: arr };
@@ -170,19 +196,19 @@ router.get('/Server/:id', requiresAuth(), requireServer, (req, res) => {
 
     pool.query("select * from menu where subcategory = $1", [menuType])
         .then(query_res => {
-            for (let i = 0; i < query_res.rowCount; i++) {
+            for (let i = 0; i &lt; query_res.rowCount; i++) {
                 serverMenu.push(query_res.rows[i]);
             }
 
             pool.query("select * from current_order")
                 .then(query_res => {
-                    for (let i = 0; i < query_res.rowCount; i++) {
+                    for (let i = 0; i &lt; query_res.rowCount; i++) {
                         currentOrder.push(query_res.rows[i]);
 
                     }
                     pool.query("select SUM(price) from current_order")
                         .then(query_res => {
-                            for (let i = 0; i < query_res.rowCount; i++) {
+                            for (let i = 0; i &lt; query_res.rowCount; i++) {
                                 revenue = query_res.rows[i];
                             }
                             console.log(revenue);
@@ -224,7 +250,7 @@ router.get('/Server/:id', requiresAuth(), requireServer, (req, res) => {
 });
 
 /**
- * Loads menu and current order data from SQL tables, then renders the customer page. Color blind filters are applied by changing the CSS colors used and filters over the images.
+ * Loads menu and current order data from SQL tables, then renders the customer page. Color blind filters are applied by changing the CSS colors used and filters over the images. 
  * @module CustomerGetFunction
  * @function
  * @param {Text} Menu - Menu Name passed as a URL parameter
@@ -255,20 +281,20 @@ router.get('/Customer/:id/:color', (req, res) => {
 
     pool.query("select * from menu where subcategory = $1", [menuType])
         .then(query_res => {
-            for (let i = 0; i < query_res.rowCount; i++) {
+            for (let i = 0; i &lt; query_res.rowCount; i++) {
                 serverMenu.push(query_res.rows[i]);
             }
 
             pool.query("select * from current_order")
                 .then(query_res => {
-                    for (let i = 0; i < query_res.rowCount; i++) {
+                    for (let i = 0; i &lt; query_res.rowCount; i++) {
                         currentOrder.push(query_res.rows[i]);
 
                     }
 
                     pool.query("select SUM(price) from current_order")
                         .then(query_res => {
-                            for (let i = 0; i < query_res.rowCount; i++) {
+                            for (let i = 0; i &lt; query_res.rowCount; i++) {
                                 revenue = query_res.rows[i];
                             }
                             console.log(revenue);
@@ -321,7 +347,7 @@ function requireManager(req, res, next){
     const allowedEmails = ['ashwin.kundeti@gmail.com', 'emilagbigay@tamu.edu', 'benwilley@tamu.edu'];
     const user = req.oidc.user;
 
-    if(user && allowedEmails.includes(user.email)){
+    if(user &amp;&amp; allowedEmails.includes(user.email)){
         return next();
     }
     return res.status(403).send('Forbidden');
@@ -338,14 +364,14 @@ function requireServer(req, res, next){
     const allowedEmails = ['ashwin.kundeti@gmail.com', 'emilagbigay@tamu.edu', 'benwilley@tamu.edu'];
     const user = req.oidc.user;
 
-    if(user && allowedEmails.includes(user.email)){
+    if(user &amp;&amp; allowedEmails.includes(user.email)){
         return next();
     }
     return res.status(403).send('Forbidden');
 }
 
 /**
- * Loads inventory data from SQL table, then renders the manager page. Manager page contains controls to make reports and add seasonal items as well.
+ * Loads inventory data from SQL table, then renders the manager page. Manager page contains controls to make reports and add seasonal items as well. 
  * @module ManagerGetFunction
  * @function
  * @returns {void} - renders the Manger page with current inventory table.
@@ -355,7 +381,7 @@ router.get('/Manager', requiresAuth(), requireManager, (req, res, next) => {
     let inventory_arr = [];
     pool.query("select * from inventory order by id")
         .then(query_res => {
-            for (let i = 0; i < query_res.rowCount; i++) {
+            for (let i = 0; i &lt; query_res.rowCount; i++) {
                 inventory_arr.push(query_res.rows[i]);
             }
             const data = { inventory_arr: inventory_arr };
@@ -653,7 +679,7 @@ router.post('/clear-current', (req, res) => {
 
 
 /**
- * Post request that deletes an item from the current order SQL table AKA the cart.
+ * Post request that deletes an item from the current order SQL table AKA the cart. 
  * @module DeleteFromCartFunction
  * @function
  * @param {Number} Index- Index of the order item in current order that will be deleted.
@@ -716,7 +742,7 @@ router.post('/deleteCartItem', (req, res) => {
 router.post('/sales-report', (req, res) => {
     let start = req.body.start;
     let end = req.body.end;
-    pool.query("select name, count(*) from sales where sales.date >= to_timestamp('$1','YYYY-MM-DD') and sales.date <= to_timestamp('$2', 'YYYY-MM-DD') group by name", [start, end]);
+    pool.query("select name, count(*) from sales where sales.date >= to_timestamp('$1','YYYY-MM-DD') and sales.date &lt;= to_timestamp('$2', 'YYYY-MM-DD') group by name", [start, end]);
     res.redirect('/sales-report');
 });
 
@@ -742,9 +768,9 @@ router.post('/excess-report', (req, res) => {
  */
 router.post('/restock-report', (req, res) => {
     let restock_arr = [];
-    pool.query("select * from inventory where quantity < restockquantity")
+    pool.query("select * from inventory where quantity &lt; restockquantity")
         .then(query_res => {
-            for (let i = 0; i < query_res.rowCount; i++) {
+            for (let i = 0; i &lt; query_res.rowCount; i++) {
                 restock_arr.push(query_res.rows[i]);
             }
             const data = { restock_arr: restock_arr, type: 'Restock' };
@@ -770,13 +796,13 @@ router.get('/XReport', (req, res) => {
     let report_arr = [];
     pool.query("select * from xreport")
         .then(query_res => {
-            for (let i = 0; i < query_res.rowCount; i++) {
+            for (let i = 0; i &lt; query_res.rowCount; i++) {
                 report_arr.push(query_res.rows[i]);
 
             }
             pool.query("select SUM(price) from xreport")
                 .then(query_res => {
-                    for (let i = 0; i < query_res.rowCount; i++) {
+                    for (let i = 0; i &lt; query_res.rowCount; i++) {
                         revenue = query_res.rows[i];
                     }
                     if (revenue.sum == null) {
@@ -812,13 +838,13 @@ router.get('/ZReport', (req, res) => {
     let report_arr = [];
     pool.query("select * from xreport")
         .then(query_res => {
-            for (let i = 0; i < query_res.rowCount; i++) {
+            for (let i = 0; i &lt; query_res.rowCount; i++) {
                 report_arr.push(query_res.rows[i]);
 
             }
             pool.query("select SUM(price) from xreport")
                 .then(query_res => {
-                    for (let i = 0; i < query_res.rowCount; i++) {
+                    for (let i = 0; i &lt; query_res.rowCount; i++) {
                         revenue = query_res.rows[i];
                     }
                     const data = { report_arr: report_arr, revenue: revenue, type: 'ZReport: WARNING REFRESHING WILL REQUEST A NEW Z REPORT DELETING' };
@@ -901,3 +927,26 @@ app.use('/', router);
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 });
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddSeasonalItemFunction">AddSeasonalItemFunction</a></li><li><a href="global.html#CustomerGetFunction">CustomerGetFunction</a></li><li><a href="global.html#DeleteFromCartFunction">DeleteFromCartFunction</a></li><li><a href="global.html#ExcesssReportFunction">ExcesssReportFunction</a></li><li><a href="global.html#HomeGetFunction">HomeGetFunction</a></li><li><a href="global.html#LocationGetFunction">LocationGetFunction</a></li><li><a href="global.html#ManagerGetFunction">ManagerGetFunction</a></li><li><a href="global.html#OrderItemFunction">OrderItemFunction</a></li><li><a href="global.html#ProcessOrderFunction">ProcessOrderFunction</a></li><li><a href="global.html#RequireManagerFunction">RequireManagerFunction</a></li><li><a href="global.html#RequireServerFunction">RequireServerFunction</a></li><li><a href="global.html#RestockReportGetFunction">RestockReportGetFunction</a></li><li><a href="global.html#SalesReportGetFunction">SalesReportGetFunction</a></li><li><a href="global.html#ServerGetFunction">ServerGetFunction</a></li><li><a href="global.html#UpdateInventoryFunction">UpdateInventoryFunction</a></li><li><a href="global.html#XReportGetFunction">XReportGetFunction</a></li><li><a href="global.html#ZReportGetFunction">ZReportGetFunction</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue May 02 2023 16:32:36 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

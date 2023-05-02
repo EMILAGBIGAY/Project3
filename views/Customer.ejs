@@ -13,6 +13,13 @@
 <!-- none/protanopia  -->
 <%if(color == 'none' || color == 'protanopia'){%>
 <style>
+  a.currentPage, a.currentPage:hover, a.currentPage:visited{
+  color: black;
+  text-decoration: underline;
+  text-decoration-color: #006241;
+  text-decoration-thickness: 3px;
+
+}
     .btn{
       background-color:#006241;
     }
@@ -60,6 +67,13 @@ input[type="checkbox"]:checked + label {
 
 <!-- deuteranopia -->
 <style>
+  a.currentPage, a.currentPage:hover, a.currentPage:visited{
+  color: black;
+  text-decoration: underline;
+  text-decoration-color: #ff0000;
+  text-decoration-thickness: 3px;
+
+}
   .btn{
     background-color:#ff0000;
   }
@@ -106,6 +120,13 @@ box-shadow: 0px 0px 20px #ff0000;
 <%}else if(color=='tritanopia'){%>
 <!-- tritanopia -->
 <style>
+  a.currentPage, a.currentPage:hover, a.currentPage:visited{
+  color: black;
+  text-decoration: underline;
+  text-decoration-color: #009999;
+  text-decoration-thickness: 3px;
+
+}
   .btn{
     background-color:#009999;
   }
@@ -152,6 +173,13 @@ box-shadow: 0px 0px 20px #009999;
 <%}else{%>
 <!-- greyscale -->
 <style>
+  a.currentPage, a.currentPage:hover, a.currentPage:visited{
+  color: black;
+  text-decoration: underline;
+  text-decoration-color: #808080;
+  text-decoration-thickness: 3px;
+
+}
   .btn{
     background-color:#808080;
   }
@@ -254,13 +282,7 @@ input[type="checkbox"]{
   text-decoration: none;
 
 }
-a.currentPage, a.currentPage:hover, a.currentPage:visited{
-  color: black;
-  text-decoration: underline;
-  text-decoration-color: #000000;
-  text-decoration-thickness: 3px;
 
-}
 
     .row {
       border-top: 1px solid #ccc;
@@ -526,22 +548,7 @@ img.none {
       <br>
       
 
-      <div class="dropdown">
-        <button class="btn text-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Choose Filter
-        </button>
-        <div class="dropdown-menu" aria-labelledby="Colorblind filters">
-          <a class="dropdown-item" href="/Customer/<%=id%>/none">none</a>
-          <a class="dropdown-item" href="/Customer/<%=id%>/tritanopia">tritanopia</a>
-            <a class="dropdown-item" href="/Customer/<%=id%>/greyscale">greyscale</a>
-          <a class="dropdown-item" href="/Customer/<%=id%>/deuteranopia">deuteranopia</a>
-          <a class="dropdown-item" href="/Customer/<%=id%>/protanopia">protanopia</a>
-          
-        
-          
-        
-        </div>
-      </div>
+     
       </div>
    
 
@@ -549,10 +556,31 @@ img.none {
 
   </div>
 </div>
-
+<div class="container-md">
+  
+  <div class="row">
+  <div class="col">
+<h3>Accesibility</h3>
 <%- include('translate-script') %>
+<br>
+<div class="dropdown">
+  <button class="btn text-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Colorblind Filters
+  </button>
+  <div class="dropdown-menu" aria-labelledby="Colorblind filters">
+    <a class="dropdown-item" href="/Customer/<%=id%>/none">none</a>
+    <a class="dropdown-item" href="/Customer/<%=id%>/tritanopia">tritanopia(Blue-Yellow)</a>
+      <a class="dropdown-item" href="/Customer/<%=id%>/greyscale">greyscale</a>
+    <a class="dropdown-item" href="/Customer/<%=id%>/deuteranopia">deuteranopia(Red-Green)</a>
+    <a class="dropdown-item" href="/Customer/<%=id%>/protanopia">protanopia(Red-Green)</a>
+  
+  </div>
 
+</div>
 
+</div>
+</div>
+</div>
 
 </body>
 </html>
