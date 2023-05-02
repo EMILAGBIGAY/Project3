@@ -54,13 +54,15 @@ router.get('/', (req, res) => {
 });
 
 
+
+
 const config = {
     authRequired: false,
     auth0Logout: true,
     secret: process.env.AUTH0_SECRET,
     baseURL: process.env.BASE_URL,
     clientID: process.env.AUTH0_CLIENT_ID,
-    issuerBaseURL: process.env.ISSUER_BASE_URL
+    issuerBaseURL: process.env.ISSUER_BASE_URL,
 };
 
 // auth router attaches /login, /logout, and /callback routes to the baseURL
@@ -95,6 +97,7 @@ router.get('/login', (req, res) => {
 });
 
 router.get('/profile', requiresAuth(), (req, res) => {
+    const img = req.oidc.user.picture;
     res.send(JSON.stringify(req.oidc.user));
 });
 
@@ -113,7 +116,7 @@ router.get('/user', (req, res) => {
 });
 
 
-router.get('/Server/:id', (req, res) => {
+router.get('/Server/:id', requiresAuth(), requireServer, (req, res) => {
 
     const id = req.params.id;
     let serverMenu = [];
@@ -190,8 +193,8 @@ router.get('/Server/:id', (req, res) => {
 
 router.get('/Customer/:id/:color', (req, res) => {
     var filter = req.params.color;
-    if(filter==null){
-        filter ="none";
+    if (filter == null) {
+        filter = "none";
     }
     const id = req.params.id;
     let serverMenu = [];
@@ -266,11 +269,28 @@ router.get('/Customer/:id/:color', (req, res) => {
         });
 });
 
-router.get('/Manager', (req, res) => {
-    // x, z, excess, sales reports
-    // update/restock inventory
-    // update/add menu item
-    //
+function requireManager(req, res, next){
+    const allowedEmails = ['ashwin.kundeti@gmail.com', 'emilagbigay@tamu.edu', 'benwilley@tamu.edu'];
+    const user = req.oidc.user;
+
+    if(user && allowedEmails.includes(user.email)){
+        return next();
+    }
+    return res.status(403).send('Forbidden');
+}
+
+function requireServer(req, res, next){
+    const allowedEmails = ['ashwin.kundeti@gmail.com', 'emilagbigay@tamu.edu', 'benwilley@tamu.edu'];
+    const user = req.oidc.user;
+
+    if(user && allowedEmails.includes(user.email)){
+        return next();
+    }
+    return res.status(403).send('Forbidden');
+}
+
+router.get('/Manager', requiresAuth(), requireManager, (req, res, next) => {
+    console.log(req.oidc.user.email);
     let inventory_arr = [];
     pool.query("select * from inventory order by id")
         .then(query_res => {
@@ -286,6 +306,7 @@ router.get('/Manager', (req, res) => {
             res.status(500).send('Internal Server Error');
         });
 });
+
 
 router.post('/update-inventory/:id', (req, res) => {
     const id = parseInt(req.params.id);
@@ -471,8 +492,8 @@ router.post('/orderItem', (req, res) => {
                         .then(() => {
                             console.log("order added to x report");
                             console.log(itemArray);
-                            var serverPath = "../" + page + "/" + menuType+"/"+ color;
-                            if(page=='Server'){
+                            var serverPath = "../" + page + "/" + menuType + "/" + color;
+                            if (page == 'Server') {
                                 serverPath = "../" + page + "/" + menuType;
                             }
                             res.redirect(serverPath);
@@ -522,7 +543,7 @@ router.post('/clear-current', (req, res) => {
 
     const id = itemArray[0];
     const page = itemArray[1];
-    const color =  itemArray[2];
+    const color = itemArray[2];
 
 
     var menuType = "CoffeeMenu";
@@ -538,8 +559,8 @@ router.post('/clear-current', (req, res) => {
         menuType = "SeasonalMenu";
     }
     var serverPath = '../' + page + '/' + menuType;
-    if(page=='Customer'){
-    serverPath = '../' + page + '/' + menuType+'/'+color;
+    if (page == 'Customer') {
+        serverPath = '../' + page + '/' + menuType + '/' + color;
     }
 
     console.log(serverPath);
@@ -592,9 +613,9 @@ router.post('/deleteCartItem', (req, res) => {
         menuType = "SeasonalMenu";
     }
 
-    var serverPath = '../' + page + '/' + menuType ;
-    if(page == 'Customer'){
-        serverPath = '../' + page + '/' + menuType+ '/' + color ;
+    var serverPath = '../' + page + '/' + menuType;
+    if (page == 'Customer') {
+        serverPath = '../' + page + '/' + menuType + '/' + color;
     }
     console.log(serverPath);
 
@@ -657,7 +678,7 @@ router.get('/XReport', (req, res) => {
                     for (let i = 0; i < query_res.rowCount; i++) {
                         revenue = query_res.rows[i];
                     }
-                    if(revenue.sum == null){
+                    if (revenue.sum == null) {
                         revenue.sum = 0.00;
                     }
                     const data = { report_arr: report_arr, revenue: revenue, type: 'XReport' };
