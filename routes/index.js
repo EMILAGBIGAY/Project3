@@ -590,6 +590,9 @@ router.get('/XReport', (req, res) => {
                     for (let i = 0; i < query_res.rowCount; i++) {
                         revenue = query_res.rows[i];
                     }
+                    if(revenue.sum == null){
+                        revenue.sum = 0.00;
+                    }
                     const data = { report_arr: report_arr, revenue: revenue, type: 'XReport' };
                     console.log(data);
                     res.render('XReport', data);
