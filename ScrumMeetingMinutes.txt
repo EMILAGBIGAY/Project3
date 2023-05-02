@@ -1,0 +1,36 @@
+Meeting Date: 4/5/23
+Meeting Location: Zach
+Attendance: All members present
+Meeting minutes summary:
+Major work needed in terms of frontend display. Frontend can’t be ported from project 2 as project 2
+used java swing which is not an availiable frontend solution. To be able to make progress on the
+frontend without stalling out figuring out the framework and because most all frameworks are in
+some way compatible with with HTML, we will write an HTML based frontend with CSS sheets for
+aesthetics and worry about integration at a later stage. We are going to want more information on
+how the frontend and backend components will work together as all parts are being worked on
+seperatley (backend has super plain webpages, frontend has no functionality)
+
+
+
+Meeting Date: 4/10/23
+Meeting Location: Zach
+Attendance: All members present
+Meeting minutes summary:
+Now that we have chosen to commit to .ejs we can start to make significant progress when it comes
+to implementing our logic over from project 2. Most sides of the project are individually completed,
+and we need to combine progress into an MVP. There is room to make the frontend more
+aesthetically pleasing. As a group we are prepared to present for the team meeting on Friday with
+our slide presentation.The next steps are to finish the backend implementation to then show up on
+the frontend. Probably be best if we were to have more intuitive APIs to help with accessibility.
+
+
+
+Meeting Date: 4/17/23
+Meeting Location: Zach
+Attendance: All members present
+Meeting minutes summary:
+From this meeting we have most of the implementation of project 2 done. As a group we are figuring
+out how to effectively implement the backend into the frontend as we already have the logic and
+functionality created in JavaScript. We also discussed the new implementation part that we are
+gonna need such as the customer side and our more complex APIs. We now have an MVP for the end
+of sprint 2 now that we have visible functionality on our application.
