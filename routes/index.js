@@ -17,7 +17,7 @@
 
 /**
  * Order item as it is displayed in the Menu SQL table
- * @typedef {Object} MenuOrderItem
+ * @typedef {Object} MenuItem
  * @property {string} Item - name of the item
  * @property {string} category - Drink or food
  * @property {string} subcategory - Coffee, Tea, Breakfast, Bakery or Seasonal
@@ -28,13 +28,14 @@
 
 /**
  * Inventory Item as displayed in the inventory SQL table
- * @typedef {Object} inventoryItem
+ * @typedef {Object} InventoryItem
  * @property {string} itemName - name of the inventory item
  * @property {string} Quantity - quantity of the item
  */
 
 
 
+//initializing all the libraries
 const express = require('express')
 const { Pool } = require('pg');
 const dotenv = require('dotenv').config();
@@ -44,13 +45,11 @@ const moment = require('moment');
 const { auth, requiresAuth } = require('express-openid-connect');
 
 
-
 //using the API documentation for help
 // Create Express App
 const app = express();
 const router = express.Router();
 const port = 3000;
-
 
 
 /**
@@ -721,7 +720,7 @@ router.post('/sales-report', (req, res) => {
 
 /**
  * Excess report requirement from project 2 phase four. Looks at inventory changes since a date and displays a list of the inventory that sold less than ten percent.
- * @module ExcesssReportGetFunction
+ * @module ExcesssReportFunction
  * @function
  * @param {string} Date - reference date to find the inventory data from.
  * @returns {void} - renders the excess report in reports.ejs

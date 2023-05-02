@@ -44,6 +44,17 @@
  */
 
 /**
+ * Order item as it is displayed in the Menu SQL table
+ * @typedef {Object} MenuOrderItem
+ * @property {string} Item - name of the item
+ * @property {string} category - Drink or food
+ * @property {string} subcategory - Coffee, Tea, Breakfast, Bakery or Seasonal
+ * @property {Number} Tall -price of a tall drink
+ * @property {Number} Grande -price of a grande drink
+ * @property {Number} Venti -price of a grande drink
+ */
+
+/**
  * Inventory Item as displayed in the inventory SQL table
  * @typedef {Object} inventoryItem
  * @property {string} itemName - name of the inventory item
@@ -721,6 +732,14 @@ router.post('/deleteCartItem', (req, res) => {
 
 });
 
+
+/**
+ * WORK IN PROGRESS Sales report requirement from project 2 phase four, finds the sales between the provided dates in the sales SQL table.
+ * @module SalesReportGetFunction
+ * @function
+ * @param {string} Dates - two dates to find the sales from the sales SQL table between.
+ * @returns {void} - renders the sales report in reports.ejs
+ */
 router.post('/sales-report', (req, res) => {
     let start = req.body.start;
     let end = req.body.end;
@@ -728,13 +747,26 @@ router.post('/sales-report', (req, res) => {
     res.redirect('/sales-report');
 });
 
-
+/**
+ * Excess report requirement from project 2 phase four. Looks at inventory changes since a date and displays a list of the inventory that sold less than ten percent.
+ * @module ExcesssReportGetFunction
+ * @function
+ * @param {string} Date - reference date to find the inventory data from.
+ * @returns {void} - renders the excess report in reports.ejs
+ */
 router.post('/excess-report', (req, res) => {
     let start = req.body.start;
     let current = moment().format('YYYY-MM-DD');
 
 });
 
+
+/**
+ * WORK IN PROGRESS Restock report requirement from project 2 phase four. Looks at the current quantities of each item and lists if there is sufficient inventory.
+ * @module RestockReportGetFunction
+ * @function
+ * @returns {void} - renders the restock report in reports.ejs
+ */
 router.post('/restock-report', (req, res) => {
     let restock_arr = [];
     pool.query("select * from inventory where quantity &lt; restockquantity")
@@ -754,7 +786,12 @@ router.post('/restock-report', (req, res) => {
 });
 
 
-
+/**
+ * X report requirement from project 2 phase four. Displays the current X report SQL table with the sum of the item prices as revenue.
+ * @module XReportGetFunction
+ * @function
+ * @returns {void} - renders the X report report in reports.ejs
+ */
 router.get('/XReport', (req, res) => {
     let revenue = 0.0;
     let report_arr = [];
@@ -790,6 +827,13 @@ router.get('/XReport', (req, res) => {
 
 });
 
+
+/**
+ * Z report requirement from project 2 phase four. Displays the current X report SQL table with the sum of the item prices as revenue. After it gets the data from the xreport table, it clears it.
+ * @module ZReportGetFunction
+ * @function
+ * @returns {void} - renders the Xzreport report in reports.ejs
+ */
 router.get('/ZReport', (req, res) => {
     let revenue = 0.0;
     let report_arr = [];
@@ -838,6 +882,17 @@ router.post('/add-inventory-item', (req, res) => {
     const quantity = req.body.quantity;
     pool.query("insert into inventory (item, quantity) values ($1, $2)", [item, quantity])
 */
+
+/**
+ * Adds a seasonal item to the seasonal menu. The item can then be ordered on the customer or server page.
+ * @module AddSeasonalItemFunction
+ * @function
+ * @param {string} Name - name of the seasonal item
+ * @param {Number} Tall - price of the tall drink
+ * @param {Number} Grande - price of the grande drink
+ * @param {Number} Venti- price of the Venti drink
+ * @returns {void} - redirects to manager page
+ */
 router.post('/add-menu-item', (req, res) => {
 
     const item = req.body.SeasonName;
@@ -856,11 +911,18 @@ router.post('/add-menu-item', (req, res) => {
         });
 });
 
+/**
+ * renders the finder page with the maps API. The actual maps API is located in the finder.ejs file
+ * @module LocationGetFunction
+ * @function
+ * @returns {void} - renders the finder page
+ */
 router.get('/finder', function (req, res) {
     res.render('finder');
 });
 
 
+//uses / as the home page
 app.use('/', router);
 
 app.listen(port, () => {
@@ -876,13 +938,13 @@ app.listen(port, () => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#CustomerGetFunction">CustomerGetFunction</a></li><li><a href="global.html#DeleteFromCartFunction">DeleteFromCartFunction</a></li><li><a href="global.html#HomeGetFunction">HomeGetFunction</a></li><li><a href="global.html#ManagerGetFunction">ManagerGetFunction</a></li><li><a href="global.html#OrderItemFunction">OrderItemFunction</a></li><li><a href="global.html#ProcessOrderFunction">ProcessOrderFunction</a></li><li><a href="global.html#RequireManagerFunction">RequireManagerFunction</a></li><li><a href="global.html#RequireServerFunction">RequireServerFunction</a></li><li><a href="global.html#ServerGetFunction">ServerGetFunction</a></li><li><a href="global.html#UpdateInventoryFunction">UpdateInventoryFunction</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AddSeasonalItemFunction">AddSeasonalItemFunction</a></li><li><a href="global.html#CustomerGetFunction">CustomerGetFunction</a></li><li><a href="global.html#DeleteFromCartFunction">DeleteFromCartFunction</a></li><li><a href="global.html#ExcesssReportGetFunction">ExcesssReportGetFunction</a></li><li><a href="global.html#HomeGetFunction">HomeGetFunction</a></li><li><a href="global.html#LocationGetFunction">LocationGetFunction</a></li><li><a href="global.html#ManagerGetFunction">ManagerGetFunction</a></li><li><a href="global.html#OrderItemFunction">OrderItemFunction</a></li><li><a href="global.html#ProcessOrderFunction">ProcessOrderFunction</a></li><li><a href="global.html#RequireManagerFunction">RequireManagerFunction</a></li><li><a href="global.html#RequireServerFunction">RequireServerFunction</a></li><li><a href="global.html#RestockReportGetFunction">RestockReportGetFunction</a></li><li><a href="global.html#SalesReportGetFunction">SalesReportGetFunction</a></li><li><a href="global.html#ServerGetFunction">ServerGetFunction</a></li><li><a href="global.html#UpdateInventoryFunction">UpdateInventoryFunction</a></li><li><a href="global.html#XReportGetFunction">XReportGetFunction</a></li><li><a href="global.html#ZReportGetFunction">ZReportGetFunction</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue May 02 2023 15:21:29 GMT-0500 (Central Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue May 02 2023 16:20:08 GMT-0500 (Central Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>
