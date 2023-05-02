@@ -7,18 +7,223 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <title>Customer</title>
   <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/5977/5977591.png">
-  <style>
+ 
 
+  
+<!-- none/protanopia  -->
+<%if(color == 'none' || color == 'protanopia'){%>
+<style>
     .btn{
       background-color:#006241;
-
     }
 
     .navbar{
       background-color:#006241;
     }
+    
+  label.orderOptions {
+  height: 100%;
+  display:inline-block;
+  background: white;
+  border: 2px solid #006241;
+  border-radius: 20px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  width: 80%;
+}
 
-    .sticky {
+label.orderCusomizations {
+  height: 100%;
+  background: white;
+  border: 2px solid #006241;
+  border-radius: 20px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+ width: 20%;
+  position: relative;
+}
+input[type="radio"]:checked + label {
+  background: #006241;
+  color: hsla(215, 0%, 100%, 1);
+  box-shadow: 0px 0px 20px #006241;
+}
+
+input[type="checkbox"]:checked + label {
+  background: #006241;
+  color: hsla(215, 0%, 100%, 1);
+  box-shadow: 0px 0px 20px #006241;
+}
+</style>
+<%}else if(color=='deuteranopia'){%>
+
+<!-- deuteranopia -->
+<style>
+  .btn{
+    background-color:#ff0000;
+  }
+
+  .navbar{
+    background-color:#ff0000;
+  }
+  
+label.orderOptions {
+height: 100%;
+display:inline-block;
+background: white;
+border: 2px solid #ff0000;
+border-radius: 20px;
+padding: 1rem;
+margin-bottom: 1rem;
+text-align: center;
+width: 80%;
+}
+
+label.orderCusomizations {
+height: 100%;
+background: white;
+border: 2px solid #ff0000;
+border-radius: 20px;
+padding: 1rem;
+margin-bottom: 1rem;
+text-align: center;
+width: 20%;
+position: relative;
+}
+input[type="radio"]:checked + label {
+background: #ff0000;
+color: hsla(215, 0%, 100%, 1);
+box-shadow: 0px 0px 20px #ff0000;
+}
+
+input[type="checkbox"]:checked + label {
+background: #ff0000;
+color: hsla(215, 0%, 100%, 1);
+box-shadow: 0px 0px 20px #ff0000;
+}
+</style>
+<%}else if(color=='tritanopia'){%>
+<!-- tritanopia -->
+<style>
+  .btn{
+    background-color:#009999;
+  }
+
+  .navbar{
+    background-color:#009999;
+  }
+  
+label.orderOptions {
+height: 100%;
+display:inline-block;
+background: white;
+border: 2px solid #009999;
+border-radius: 20px;
+padding: 1rem;
+margin-bottom: 1rem;
+text-align: center;
+width: 80%;
+}
+
+label.orderCusomizations {
+height: 100%;
+background: white;
+border: 2px solid #009999;
+border-radius: 20px;
+padding: 1rem;
+margin-bottom: 1rem;
+text-align: center;
+width: 20%;
+position: relative;
+}
+input[type="radio"]:checked + label {
+background: #009999;
+color: hsla(215, 0%, 100%, 1);
+box-shadow: 0px 0px 20px #009999;
+}
+
+input[type="checkbox"]:checked + label {
+background: #009999;
+color: hsla(215, 0%, 100%, 1);
+box-shadow: 0px 0px 20px #009999;
+}
+</style>
+<%}else{%>
+<!-- greyscale -->
+<style>
+  .btn{
+    background-color:#808080;
+  }
+
+  .navbar{
+    background-color:#808080;
+  }
+  
+label.orderOptions {
+height: 100%;
+display:inline-block;
+background: white;
+border: 2px solid #808080;
+border-radius: 20px;
+padding: 1rem;
+margin-bottom: 1rem;
+text-align: center;
+width: 80%;
+}
+
+label.orderCusomizations {
+height: 100%;
+background: white;
+border: 2px solid #808080;
+border-radius: 20px;
+padding: 1rem;
+margin-bottom: 1rem;
+text-align: center;
+width: 20%;
+position: relative;
+}
+input[type="radio"]:checked + label {
+background: #808080;
+color: rgb(0, 0, 0);
+box-shadow: 0px 0px 20px #808080;
+}
+
+input[type="checkbox"]:checked + label {
+background: #808080;
+color: hsla(215, 0%, 100%, 1);
+box-shadow: 0px 0px 20px #808080;
+}
+</style>
+<%}%>
+
+
+
+
+  <style>
+/*
+radio button styling
+*/
+/*
+Removes the "radio button circle"
+*/
+  input[type="radio"] {
+  display: none;
+
+  &:not(:disabled) ~ label {
+    cursor: pointer;
+  }
+}
+
+input[type="checkbox"]{
+  display: none;
+  &:not(:disabled) ~ label {
+    cursor: pointer;
+  }
+}
+
+
+.sticky {
       position: sticky;
       top: 0;
       z-index: 100;
@@ -52,7 +257,7 @@
 a.currentPage, a.currentPage:hover, a.currentPage:visited{
   color: black;
   text-decoration: underline;
-  text-decoration-color: #006241;
+  text-decoration-color: #000000;
   text-decoration-thickness: 3px;
 
 }
@@ -79,143 +284,68 @@ a.currentPage, a.currentPage:hover, a.currentPage:visited{
     .table-wrapper-scroll-y {
       display: block;
     }
-/*
-radio button styling
-*/
-/*
-Removes the "radio button circle"
-*/
-  input[type="radio"] {
-  display: none;
-
-  &:not(:disabled) ~ label {
-    cursor: pointer;
-  }
-}
 
 
-input[type="checkbox"]{
-  display: none;
-  &:not(:disabled) ~ label {
-    cursor: pointer;
-  }
-}
-label.orderOptions {
-  height: 100%;
-  display:inline-block;
-  background: white;
-  border: 2px solid #006241;
-  border-radius: 20px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  text-align: center;
-  width: 80%;
-}
-label.orderCusomizations {
-  height: 100%;
-  background: white;
-  border: 2px solid #006241;
-  border-radius: 20px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  text-align: center;
- width: 20%;
-  position: relative;
-}
 
-input[type="radio"]:checked + label {
-  background: #006241;
-  color: hsla(215, 0%, 100%, 1);
-  box-shadow: 0px 0px 20px #006241;
-}
-
-input[type="checkbox"]:checked + label {
-  background: #006241;
-  color: hsla(215, 0%, 100%, 1);
-  box-shadow: 0px 0px 20px #006241;
-}
-
-
-.protanopia {
-  /* Change red colors to shades of green */
-  color: #00ff00;
-  background-color: #00ff00;
-  border-color: #00ff00;
-}
-
-.protanopia a {
-  /* Change red links to shades of green */
-  color: #00ff00;
-  border-bottom-color: #00ff00;
-}
-
-.protanopia img {
+img.protanopia  {
   /* Change red images to shades of green */
-  filter: grayscale(100%) contrast(80%) brightness(120%) hue-rotate(-30deg) saturate(1.5) invert(1);
+  filter: 
+    /* Remove red */
+    grayscale(.6) 
+    /* Enhance green */
+    sepia(.1) 
+    brightness(1.2) 
+    contrast(1.2) 
+    saturate(1.4) 
+    hue-rotate(90deg);
 }
 
-.deuteranopia {
-  /* Change green colors to shades of red */
-  color: #ff0000;
-  background-color: #ff0000;
+img.deuteranopia  {
+  filter:
+    /* Remove green */
+    grayscale(.6)
+    brightness(.7)
+    contrast(1.5)
+    sepia(.1)
+    hue-rotate(45deg);
 }
 
-.deuteranopia a {
-  /* Change green links to shades of red */
-  color: #ff0000;
-  border-bottom-color: #ff0000;
+ img.tritanopia {
+  filter: 
+    /* Remove blue */
+    grayscale(.6) 
+    /* Enhance yellow */
+    sepia(.1) 
+    brightness(1.2) 
+    contrast(1.2) 
+    saturate(1.4) 
+    hue-rotate(240deg);
 }
 
-.deuteranopia img {
-  /*Change green images to shades of red */
-  filter: grayscale(100%) contrast(80%) brightness(120%) hue-rotate(150deg) saturate(1.5) invert(1);
-}
 
-.tritanopia {
-  /* Change blue colors to shades of yellow */
-  color: #ffff00;
-  background-color: #ffff00;
-}
 
-.tritanopia a {
-  /* Change blue links to shades of yellow */
-  color: #ffff00;
-  border-bottom-color: #ffff00;
-}
-
-.tritanopia img {
-  /* Change blue images to shades of yellow */
-  filter: grayscale(100%) contrast(80%) brightness(120%) hue-rotate(60deg) saturate(1.5) invert(1);
-}
-
-.greyscale {
-  /* Change all colors to shades of grey */
-  color: #808080;
-  background-color: #808080;
-}
-
-.greyscale a {
-  /* Change all links to shades of grey */
-  color: #808080;
-  border-bottom-color: #808080;
-}
-
-.greyscale img {
+img.greyscale  {
   /* Change all images to shades of grey */
   filter: grayscale(100%)
+}
+
+img.none {
+ 
 }
 
   </style>
 
 </head>
-<body>
+<body  >
+
+
 
 <!--Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark sticky">
+<nav class="navbar   navbar-expand-lg navbar-dark sticky">
   <a class="navbar-brand" href="/">
-    <img src ="https://cdn-icons-png.flaticon.com/512/5977/5977591.png" height = 50px alt ="Your logo"/>
+    <img class="<%=color%>" src ="https://cdn-icons-png.flaticon.com/512/5977/5977591.png" height = 50px alt ="Your logo"/>
   </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
@@ -241,19 +371,20 @@ input[type="checkbox"]:checked + label {
   </div>
 </nav>
 <div class="menuNav">
-  <a   <% if(serverMenu[0].subcategory =='Coffee'){ %>class="menuNavItem currentPage" <% }else{ %>class="menuNavItem page" <% } %> href="/Customer/CoffeeMenu">Coffee</a>
+  <a   <% if(serverMenu[0].subcategory =='Coffee'){ %>class="menuNavItem currentPage" <% }else{ %>class="menuNavItem page" <% } %> href="/Customer/CoffeeMenu/<%=color%>">Coffee</a>
 
-  <a  <% if(serverMenu[0].subcategory =='Tea'){ %>class="menuNavItem currentPage" <% }else{ %>class="menuNavItem page" <% } %>  href="/Customer/TeaMenu">Tea</a>
+  <a  <% if(serverMenu[0].subcategory =='Tea'){ %>class="menuNavItem currentPage" <% }else{ %>class="menuNavItem page" <% } %>  href="/Customer/TeaMenu/<%=color%>">Tea</a>
 
-  <a  <% if(serverMenu[0].subcategory =='Breakfast'){ %>class="menuNavItem currentPage" <% }else{ %>class="menuNavItem page" <% } %>  href="/Customer/BreakfastMenu">Breakfast</a>
+  <a  <% if(serverMenu[0].subcategory =='Breakfast'){ %>class="menuNavItem currentPage" <% }else{ %>class="menuNavItem page" <% } %>  href="/Customer/BreakfastMenu/<%=color%>">Breakfast</a>
 
-  <a   <% if(serverMenu[0].subcategory =='Bakery'){ %>class="menuNavItem currentPage" <% }else{ %>class="menuNavItem page" <% } %>  href="/Customer/BakeryMenu">Bakery</a>
+  <a   <% if(serverMenu[0].subcategory =='Bakery'){ %>class="menuNavItem currentPage" <% }else{ %>class="menuNavItem page" <% } %>  href="/Customer/BakeryMenu/<%=color%>">Bakery</a>
 
-  <a  <% if(serverMenu[0].subcategory =='seasonal'){ %>class="menuNavItem currentPage" <% }else{ %>class="menuNavItem page" <% } %>  href="/Customer/SeasonalMenu">Seasonal</a>
+  <a  <% if(serverMenu[0].subcategory =='seasonal'){ %>class="menuNavItem currentPage" <% }else{ %>class="menuNavItem page" <% } %>  href="/Customer/SeasonalMenu/<%=color%>">Seasonal</a>
 
     </div>
 <!--Inventory -->
 <div class="container-md">
+  
   <div class="row">
     <!-- column 1-->
 
@@ -264,19 +395,19 @@ input[type="checkbox"]:checked + label {
         <div>
 
           <% if(serverMenu[0].subcategory!='seasonal') { %>
-          <img class="icon" src="<%= ('../'+serverMenu[0].item+'.jpg').replace( /\s/g, '')%>">
+          <img class="icon <%=color%>" src="<%= ('../../'+serverMenu[0].item+'.jpg').replace( /\s/g, '')%>">
           <%}%>
-        <input  type = "radio"  id="<%= serverMenu[0].item%>" value="<%= serverMenu[0].item%>:<%= serverMenu[0].category%>:<%= serverMenu[0].subcategory%>:<%= serverMenu[0].tall%>:<%= serverMenu[0].grande%>:<%= serverMenu[0].venti%>:Customer" name= "drinkOrder" checked></input>
+        <input  type = "radio"  id="<%= serverMenu[0].item%>" value="<%= serverMenu[0].item%>:<%= serverMenu[0].category%>:<%= serverMenu[0].subcategory%>:<%= serverMenu[0].tall%>:<%= serverMenu[0].grande%>:<%= serverMenu[0].venti%>:Customer:<%=color%>" name= "drinkOrder" checked></input>
 
-        <label  class="orderOptions" for="<%= serverMenu[0].item%>"><%= serverMenu[0].item%></label>
+        <label  class="orderOptions  " for="<%= serverMenu[0].item%>"><%= serverMenu[0].item%></label>
         </div>
       <% for (var i = 1; i < serverMenu.length; i++) { %>
         <div>
           <% if(serverMenu[0].subcategory!='seasonal') { %>
-            <img class="icon" src="<%= ('../'+serverMenu[i].item+'.jpg').replace( /\s/g, '')%>">
+            <img class="icon <%=color%>" src="<%= ('../../'+serverMenu[i].item+'.jpg').replace( /\s/g, '')%>">
             <%}%>
-            <input  type = "radio"  id="<%= serverMenu[i].item%>" value="<%= serverMenu[i].item%>:<%= serverMenu[i].category%>:<%= serverMenu[i].subcategory%>:<%= serverMenu[i].tall%>:<%= serverMenu[i].grande%>:<%= serverMenu[i].venti%>:Customer" name= "drinkOrder"></input>
-            <label class="orderOptions" for="<%= serverMenu[i].item%>"><%= serverMenu[i].item%></label>
+            <input  type = "radio"  id="<%= serverMenu[i].item%>" value="<%= serverMenu[i].item%>:<%= serverMenu[i].category%>:<%= serverMenu[i].subcategory%>:<%= serverMenu[i].tall%>:<%= serverMenu[i].grande%>:<%= serverMenu[i].venti%>:Customer:<%=color%>" name= "drinkOrder"></input>
+            <label class="orderOptions  " for="<%= serverMenu[i].item%>"><%= serverMenu[i].item%></label>
            </div>
       <% } %>
 
@@ -286,28 +417,28 @@ input[type="checkbox"]:checked + label {
          <h3>Size</h3>
 
       <input type = "radio" id="tall" name= "drinkSize" value="tall"></input>
-      <label class="orderCusomizations" for="tall">Tall </label>
+      <label class="orderCusomizations  " for="tall">Tall </label>
 
       <input type = "radio" id="grande"name= "drinkSize"  value="grande" checked></input>
-      <label class="orderCusomizations" for="grande">Grande</label>
+      <label class="orderCusomizations  " for="grande">Grande</label>
 
       <input type = "radio"  id="venti" name= "drinkSize" value="venti"></input>
-      <label class="orderCusomizations" for="venti">Venti</label>
+      <label class="orderCusomizations  " for="venti">Venti</label>
 
 
       <h3>Customizations</h3>
       <input type = "checkbox" id="shot" name= "shot" ></input>
-      <label class="orderCusomizations" for="shot">Espresso Shot</label>
+      <label class="orderCusomizations  " for="shot">Espresso Shot</label>
       <input type = "checkbox" id="iced" name= "iced" ></input>
-      <label class="orderCusomizations" for="iced">Iced </label>
+      <label class="orderCusomizations  " for="iced">Iced </label>
       <input type = "checkbox" id="syrup" name= "syrup" ></input>
-      <label class="orderCusomizations" for="syrup">Syrup Pump </label>
+      <label class="orderCusomizations  " for="syrup">Syrup Pump </label>
       <input type = "checkbox" id="nondairy" name= "nondairy" ></input>
-      <label class="orderCusomizations" for="nondairy">nondairy </label>
+      <label class="orderCusomizations  " for="nondairy">nondairy </label>
 
      <%} %>
        <br>
-       <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Add to Cart</button>
+       <button class="btn   btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Add to Cart</button>
       </form>
 
 
@@ -336,9 +467,9 @@ input[type="checkbox"]:checked + label {
                 <td>$<%= currentOrder[i].price%></td>
                 <td>
                    <form action="/deleteCartItem"method="post" >
-                    <input type="hidden" name="deleteWhat" value="<%= serverMenu[0].subcategory%>:Customer:<%=i%>"></input>
+                    <input type="hidden" name="deleteWhat" value="<%= serverMenu[0].subcategory%>:Customer:<%=i%>:<%=color%>"></input>
 
-                    <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn   btn-success" type="submit" aria-haspopup="true" aria-expanded="false">
                       delete
                     </button>
                </form>
@@ -384,18 +515,35 @@ input[type="checkbox"]:checked + label {
           </tbody>
         </table>
 
-        <input type = "radio" id="Card"name= "payment"  value="<%= serverMenu[0].subcategory%>:Customer" checked></input>
-      <label class="orderCusomizations" for="Card">Card</label>
+        <input type = "radio" id="Card"name= "payment"  value="<%= serverMenu[0].subcategory%>:Customer:<%=color%>" checked></input>
+      <label class="orderCusomizations  " for="Card">Card</label>
 
-      <input type = "radio"  id="Paypal" name= "payment" value="<%= serverMenu[0].subcategory%>:Customer"></input>
-      <label class="orderCusomizations" for="Paypal">Paypal</label>
+      <input type = "radio"  id="Paypal" name= "payment" value="<%= serverMenu[0].subcategory%>:Customer:<%=color%>"></input>
+      <label class="orderCusomizations  " for="Paypal">Paypal</label>
       <br>
-      <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Process Order</button>
+      <button class="btn   btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Process Order</button>
       </form>
+      <br>
+      
 
-
-    </div>
-
+      <div class="dropdown">
+        <button class="btn    btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Choose Filter
+        </button>
+        <div class="dropdown-menu" aria-labelledby="Colorblind filters">
+          <a class="dropdown-item" href="/Customer/<%=id%>/none">none</a>
+          <a class="dropdown-item" href="/Customer/<%=id%>/tritanopia">tritanopia</a>
+            <a class="dropdown-item" href="/Customer/<%=id%>/greyscale">greyscale</a>
+          <a class="dropdown-item" href="/Customer/<%=id%>/deuteranopia">deuteranopia</a>
+          <a class="dropdown-item" href="/Customer/<%=id%>/protanopia">protanopia</a>
+          
+        
+          
+        
+        </div>
+      </div>
+      </div>
+   
 
     <!-- column 2-->
 

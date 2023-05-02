@@ -144,7 +144,7 @@ input[type="checkbox"]:checked + label {
         <a class="nav-link">Server</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/Customer/CoffeeMenu">Customer</a>
+        <a class="nav-link" href="/Customer/CoffeeMenu/none">Customer</a>
       </li>
       <li>
         <a class="nav-link" href="/finder">Locations</a>
@@ -189,7 +189,7 @@ input[type="checkbox"]:checked + label {
                 <td>$<%= currentOrder[i].price%></td>
                 <td>
                    <form action="/deleteCartItem"method="post" >
-                    <input type="hidden" name="deleteWhat" value="<%= serverMenu[0].subcategory%>:Server:<%=i%>"></input>
+                    <input type="hidden" name="deleteWhat" value="<%= serverMenu[0].subcategory%>:Server:<%=i%>:none"></input>
 
                     <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">
                       delete
@@ -236,10 +236,10 @@ input[type="checkbox"]:checked + label {
       <% if(serverMenu[0].category !='Food'){ %>
            <form action="/clear-current"  method ="post">
     
-        <input type = "radio" id="Card"name= "payment"  value="<%= serverMenu[0].subcategory%>:Server" checked></input>
+        <input type = "radio" id="Card"name= "payment"  value="<%= serverMenu[0].subcategory%>:Server:none" checked></input>
       <label for="Card">Card</label>
       
-      <input type = "radio"  id="Paypal" name= "payment" value="<%= serverMenu[0].subcategory%>:Server"></input>
+      <input type = "radio"  id="Paypal" name= "payment" value="<%= serverMenu[0].subcategory%>:Server:none"></input>
       <label for="Paypal">Cash</label>
       <br>
       <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Process Order</button> 
@@ -255,10 +255,10 @@ input[type="checkbox"]:checked + label {
         <td class = "Radio">
         
       <form action="/orderItem" method="post">
-        <input class = "radioBtn" type = "radio" id="<%= serverMenu[0].item%>" value="<%= serverMenu[0].item%>:<%= serverMenu[0].category%>:<%= serverMenu[0].subcategory%>:<%= serverMenu[0].tall%>:<%= serverMenu[0].grande%>:<%= serverMenu[0].venti%>:Server" name= "drinkOrder" checked></input>
+        <input class = "radioBtn" type = "radio" id="<%= serverMenu[0].item%>" value="<%= serverMenu[0].item%>:<%= serverMenu[0].category%>:<%= serverMenu[0].subcategory%>:<%= serverMenu[0].tall%>:<%= serverMenu[0].grande%>:<%= serverMenu[0].venti%>:Server:none" name= "drinkOrder" checked></input>
         <label for="<%= serverMenu[0].item%>"><%= serverMenu[0].item%></label>
       <% for (var i = 1; i < serverMenu.length; i++) { %>
-            <input class = "radioBtn" type = "radio" id="<%= serverMenu[i].item%>" value="<%= serverMenu[i].item%>:<%= serverMenu[i].category%>:<%= serverMenu[i].subcategory%>:<%= serverMenu[i].tall%>:<%= serverMenu[i].grande%>:<%= serverMenu[i].venti%>:Server" name= "drinkOrder"></input>
+            <input class = "radioBtn" type = "radio" id="<%= serverMenu[i].item%>" value="<%= serverMenu[i].item%>:<%= serverMenu[i].category%>:<%= serverMenu[i].subcategory%>:<%= serverMenu[i].tall%>:<%= serverMenu[i].grande%>:<%= serverMenu[i].venti%>:Server:none" name= "drinkOrder"></input>
             <label for="<%= serverMenu[i].item%>"><%= serverMenu[i].item%></label>
            
       <% } %>
@@ -294,10 +294,10 @@ input[type="checkbox"]:checked + label {
         <form action="/clear-current"  method ="post">
      <br>
      <h3>Check Out</h3>
-     <input type = "radio" id="Card"name= "payment"  value="<%= serverMenu[0].subcategory%>:Server" checked></input>
+     <input type = "radio" id="Card"name= "payment"  value="<%= serverMenu[0].subcategory%>:Server:none" checked></input>
    <label for="Card">Card</label>
    
-   <input type = "radio"  id="Paypal" name= "payment" value="<%= serverMenu[0].subcategory%>:Server"></input>
+   <input type = "radio"  id="Paypal" name= "payment" value="<%= serverMenu[0].subcategory%>:Server:none"></input>
    <label for="Paypal">Cash</label>
    <br>
    <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Process Order</button> 

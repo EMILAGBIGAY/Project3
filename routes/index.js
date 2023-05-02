@@ -170,8 +170,11 @@ router.get('/Server/:id', (req, res) => {
         });
 });
 
-router.get('/Customer/:id', (req, res) => {
-
+router.get('/Customer/:id/:color', (req, res) => {
+    var filter = req.params.color;
+    if(filter==null){
+        filter ="none";
+    }
     const id = req.params.id;
     let serverMenu = [];
     let currentOrder = [];
@@ -220,7 +223,8 @@ router.get('/Customer/:id', (req, res) => {
                                 id: id,
                                 revenue: revenue.sum,
                                 tax: tax,
-                                grandTotal: grandTotal
+                                grandTotal: grandTotal,
+                                color: filter
                             };
                             console.log(data);
                             res.render('Customer', data);
@@ -293,6 +297,7 @@ router.post('/orderItem', (req, res) => {
     const grande = itemArray[4];
     const venti = itemArray[5];
     const page = itemArray[6];
+    const color = itemArray[7];
 
     var price = Number(0.00);
     const size = req.body.drinkSize;
@@ -448,7 +453,10 @@ router.post('/orderItem', (req, res) => {
                         .then(() => {
                             console.log("order added to x report");
                             console.log(itemArray);
-                            const serverPath = "../" + page + "/" + menuType;
+                            var serverPath = "../" + page + "/" + menuType+"/"+ color;
+                            if(page=='Server'){
+                                serverPath = "../" + page + "/" + menuType;
+                            }
                             res.redirect(serverPath);
 
                         })
@@ -489,12 +497,16 @@ router.post('/orderItem', (req, res) => {
 
 //add to sales and clear current order
 router.post('/clear-current', (req, res) => {
-    //add current order to sales
+    //add current order to sales    COLORBLIND SUFFICIENT
+
     const bodyData = req.body.payment;
     const itemArray = bodyData.split(':');
 
     const id = itemArray[0];
     const page = itemArray[1];
+    const color =  itemArray[2];
+
+
     var menuType = "CoffeeMenu";
     if (id == "Tea") {
         menuType = "TeaMenu";
@@ -507,8 +519,11 @@ router.post('/clear-current', (req, res) => {
     } else if (id == "seasonal") {
         menuType = "SeasonalMenu";
     }
-
-    const serverPath = '../' + page + '/' + menuType;
+    var serverPath = '../' + page + '/' + menuType;
+    if(page=='Customer'){
+    serverPath = '../' + page + '/' + menuType+'/'+color;
+    }
+   
     console.log(serverPath);
 
     pool.query("insert into sales select * from current_order")
@@ -534,7 +549,7 @@ router.post('/clear-current', (req, res) => {
 });
 
 router.post('/deleteCartItem', (req, res) => {
-    //add current order to sales
+    //add current order to sales  COLOR BLIND SUFFICIENT
     const bodyData = req.body.deleteWhat;
     const itemArray = bodyData.split(':');
 
@@ -543,6 +558,7 @@ router.post('/deleteCartItem', (req, res) => {
     const page = itemArray[1];
     var item = 0;
     item = itemArray[2];
+    const color = itemArray[3];
 
 
     var menuType = "CoffeeMenu";
@@ -558,7 +574,10 @@ router.post('/deleteCartItem', (req, res) => {
         menuType = "SeasonalMenu";
     }
 
-    const serverPath = '../' + page + '/' + menuType;
+    var serverPath = '../' + page + '/' + menuType ;
+    if(page == 'Customer'){
+        serverPath = '../' + page + '/' + menuType+ '/' + color ;
+    }
     console.log(serverPath);
 
     pool.query("DELETE FROM current_order WHERE date IN (SELECT date FROM current_order ORDER BY date OFFSET $1 LIMIT 1)", [item])
@@ -573,6 +592,8 @@ router.post('/deleteCartItem', (req, res) => {
 
 
 });
+
+
 
 
 
