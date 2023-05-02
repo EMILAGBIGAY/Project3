@@ -1,41 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <script src="/assets/filters.js"></script>
-  <title>Customer Home</title>
-  <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/5977/5977591.png">
-  <style>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<title>Customer Home</title>
+<link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/5977/5977591.png">
+<style>
+  .btn {
+    background-color: #5C4033;
 
-    .btn{
-      background-color:#5C4033;
+  }
 
-    }
+  .btnbg {
+    background-color: red;
+  }
 
-    .btnbg{
-        background-color: red;
-    }
+  .navbar {
+    background-color: #006241;
+  }
 
-    .navbar{
-      background-color:#006241;
-    }
+  .sticky {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
 
-    .sticky {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+  img.icon {
+    border-radius: 50%;
+    width: 75px;
+    height: 75px;
+  }
 
-      img.icon {
-  border-radius: 50%;
-  width: 75px;
-  height: 75px;
-}
-
-.menuNav {
+  .menuNav {
     color: black;
 
     font-size: 1.5em;
@@ -43,177 +41,204 @@
     margin-bottom: 1em;
 
 
-    font-weight:500;
-    }
-    .menuNavItem{
-      margin-left: 1em;
+    font-weight: 500;
+  }
 
-    }
-  a.page, a.page:hover, a.page:visited{
-  color: black;
-  text-decoration: none;
+  .menuNavItem {
+    margin-left: 1em;
 
-}
-a.currentPage, a.currentPage:hover, a.currentPage:visited{
-  color: black;
-  text-decoration: underline;
-  text-decoration-color: #006241;
-  text-decoration-thickness: 3px;
+  }
 
-}
+  a.page,
+  a.page:hover,
+  a.page:visited {
+    color: black;
+    text-decoration: none;
 
-    .row {
-      border-top: 1px solid #ccc;
-      border-bottom: 1px solid #ccc;
-      border-left: 1px solid #ccc;
-      border-right: 1px solid #ccc;
-      /* padding-top: 10px;
+  }
+
+  a.currentPage,
+  a.currentPage:hover,
+  a.currentPage:visited {
+    color: black;
+    text-decoration: underline;
+    text-decoration-color: #006241;
+    text-decoration-thickness: 3px;
+
+  }
+
+  .row {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    /* padding-top: 10px;
       padding-bottom: 10px;
       padding-left: 10px; */
 
-      margin-top: 10px;
-      margin-bottom: 10px;
-      margin-left: 10px;
-      margin-right: 10px;
-    }
-    .my-custom-scrollbar {
-      position: relative;
-      height: 400px;
-      overflow: auto;
-    }
-    .table-wrapper-scroll-y {
-      display: block;
-    }
-/*
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .my-custom-scrollbar {
+    position: relative;
+    height: 400px;
+    overflow: auto;
+  }
+
+  .table-wrapper-scroll-y {
+    display: block;
+  }
+
+  /*
 radio button styling
 */
-/*
+  /*
 Removes the "radio button circle"
 */
-.center {
-  margin: auto;
-  width: 50%;
-  display: inline-block;
-  vertical-align: middle;
-}
+  .center {
+    margin: auto;
+    width: 50%;
+    display: inline-block;
+    vertical-align: middle;
+  }
 
-.col{
-    background-color:#d3b683;
-}
+  .col {
+    background-color: #d3b683;
+  }
 
-.col-6{
+  .col-6 {
     background-color: #006241;
-}
+  }
 
-label {
-  height: 100%;
-  display:inline-block;
-  background: white;
-  border: 2px solid #006241;
-  border-radius: 20px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  text-align: center;
-  width: 80%;
+  label {
+    height: 100%;
+    display: inline-block;
+    background: white;
+    border: 2px solid #006241;
+    border-radius: 20px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    width: 80%;
 
-}
+  }
 
-input[type="radio"]:checked + label {
-  background: #006241;
-  color: hsla(215, 0%, 100%, 1);
-  box-shadow: 0px 0px 20px #006241;
-}
-input[type="checkbox"]:checked + label {
-  background: #006241;
-  color: hsla(215, 0%, 100%, 1);
-  box-shadow: 0px 0px 20px #006241;
-}
-  </style>
+  input[type="radio"]:checked+label {
+    background: #006241;
+    color: hsla(215, 0%, 100%, 1);
+    box-shadow: 0px 0px 20px #006241;
+  }
+
+  input[type="checkbox"]:checked+label {
+    background: #006241;
+    color: hsla(215, 0%, 100%, 1);
+    box-shadow: 0px 0px 20px #006241;
+  }
+
+</style>
 
 </head>
+
 <body>
 
-<!--Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark sticky">
+  <!--Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark sticky">
     <a class="navbar-brand" href="/">
-        <img src ="https://cdn-icons-png.flaticon.com/512/5977/5977591.png" height = 50px alt ="Your logo"/>
+      <img src="https://cdn-icons-png.flaticon.com/512/5977/5977591.png" height=50px alt="Your logo" />
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
     </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-            <li class="nav-item ">
-                <a class="nav-link" href="/">Home</a>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="/Customer/CoffeeMenu">Menu</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/finder">Locations</a>
-            </li>
-            </ul>
-        </div>
-    </nav>
-
-    <div class="container-lg">
-        <div class="row rounded">
-            <div class="col">
-                <img src="https://weproudlyservestarbucks.com/gb/sites/default/files/styles/profiler_question_small/public/2021-08/Profiler-WPSS-Cup-illustration.png?itok=93w60noC" width="80%"/>
-            </div>
-            <div class="col d-flex align-items-center justify-content-center">
-                <div class="text-center">
-                    <h3 style="font-size: 40px;">wowowowwowo</h3>
-                    <p style="font-size: 25px;">fnaskldjfgalskjdfb</p>
-                    <p style="font-size: 25px;">Please order it!!!!awrliughawroiugaw</p>
-                    <button class="btn align-middle text-light" type="submit" aria-haspopup="true" aria-expanded="false">
-                        <a class="nav-link text-light" href="/Customer/CoffeeMenu">Order now!</a>
-                    </button>
-                </div>
-            </div>
-        </div>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item ">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="/Customer/CoffeeMenu">Menu</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/finder">Locations</a>
+        </li>
+      </ul>
     </div>
+  </nav>
 
-    <div class="container-lg">
-        <div class="row rounded">
-            <div class="col-6 d-flex align-items-center justify-content-center">
-                <div class="text-center text-light">
-                    <h3 style="font-size: 40px; ">Try out our Seasonal Menu!</h3>
-                    <p style="font-size: 25px;">Look at how amazing this drink is!!!</p>
-                    <p style="font-size: 25px;">Its GGGREATT</p>
-                    <button class="btn align-middle text-light btnbg" type="submit" aria-haspopup="true" aria-expanded="false">
-                      <a class="nav-link text-light" href="/Customer/SeasonalMenu">Seasonal Menu</a>
-                    </button>
-                </div>
-            </div>
-            <div class="col-6">
-                <img src="https://media.glamour.com/photos/63628dba780dd126aac5f18e/16:9/w_1280,c_limit/Starbucks%20Holiday%20Drinks%203.jpg"
-                width="100%"/>
-            </div>
+  <div class="container-lg">
+    <div class="row rounded">
+      <div class="col">
+        <img
+          src="https://weproudlyservestarbucks.com/gb/sites/default/files/styles/profiler_question_small/public/2021-08/Profiler-WPSS-Cup-illustration.png?itok=93w60noC"
+          width="80%" />
+      </div>
+      <div class="col d-flex align-items-center justify-content-center">
+        <div class="text-center">
+          <h3 style="font-size: 40px;">wowowowwowo</h3>
+          <p style="font-size: 25px;">fnaskldjfgalskjdfb</p>
+          <p style="font-size: 25px;">Please order it!!!!awrliughawroiugaw</p>
+          <button class="btn align-middle text-light" type="submit" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link text-light" href="/Customer/CoffeeMenu">Order now!</a>
+          </button>
         </div>
+      </div>
     </div>
-    <p><%=price%></p>
+  </div>
 
-    <select id="colorblind-select">
-      <option value="normal">Normal</option>
-      <option value="protanopia">Protanopia</option>
-      <option value="deuteranopia">Deuteranopia</option>
-      <option value="tritanopia">Tritanopia</option>
-      <option value="greyscale">Greyscale</option>
-    </select>
+  <div class="container-lg">
+    <div class="row rounded">
+      <div class="col-6 d-flex align-items-center justify-content-center">
+        <div class="text-center text-light">
+          <h3 style="font-size: 40px; ">Try out our Seasonal Menu!</h3>
+          <p style="font-size: 25px;">Look at how amazing this drink is!!!</p>
+          <p style="font-size: 25px;">Its GGGREATT</p>
+          <button class="btn align-middle text-light btnbg" type="submit" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link text-light" href="/Customer/SeasonalMenu">Seasonal Menu</a>
+          </button>
+        </div>
+      </div>
+      <div class="col-6">
+        <img
+          src="https://media.glamour.com/photos/63628dba780dd126aac5f18e/16:9/w_1280,c_limit/Starbucks%20Holiday%20Drinks%203.jpg"
+          width="100%" />
+      </div>
+    </div>
+  </div>
+  <p>
+    <%=price%>
+  </p>
 
-    <div id="google_translate_element"></div>
+  <script type="application/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+      const selectEl = document.getElementById("colorblind-select");
+      selectEl.addEventListener("change", function () {
+        const filter = this.value;
+        document.documentElement.className = filter;
+      });
+    });
+  </script>
 
-    <script type="text/javascript">
+  <select id="colorblind-select">
+    <option value="normal">Normal</option>
+    <option value="protanopia">Protanopia</option>
+    <option value="deuteranopia">Deuteranopia</option>
+    <option value="tritanopia">Tritanopia</option>
+    <option value="greyscale">Greyscale</option>
+  </select>
+
+  <div id="google_translate_element"></div>
+
+  <script type="text/javascript">
     function googleTranslateElementInit() {
-    new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+      new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
     }
-    </script>
+  </script>
 
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script type="text/javascript"
+    src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 
 </body>
-
-
-
