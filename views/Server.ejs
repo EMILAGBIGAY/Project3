@@ -25,7 +25,7 @@
     }
 
     .sticky {
-      position: sticky; 
+      position: sticky;
       top: 0;
       z-index: 100;
     }
@@ -38,7 +38,7 @@
       padding-top: 10px;
       padding-bottom: 10px;
       padding-left: 10px;
-      
+
       margin-top: 10px;
       margin-bottom: 10px;
       margin-left: 10px;
@@ -55,29 +55,29 @@
 
     .menuNav {
     color: black;
-      
+
     font-size: 1.5em;
     margin-top: 1em;
     margin-bottom: 1em;
-    
-   
+
+
     font-weight:500;
     }
     .menuNavItem{
       margin-left: 1em;
-      
+
     }
   a.page, a.page:hover, a.page:visited{
   color: black;
   text-decoration: none;
- 
+
 }
 a.currentPage, a.currentPage:hover, a.currentPage:visited{
   color: black;
   text-decoration: underline;
   text-decoration-color: #006241;
   text-decoration-thickness: 3px;
- 
+
 }
 /*
 radio button styling
@@ -126,7 +126,7 @@ input[type="checkbox"]:checked + label {
 <!--Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark sticky">
   <a class="navbar-brand" href="/">
-    <img src ="https://cdn-icons-png.flaticon.com/512/5977/5977591.png" height = 50px alt ="Your logo"/> 
+    <img src ="https://cdn-icons-png.flaticon.com/512/5977/5977591.png" height = 50px alt ="Your logo"/>
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -149,7 +149,7 @@ input[type="checkbox"]:checked + label {
       <li>
         <a class="nav-link" href="/finder">Locations</a>
       </li>
-      
+
     </ul>
   </div>
 </nav>
@@ -204,7 +204,7 @@ input[type="checkbox"]:checked + label {
       <h3>Process Order</h3>
 
       <table class="table table-sm" cellspacing="0">
-       
+
         <tbody>
           <tr>
             <th>
@@ -230,50 +230,50 @@ input[type="checkbox"]:checked + label {
               $<%=parseFloat(grandTotal).toFixed(2)%>
             </td>
           </tr>
-          
+
         </tbody>
       </table>
       <% if(serverMenu[0].category !='Food'){ %>
            <form action="/clear-current"  method ="post">
-    
+
         <input type = "radio" id="Card"name= "payment"  value="<%= serverMenu[0].subcategory%>:Server" checked></input>
       <label for="Card">Card</label>
-      
+
       <input type = "radio"  id="Paypal" name= "payment" value="<%= serverMenu[0].subcategory%>:Server"></input>
       <label for="Paypal">Cash</label>
       <br>
-      <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Process Order</button> 
+      <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Process Order</button>
       </form>
      <%}  %>
-      
-    
+
+
     </div>
 
 
     <!-- column 2-->
     <div class="col">
         <td class = "Radio">
-        
+
       <form action="/orderItem" method="post">
         <input class = "radioBtn" type = "radio" id="<%= serverMenu[0].item%>" value="<%= serverMenu[0].item%>:<%= serverMenu[0].category%>:<%= serverMenu[0].subcategory%>:<%= serverMenu[0].tall%>:<%= serverMenu[0].grande%>:<%= serverMenu[0].venti%>:Server" name= "drinkOrder" checked></input>
         <label for="<%= serverMenu[0].item%>"><%= serverMenu[0].item%></label>
       <% for (var i = 1; i < serverMenu.length; i++) { %>
             <input class = "radioBtn" type = "radio" id="<%= serverMenu[i].item%>" value="<%= serverMenu[i].item%>:<%= serverMenu[i].category%>:<%= serverMenu[i].subcategory%>:<%= serverMenu[i].tall%>:<%= serverMenu[i].grande%>:<%= serverMenu[i].venti%>:Server" name= "drinkOrder"></input>
             <label for="<%= serverMenu[i].item%>"><%= serverMenu[i].item%></label>
-           
+
       <% } %>
-      
+
       <% if(serverMenu[0].category !='Food'){ %>
-         <br> 
+         <br>
          <h3>Size</h3>
-      
-      
+
+
       <input type = "radio" id="tall" name= "drinkSize" value="tall"></input>
       <label  class="sizeBtn" for="tall">Tall </label>
-      
+
       <input type = "radio" id="grande"name= "drinkSize"  value="grande" checked></input>
       <label class="sizeBtn" for="grande">Grande</label>
-      
+
       <input type = "radio"  id="venti" name= "drinkSize" value="venti"></input>
       <label class="sizeBtn" for="venti">Venti</label>
       <h3>Customizations</h3>
@@ -285,10 +285,10 @@ input[type="checkbox"]:checked + label {
       <label class="customBtn" for="syrup">Syrup Pump </label>
       <input type = "checkbox" id="nondairy" name= "nondairy" ></input>
       <label class="customBtn" for="nondairy">nondairy </label>
-   
+
      <%} %>
-       <br>  
-       <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Add to Cart</button> 
+       <br>
+       <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Add to Cart</button>
       </form>
       <% if(serverMenu[0].category =='Food'){ %>
         <form action="/clear-current"  method ="post">
@@ -296,14 +296,14 @@ input[type="checkbox"]:checked + label {
      <h3>Check Out</h3>
      <input type = "radio" id="Card"name= "payment"  value="<%= serverMenu[0].subcategory%>:Server" checked></input>
    <label for="Card">Card</label>
-   
+
    <input type = "radio"  id="Paypal" name= "payment" value="<%= serverMenu[0].subcategory%>:Server"></input>
    <label for="Paypal">Cash</label>
    <br>
-   <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Process Order</button> 
+   <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">Process Order</button>
    </form>
   <%}  %>
-      
+
     </div>
   </div>
 </div>
@@ -314,49 +314,49 @@ input[type="checkbox"]:checked + label {
 <div class="container-md">
   <div class="row">
     <div class="col">
-  
+
   <h3><%= id%></h3>
   <table class="table">
     <thead>
       <tr>
         <th>Item</th>
         <% if(serverMenu[0].category =='Food'){ %>
-          
+
           <th>Price</th>
-     
+
        <%} else{ %>
         <th class="tall">Tall</th>
         <th class="grande">Grande</th>
         <th class="venti">Venti</th>
-        
+
         <% } %>
-      
+
       </tr>
     </thead>
     <tbody>
-      
+
       <% for(var i in serverMenu) { %>
           <tr>
             <td><%= serverMenu[i].item%></td>
             <% if( serverMenu[0].category=='Food'){ %>
               <td>$<%= serverMenu[i].tall%></td>
            <% } else{ %>
-            
+
 
             <td>$<%= serverMenu[i].tall%></td>
               <td>$<%= serverMenu[i].grande%></td>
               <td>$<%= serverMenu[i].venti%></td>
             <% } %>
-            
+
           </tr>
        <% } %>
-      
+
     </tbody>
   </table>
     </div>
     </div>
 
-
+    <%- include('translate-script') %>
 
 
 </body>

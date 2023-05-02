@@ -28,6 +28,7 @@ const dotenv = require('dotenv').config();
 const fetch = require('isomorphic-fetch');
 var bodyParser = require('body-parser');
 const moment = require('moment');
+const { auth } = require('express-openid-connect');
 
 
 
@@ -51,6 +52,18 @@ router.get('/', (req, res) => {
         });
 });
 
+
+const config = {
+    authRequired: false,
+    auth0Logout: true,
+    secret: process.env.AUTH0_SECRET,
+    baseURL: process.env.BASE_URL,
+    clientID: process.env.AUTH0_CLIENT_ID,
+    issuerBaseURL: process.env.ISSUER_BASE_URL
+};
+
+// auth router attaches /login, /logout, and /callback routes to the baseURL
+router.use(auth(config));
 
 //Create Postgres Pool
 const pool = new Pool({
@@ -76,9 +89,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Serve static files from the public directory
 app.use(express.static('img'));
 
-router.get('/', (req, res) => {
 
-});
 
 router.get('/user', (req, res) => {
     arr = [];
@@ -571,10 +582,38 @@ router.post('/deleteCartItem', (req, res) => {
             res.status(500).send('Internal Server Error');
         });
 
+});
+
+router.post('/sales-report', (req, res) => {
+    let start = req.body.start;
+    let end = req.body.end;
+    pool.query("select name, count(*) from sales where sales.date >= to_timestamp('$1','YYYY-MM-DD') and sales.date <= to_timestamp('$2', 'YYYY-MM-DD') group by name", [start, end]);
+    res.redirect('/sales-report');
+});
+
+router.post('/excess-report', (req, res) => {
+    let start = req.body.start;
+    let current = moment().format('YYYY-MM-DD');
 
 });
 
-
+router.post('/restock-report', (req, res) => {
+    let restock_arr = [];
+    pool.query("select * from inventory where quantity < restockquantity")
+        .then(query_res => {
+            for (let i = 0; i < query_res.rowCount; i++) {
+                restock_arr.push(query_res.rows[i]);
+            }
+            const data = { restock_arr: restock_arr, type: 'Restock' };
+            console.log(data);
+            res.render('RestockReport', data);
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+        }
+        );
+});
 
 router.get('/XReport', (req, res) => {
     let revenue = 0.0;

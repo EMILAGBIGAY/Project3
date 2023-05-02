@@ -18,7 +18,7 @@
   }
 
   .sticky {
-      position: sticky; 
+      position: sticky;
       top: 0;
       z-index: 100;
     }
@@ -30,7 +30,7 @@
       padding-top: 10px;
       padding-bottom: 10px;
       padding-left: 10px;
-      
+
       margin-top: 10px;
       margin-bottom: 10px;
       margin-left: 10px;
@@ -53,7 +53,7 @@
 <!--Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark sticky">
   <a class="navbar-brand" href="/">
-    <img src ="https://cdn-icons-png.flaticon.com/512/5977/5977591.png" height = 50px /> 
+    <img src ="https://cdn-icons-png.flaticon.com/512/5977/5977591.png" height = 50px />
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -80,8 +80,8 @@
   </div>
 </nav>
 <body>
-    
- 
+
+
 <!--Inventory -->
 <div class="container-md">
     <div class="row">
@@ -104,7 +104,7 @@
                   <td><%= inventory_arr[i].quantity%></td>
                   <td>
                      <form action="/update-inventory/<%= inventory_arr[i].id%>"method="post" >
- 
+
                       <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">
                         Restock
                       </button>
@@ -112,7 +112,7 @@
              </td>
                 </tr>
              <% } %>
-            
+
           </tbody>
         </table>
       </div>
@@ -192,8 +192,9 @@
       </div>
     </div>
   </div>
-  
 
-  
+  <%- include('translate-script') %>
+
+
 </body>
 </html>
