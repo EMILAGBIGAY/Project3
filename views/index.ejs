@@ -8,6 +8,17 @@
 <title>Customer Home</title>
 <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/5977/5977591.png">
 <style>
+
+  body {
+    background-color: #f9f9f9;
+    font: "Lucida Grande", Helvetica, Arial, sans-serif;
+  }
+
+  a {
+    color: #151515;
+  }
+
+
   .btn {
     background-color: #5C4033;
 
@@ -159,7 +170,7 @@ Removes the "radio button circle"
           <a class="nav-link" href="/">Home</a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="/Customer/CoffeeMenu">Menu</a>
+          <a class="nav-link" href="/Customer/CoffeeMenu/none">Menu</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/finder">Locations</a>
@@ -192,9 +203,9 @@ Removes the "radio button circle"
     <div class="row rounded">
       <div class="col-6 d-flex align-items-center justify-content-center">
         <div class="text-center text-light">
-          <h3 style="font-size: 40px; ">Try out our Seasonal Menu!</h3>
-          <p style="font-size: 25px;">Look at how amazing this drink is!!!</p>
-          <p style="font-size: 25px;">Its GGGREATT</p>
+          <h3 style="font-size: 40px; ">Try our seasonal menu!</h3>
+          <p style="font-size: 25px;">Seasonal menu Iitems that change every season!</p>
+          <p style="font-size: 25px;">Limited time only!</p>
           <button class="btn align-middle text-light btnbg" type="submit" aria-haspopup="true" aria-expanded="false">
             <a class="nav-link text-light" href="/Customer/SeasonalMenu">Seasonal Menu</a>
           </button>
@@ -207,9 +218,7 @@ Removes the "radio button circle"
       </div>
     </div>
   </div>
-  <p>
-    <%=price%>
-  </p>
+  <!-- <p><%=price%></p> -->
 
   <script type="application/javascript">
     document.addEventListener("DOMContentLoaded", function () {
@@ -230,6 +239,72 @@ Removes the "radio button circle"
     <option value="tritanopia">Tritanopia</option>
     <option value="greyscale">Greyscale</option>
   </select>
+  </script>
+
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+    }
+  </script>
+
+  <script type="text/javascript"
+    src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 
+    <!-- footer -->
+    <footer class="text-center text-lg-start bg-white text-muted">
+
+      <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+        <div class="me-5 d-none d-lg-block">
+          <span>Don't understand English? Translate the page!</span>
+        </div>
+        <div id="google_translate_element"></div>
+      </section>
+
+      <section class="">
+        <div class="container text-center text-md-start mt-5">
+          <div class="row mt-2">
+
+            <!--col1-->
+            <div class="col-md-2 col-lg-3 col-xl-3 mx-auto mb-4">
+              <h6 class="text-uppercase fw-bold mb-4">
+                <i class="fas fa-gem me-3 text-secondary"></i>CSCE 331
+              </h6>
+              <p>Team RHO</p>
+              <p>Ben, Ashwin, Emil</p>
+            </div>
+
+            <!--col2-->
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+              <h6 class="text-uppercase fw-bold mb-4">
+                Color Blind Page
+              </h6>
+              <p>
+                <select id="colorblind-select">
+                  <option value="normal">Normal</option>
+                  <option value="protanopia">Protanopia</option>
+                  <option value="deuteranopia">Deuteranopia</option>
+                  <option value="tritanopia">Tritanopia</option>
+                  <option value="greyscale">Greyscale</option>
+                </select>
+              </p>
+            </div>
+
+            <!--col3-->
+            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+              <h6 class="text-uppercase fw-bold mb-4">
+                Our inspiration
+              </h6>
+              <p>
+                <a href="https://www.starbucks.com/" class="text-reset">Starbucks</a>
+              </p>
+            </div>
+        </div>
+
+      </section>
+      <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025);">
+        © 2021 Copyright:
+        <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+      </div>
+    </footer>
 </body>
