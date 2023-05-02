@@ -28,7 +28,7 @@ const dotenv = require('dotenv').config();
 const fetch = require('isomorphic-fetch');
 var bodyParser = require('body-parser');
 const moment = require('moment');
-const { auth } = require('express-openid-connect');
+const { auth, requiresAuth } = require('express-openid-connect');
 
 
 
@@ -50,6 +50,7 @@ router.get('/', (req, res) => {
             console.error(err);
             res.status(500).send('Internal Server Error');
         });
+
 });
 
 
@@ -89,7 +90,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Serve static files from the public directory
 app.use(express.static('img'));
 
+router.get('/login', (req, res) => {
+    res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+});
 
+router.get('/profile', requiresAuth(), (req, res) => {
+    res.send(JSON.stringify(req.oidc.user));
+});
 
 router.get('/user', (req, res) => {
     arr = [];
@@ -534,7 +541,7 @@ router.post('/clear-current', (req, res) => {
     if(page=='Customer'){
     serverPath = '../' + page + '/' + menuType+'/'+color;
     }
-   
+
     console.log(serverPath);
 
     pool.query("insert into sales select * from current_order")
