@@ -54,8 +54,6 @@ router.get('/', (req, res) => {
 });
 
 
-
-
 const config = {
     authRequired: false,
     auth0Logout: true,
@@ -97,8 +95,10 @@ router.get('/login', (req, res) => {
 });
 
 router.get('/profile', requiresAuth(), (req, res) => {
+    const name = req.oidc.user.name;
     const img = req.oidc.user.picture;
-    res.send(JSON.stringify(req.oidc.user));
+    console.log(req.oidc.user);
+    res.render('profile', { name: name, img: img });
 });
 
 router.get('/user', (req, res) => {
@@ -369,8 +369,6 @@ router.post('/orderItem', (req, res) => {
                 console.log("Tall cup removed from inventory");
             });
     }
-
-
 
     var menuType = "CoffeeMenu";
     if (subcategory == "Tea") {
