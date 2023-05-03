@@ -132,7 +132,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('img'));
 
 router.get('/login', (req, res) => {
-    res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+    res.json({ isLoggedIn: req.oidc.isAuthenticated() });
 });
 
 router.get('/profile', requiresAuth(), (req, res) => {
