@@ -131,8 +131,20 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Item images loaded statically
 app.use(express.static('img'));
 
-router.get('/login', (req, res) => {
-    res.json({ isLoggedIn: req.oidc.isAuthenticated() });
+router.post('/login', (req, res) => {
+    res.oidc.login({ returnTo: '/' });
+});
+
+router.post('/logout', (req, res) => {
+    req.oidc.logout();
+    res.redirect('/');
+});
+
+router.get('/auth-widget', requiresAuth(), (req, res) => {
+    const isLoggedIn = req.oidc.isAuthenticated();
+    const buttonText = isLoggedIn ? 'Sign Out' : 'Sign In';
+    const buttonUrl = isLoggedIn ? '/logout' : '/login';
+    res.render('auth-widget', { isLoggedIn, buttonText, buttonUrl, async: true});
 });
 
 router.get('/profile', requiresAuth(), (req, res) => {

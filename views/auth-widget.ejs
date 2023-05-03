@@ -1,0 +1,13 @@
+<div class="dropdown">
+    <button class="btn btns btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <img class="rounded-circle" src="https://dq5pwpg1q8ru0.cloudfront.net/2023/03/30/11/54/02/f81c2504-1084-467a-8f5a-858db63ce6b3/blank-profile-circle.png" alt="profile picture" height="auto" width="15%"/>
+    </button>
+    <div class="dropdown-menu">
+      <% if (isLoggedIn) { %>
+        <a class="dropdown-item" title="customer account" href="/account">Account</a>
+        <a class="dropdown-item" title="customer sign out" href="/logout">Sign Out</a>
+      <% } else { %>
+        <a class="dropdown-item" title="customer sign in" href="/login">Sign In</a>
+      <% } %>
+    </div>
+  </div>
