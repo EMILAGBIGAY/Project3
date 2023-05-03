@@ -317,11 +317,11 @@ router.get('/Customer/:id/:color', (req, res) => {
  * @param {Text} Emails - list of manager emails
  * @returns {void} - redirects to server page if successful.
  */
-function requireManager(req, res, next){
+function requireManager(req, res, next) {
     const allowedEmails = ['ashwin.kundeti@gmail.com', 'emilagbigay@tamu.edu', 'benwilley@tamu.edu'];
     const user = req.oidc.user;
 
-    if(user && allowedEmails.includes(user.email)){
+    if (user && allowedEmails.includes(user.email)) {
         return next();
     }
     return res.status(403).send('Forbidden');
@@ -334,11 +334,11 @@ function requireManager(req, res, next){
  * @param {Text} Emails - list of server emails
  * @returns {void} - redirects to server page if successful.
  */
-function requireServer(req, res, next){
+function requireServer(req, res, next) {
     const allowedEmails = ['ashwin.kundeti@gmail.com', 'emilagbigay@tamu.edu', 'benwilley@tamu.edu'];
     const user = req.oidc.user;
 
-    if(user && allowedEmails.includes(user.email)){
+    if (user && allowedEmails.includes(user.email)) {
         return next();
     }
     return res.status(403).send('Forbidden');
@@ -716,8 +716,19 @@ router.post('/deleteCartItem', (req, res) => {
 router.post('/sales-report', (req, res) => {
     let start = req.body.start;
     let end = req.body.end;
-    pool.query("select name, count(*) from sales where sales.date >= to_timestamp('$1','YYYY-MM-DD') and sales.date <= to_timestamp('$2', 'YYYY-MM-DD') group by name", [start, end]);
-    res.redirect('/sales-report');
+    pool.query(`select name, count(*) from sales where sales.date >= to_timestamp($1,'YYYY-MM-DD') and sales.date <= to_timestamp($2, 'YYYY-MM-DD') group by name`, [start, end])
+        .then(query_res => {
+            res.render('pages/reports', {
+                my_title: "Sales Report",
+                data: query_res.rows,
+                start: start,
+                end: end
+            })
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+        });
 });
 
 /**
@@ -727,10 +738,119 @@ router.post('/sales-report', (req, res) => {
  * @param {string} Date - reference date to find the inventory data from.
  * @returns {void} - renders the excess report in reports.ejs
  */
-router.post('/excess-report', (req, res) => {
-    let start = req.body.start;
+router.get('/excess-report', (req, res) => {
+    let start = '2022-03-03';
     let current = moment().format('YYYY-MM-DD');
+    let sub_arr = [];
+    let tallcoffee = 0;
+    let grandecoffee = 0;
+    let venticoffee = 0;
+    let talltea = 0;
+    let grandetea = 0;
+    let ventitea = 0;
+    excess_arr = [];
+    let tallcups = 0;
+    let grandecups = 0;
+    let venticups = 0;
+    let tallcups_inventory = 0;
+    let grandecups_inventory = 0;
+    let venticups_inventory = 0;
+    let coffee_grounds = 0;
+    let tea_bags = 0;
+    let creamer = 0;
+    let milk = 0;
+    let coffee_grounds_inventory = 0;
+    let tea_bags_inventory = 0;
+    let creamer_inventory = 0;
+    let milk_inventory = 0;
 
+
+    Promise.all([
+        pool.query(`select quantity from inventory where item = 'TallCups'`),
+        pool.query(`select quantity from inventory where item = 'GrandeCups'`),
+        pool.query(`select quantity from inventory where item = 'VentiCups'`),
+        pool.query(`select quantity from inventory where item = 'CoffeeGrounds(oz.)'`),
+        pool.query(`select quantity from inventory where item = 'Teabags'`),
+        pool.query(`select quantity from inventory where item = 'Half-n-HalfCups'`),
+        pool.query(`select quantity from inventory where item = 'WholeMilk(oz.)'`),
+        pool.query(`SELECT subcategory, count(*) FROM sales WHERE sales.date >= to_timestamp($1,'YYYY-MM-DD') AND sales.date <= to_timestamp($2, 'YYYY-MM-DD') GROUP BY subcategory`, [start, current]),
+        pool.query(`SELECT s.name, s.subcategory, s.count AS sales_count, i.quantity AS inventory_quantity FROM ( SELECT name, subcategory, count(*) AS count FROM sales WHERE date >= to_timestamp($1, 'YYYY-MM-DD') AND date <= to_timestamp($2, 'YYYY-MM-DD') AND subcategory IN ('Breakfast', 'Bakery') GROUP BY name, subcategory ) s JOIN inventory i ON s.name = i.item WHERE s.count < i.quantity * 0.1`, [start, current])
+    ])
+        .then(query_res => {
+            const [tallcupsRes, grandecupsRes, venticupsRes, coffee_groundsRes, tea_bagsRes, creamerRes, milkRes, salesRes, foodRes] = query_res;
+
+            tallcups_inventory = parseInt(tallcupsRes.rows[0].quantity);
+            grandecups_inventory = parseInt(grandecupsRes.rows[0].quantity);
+            venticups_inventory = parseInt(venticupsRes.rows[0].quantity);
+            coffee_grounds_inventory = parseInt(coffee_groundsRes.rows[0].quantity);
+            tea_bags_inventory = parseInt(tea_bagsRes.rows[0].quantity);
+            creamer_inventory = parseInt(creamerRes.rows[0].quantity);
+            milk_inventory = parseInt(milkRes.rows[0].quantity);
+
+            for (let i = 0; i < salesRes.rowCount; i++) {
+                sub_arr.push(salesRes.rows[i]);
+            }
+
+            for (let i = 0; i < sub_arr.length; i++) {
+                if (sub_arr[i].subcategory == 'Coffee') {
+                    tallcoffee = Math.floor(parseInt(sub_arr[i].count) / 3);
+                    grandecoffee = tallcoffee;
+                    venticoffee = tallcoffee;
+                }
+                else if (sub_arr[i].subcategory == 'Tea') {
+                    talltea = Math.floor(parseInt(sub_arr[i].count) / 3);
+                    grandetea = talltea;
+                    ventitea = talltea;
+                }
+            }
+            tallcups = tallcoffee + talltea;
+            grandecups = grandecoffee + grandetea;
+            venticups = venticoffee + ventitea;
+            coffee_grounds = tallcoffee * 6 + grandecoffee * 9 + venticoffee * 12;
+            creamer = tallcoffee + grandecoffee * 2 + venticoffee * 3;
+            milk = tallcoffee * 6 + grandecoffee * 9 + venticoffee * 12;
+            tea_bags = talltea + grandetea + ventitea;
+
+            if (tallcups < tallcups_inventory * 0.1) {
+                excess_arr.push({ name: 'TallCups', quantity: tallcups, inventory: tallcups_inventory });
+            }
+
+            if (grandecups < grandecups_inventory * 0.1) {
+                excess_arr.push({ name: 'GrandeCups', quantity: grandecups, inventory: grandecups_inventory });
+            }
+
+            if (venticups < venticups_inventory * 0.1) {
+                excess_arr.push({ name: 'VentiCups', quantity: venticups, inventory: venticups_inventory });
+            }
+
+            if (coffee_grounds < coffee_grounds_inventory * 0.1) {
+                excess_arr.push({ name: 'CoffeeGrounds(oz.)', quantity: coffee_grounds, inventory: coffee_grounds_inventory });
+            }
+
+            if (tea_bags < tea_bags_inventory * 0.1) {
+                excess_arr.push({ name: 'Teabags', quantity: tea_bags, inventory: tea_bags_inventory });
+            }
+
+            if (creamer < creamer_inventory * 0.1) {
+                excess_arr.push({ name: 'Half-n-HalfCups', quantity: creamer, inventory: creamer_inventory });
+            }
+
+            if (milk < milk_inventory * 0.1) {
+                excess_arr.push({ name: 'WholeMilk(oz.)', quantity: milk, inventory: milk_inventory });
+            }
+
+            for (let i = 0; i < foodRes.rowCount; i++) {
+                excess_arr.push({ name: foodRes.rows[i].name, quantity: foodRes.rows[i].sales_count, inventory: foodRes.rows[i].inventory_quantity })
+            }
+            const data = { excess_arr: excess_arr, type: 'Excess' };
+            console.log(data);
+            res.render('ExcessReport', data);
+
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+        });
 });
 
 
