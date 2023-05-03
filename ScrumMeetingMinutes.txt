@@ -1,3 +1,6 @@
+
+SPRINT 2
+
 Meeting Date: 4/5/23
 Meeting Location: Zach
 Attendance: All members present
@@ -34,3 +37,42 @@ out how to effectively implement the backend into the frontend as we already hav
 functionality created in JavaScript. We also discussed the new implementation part that we are
 gonna need such as the customer side and our more complex APIs. We now have an MVP for the end
 of sprint 2 now that we have visible functionality on our application.
+
+
+SPRINT 3
+
+Meeting Date: 4/21/23
+Meeting Location: Zach
+Attendance: All members present
+Meeting minutes summary:
+After having most of the implementation needed from Project 2, we can now focus on the bugs and the customer page. 
+We also need to look more into how to implement the reports and what information we’d need to add to the front end
+basically. We have all the logic for project 2 implemented here in the backend but nothing is really connected to the front end yet. 
+We need to learn about the differences between POST and GET methods and how to use them in our project. We also need to get started 
+on APIs since that could potentially be a hassle to implement. We believe the Customer page won’t be too hard to 
+implement since the menus used are the exact same as the ones used on the Server side of the application. We would like 
+to get pictures from the official Starbucks Menu if possible and make it attractive to the user. 
+
+
+
+Meeting Date: 4/26/2023
+Meeting Location: Zach
+Attendance: All members present
+Meeting minutes summary:
+The meeting set us up to get a lot done. The basic functionality of the app is now done, and we can now focus on things like 
+the required APIs. Ashwin found a clever way of doing the translation that is essentially a script call. We have to figure out 
+if this counts towards the API requirement. We have to get the customer page styled up since it is customer facing. Adding 
+pictures of the items is an option we are considering, but it will be tricky to implement. In the meeting we decided to try 
+auth zero for the Oauth, the group that sits next to us said it was simple. We talked about ways we could address the 
+colorblind accessibility need. We did some research and found the google maps API will be easy to implement.
+
+
+Meeting Date: 5/1/2023
+Meeting Location: Zach
+Attendance: All members present
+Meeting minutes summary:
+In this meeting we were more focused on finalizing our product, making sure it is deployable and all 
+parts that we need to be implemented work as intended. We used the final product completeness rubric 
+as a guide while we scanned through our product making sure everything was complete. We found that we needed 
+to improve the accessibility of our pages as well as display our reports on the front end.  Finally, we 
+also discussed our final presentation and what each member will talk about for each part of our project.

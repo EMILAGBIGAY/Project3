@@ -81,8 +81,44 @@
 
 
 
-<!--Inventory -->
+<!--X AND Z Report -->
 <div class="container-md">
+    <div class="row">
+      <div class="col">
+        <h3><%= type%></h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Order</th>
+              <th>Price</th>
+
+            </tr>
+          </thead>
+          <tbody>
+
+            <% for(var i in report_arr) { %>
+                <tr>
+                  <td><%= report_arr[i].item%></td>
+                  <td>$<%= report_arr[i].price%></td>
+
+                </tr>
+             <% } %>
+            <tr>
+                <th>Total Revenue</th>
+                <th>$<%=parseFloat(revenue.sum).toFixed(2)%></th>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- EXCESS REPORT -->
+  <div class="container-md">
     <div class="row">
       <div class="col">
         <h3><%= type%></h3>

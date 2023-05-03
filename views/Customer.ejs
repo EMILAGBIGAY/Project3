@@ -512,7 +512,7 @@ img.none {
       <% for (var i = 1; i < serverMenu.length; i++) { %>
         <div>
           <% if(serverMenu[0].subcategory!='seasonal') { %>
-            <img class="icon <%=color%>" src="<%= ('../../'+serverMenu[i].item+'.jpg').replace( /\s/g, '')%>" alt = "image of serverMenu[i].item">
+            <img class="icon <%=color%>" src="<%= ('../../'+serverMenu[i].item+'.jpg').replace( /\s/g, '')%>" alt = "image of <%=serverMenu[i].item%>">
             <%}%>
             <input  type = "radio"  id="<%= serverMenu[i].item%>" value="<%= serverMenu[i].item%>:<%= serverMenu[i].category%>:<%= serverMenu[i].subcategory%>:<%= serverMenu[i].tall%>:<%= serverMenu[i].grande%>:<%= serverMenu[i].venti%>:Customer:<%=color%>" name= "drinkOrder"></input>
             <label class="orderOptions  " for="<%= serverMenu[i].item%>">
