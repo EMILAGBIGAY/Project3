@@ -63,7 +63,7 @@
         <a class="nav-link" href="/">Home</a>
       </li>
 
-      <li class="nav-item active">
+      <li class="nav-item ">
         <a class="nav-link" href="/Manager">Manager</a>
       </li>
       <li class="nav-item">
@@ -75,13 +75,16 @@
       <li class="nav-item">
         <a class="nav-link" href="/finder">Locations</a>
       </li>
+      <li class="nav-item active">
+        <a class="nav-link">Reports</a>
+      </li>
     </ul>
   </div>
 </nav>
 
 
-
-<!--Inventory -->
+<%if(type == 'ZReport' ||type == 'XReport' ){%>
+<!--X AND Z Report -->
 <div class="container-md">
     <div class="row">
       <div class="col">
@@ -113,6 +116,43 @@
       </div>
     </div>
   </div>
+
+
+
+<%}else if(type == 'Excess Report'){%>
+  <!-- EXCESS REPORT -->
+  <div class="container-md">
+    <div class="row">
+      <div class="col">
+        <h3><%= type%></h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Inventory Item</th>
+              <th>Quantity Sold</th>
+              <th>Inventory</th>
+
+            </tr>
+          </thead>
+          <tbody>
+
+            <% for(var i in excess_arr) { %>
+                <tr>
+                  <td><%= excess_arr[i].name%></td>
+                  <td><%= excess_arr[i].quantity%></td>
+                  <td><%= excess_arr[i].inventory%></td>
+                </tr>
+             <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <%}else if(type == 'Restock Report'){%>
+
+
+
+  <%} %>
 
   <%- include('translate-script') %>
 

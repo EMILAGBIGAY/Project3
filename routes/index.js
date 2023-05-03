@@ -702,7 +702,6 @@ router.post('/deleteCartItem', (req, res) => {
             console.error(err);
             res.status(500).send('Internal Server Error');
         });
-
 });
 
 
@@ -842,9 +841,9 @@ router.get('/excess-report', (req, res) => {
             for (let i = 0; i < foodRes.rowCount; i++) {
                 excess_arr.push({ name: foodRes.rows[i].name, quantity: foodRes.rows[i].sales_count, inventory: foodRes.rows[i].inventory_quantity })
             }
-            const data = { excess_arr: excess_arr, type: 'Excess' };
+            const data = { excess_arr: excess_arr, type: 'Excess Report' };
             console.log(data);
-            res.render('ExcessReport', data);
+            res.render('XReport', data);
 
         })
         .catch(err => {
@@ -860,16 +859,16 @@ router.get('/excess-report', (req, res) => {
  * @function
  * @returns {void} - renders the restock report in reports.ejs
  */
-router.post('/restock-report', (req, res) => {
+router.get('/restock-report', (req, res) => {
     let restock_arr = [];
     pool.query(`select * from inventory where quantity < restockquantity`)
         .then(query_res => {
             for (let i = 0; i < query_res.rowCount; i++) {
                 restock_arr.push(query_res.rows[i]);
             }
-            const data = { restock_arr: restock_arr, type: 'Restock' };
+            const data = { restock_arr: restock_arr, type: 'Restock Report' };
             console.log(data);
-            res.render('RestockReport', data);
+            res.render('XReport', data);
         })
         .catch(err => {
             console.error(err);
