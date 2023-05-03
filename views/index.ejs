@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <title>Customer Home</title>
-<link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/5977/5977591.png">
+<link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/5977/5977591.png" alt="Starbucks Logo">
 <style>
 
   body {
@@ -25,7 +26,7 @@
   }
 
   .btnbg {
-    background-color: red;
+    background-color: #ffcccb;
   }
 
   .btns{
@@ -171,13 +172,13 @@ Removes the "radio button circle"
     <div class="collapse-4 navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item ">
-          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link text-light" href="/">Home</a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="/Customer/CoffeeMenu/none">Menu</a>
+          <a class="nav-link text-light" href="/Customer/CoffeeMenu/none">Menu</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/finder">Locations</a>
+          <a class="nav-link text-light" href="/finder">Locations</a>
         </li>
       </ul>
     </div>
@@ -200,7 +201,7 @@ Removes the "radio button circle"
       <div class="col">
         <img
           src="https://weproudlyservestarbucks.com/gb/sites/default/files/styles/profiler_question_small/public/2021-08/Profiler-WPSS-Cup-illustration.png?itok=93w60noC"
-          width="80%" />
+          width="80%" alt="starbucks coffee picture" />
       </div>
       <div class="col d-flex align-items-center justify-content-center">
         <div class="text-center">
@@ -223,14 +224,14 @@ Removes the "radio button circle"
           <p style="font-size: 25px;">Seasonal menu items that change every season!</p>
           <p style="font-size: 25px;">Limited time only!</p>
           <button class="btn align-middle text-light btnbg" type="submit" aria-haspopup="true" aria-expanded="false">
-            <a class="nav-link text-light" href="/Customer/SeasonalMenu">Seasonal Menu</a>
+            <a class="nav-link text-dark" href="/Customer/SeasonalMenu">Seasonal Menu</a>
           </button>
         </div>
       </div>
       <div class="col-6">
         <img
           src="https://media.glamour.com/photos/63628dba780dd126aac5f18e/16:9/w_1280,c_limit/Starbucks%20Holiday%20Drinks%203.jpg"
-          width="100%" />
+          width="100%" alt="4 starbucks seasonal drinks" />
       </div>
     </div>
   </div>
@@ -247,6 +248,18 @@ Removes the "radio button circle"
     });
   </script>
 
+  <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+    <label>
+      <select id="colorblind-select" aria-label="type of colorblindness selection">
+        <option value="normal">Normal</option>
+        <option value="protanopia">Protanopia</option>
+        <option value="deuteranopia">Deuteranopia</option>
+        <option value="tritanopia">Tritanopia</option>
+        <option value="greyscale">Greyscale</option>
+      </select>
+    </label>
+  </div>
+  
   <%- include('translate-script') %>
 
 
@@ -274,20 +287,7 @@ Removes the "radio button circle"
             </div>
 
             <!--col2-->
-            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-              <h6 class="text-uppercase fw-bold mb-4">
-                Color Blind Page
-              </h6>
-              <p>
-                <select id="colorblind-select">
-                  <option value="normal">Normal</option>
-                  <option value="protanopia">Protanopia</option>
-                  <option value="deuteranopia">Deuteranopia</option>
-                  <option value="tritanopia">Tritanopia</option>
-                  <option value="greyscale">Greyscale</option>
-                </select>
-              </p>
-            </div>
+            
 
             <!--col3-->
             <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
@@ -302,7 +302,7 @@ Removes the "radio button circle"
 
       </section>
       <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025);">
-        © 2021 Copyright:
+        © 2023 Copyright:
         <a class="text-reset fw-bold">Team RHO</a>
       </div>
     </footer>
