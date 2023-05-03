@@ -63,7 +63,7 @@
         <a class="nav-link" href="/">Home</a>
       </li>
 
-      <li class="nav-item active">
+      <li class="nav-item ">
         <a class="nav-link" href="/Manager">Manager</a>
       </li>
       <li class="nav-item">
@@ -75,12 +75,15 @@
       <li class="nav-item">
         <a class="nav-link" href="/finder">Locations</a>
       </li>
+      <li class="nav-item active">
+        <a class="nav-link">Reports</a>
+      </li>
     </ul>
   </div>
 </nav>
 
 
-
+<%if(type == 'ZReport' ||type == 'XReport' ){%>
 <!--X AND Z Report -->
 <div class="container-md">
     <div class="row">
@@ -116,7 +119,7 @@
 
 
 
-
+<%}else if(type == 'Excess Report'){%>
   <!-- EXCESS REPORT -->
   <div class="container-md">
     <div class="row">
@@ -125,30 +128,31 @@
         <table class="table">
           <thead>
             <tr>
-              <th>Order</th>
-              <th>Price</th>
+              <th>Inventory Item</th>
+              <th>Quantity Sold</th>
+              <th>Inventory</th>
 
             </tr>
           </thead>
           <tbody>
 
-            <% for(var i in report_arr) { %>
+            <% for(var i in excess_arr) { %>
                 <tr>
-                  <td><%= report_arr[i].item%></td>
-                  <td>$<%= report_arr[i].price%></td>
-
+                  <td><%= excess_arr[i].name%></td>
+                  <td><%= excess_arr[i].quantity%></td>
+                  <td><%= excess_arr[i].inventory%></td>
                 </tr>
              <% } %>
-            <tr>
-                <th>Total Revenue</th>
-                <th>$<%=parseFloat(revenue.sum).toFixed(2)%></th>
-
-            </tr>
           </tbody>
         </table>
       </div>
     </div>
   </div>
+  <%}else if(type == 'Restock Report'){%>
+
+
+
+  <%} %>
 
   <%- include('translate-script') %>
 
