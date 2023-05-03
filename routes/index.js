@@ -131,13 +131,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Item images loaded statically
 app.use(express.static('img'));
 
-router.post('/login', (req, res) => {
-    res.oidc.login({ returnTo: '/' });
-});
-
-router.post('/logout', (req, res) => {
-    req.oidc.logout();
-    res.redirect('/');
+router.get('/login', (req, res) => {
+    res.json({ isLoggedIn: req.oidc.isAuthenticated() });
 });
 
 router.get('/auth-widget', requiresAuth(), (req, res) => {
