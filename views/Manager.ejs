@@ -133,7 +133,7 @@
                   <a class="dropdown-item" href="/XReport">X Report</a>
                   <a class="dropdown-item" href="/ZReport">Z Report</a>
                   <a class="dropdown-item" href="/restock-report">Restock Report</a>
-                  <a class="dropdown-item" href="/excess-report">Excess Report</a>
+
                 </div>
               </div>
             </div>
@@ -170,17 +170,39 @@
             </div>
           </div>
         </div>
-
-
-        <!--Sales Report -->
+        <!-- SALES REPORT-->
         <div class="container-md">
           <div class="row">
             <div class="col">
               <h3>Sales Report</h3>
-              <form>
-                <div class="form-group">
-                  <label for="salesReport">Enter Date Range</label>
-                  <input type="salesReportDate" class="form-control" id="dateRange" placeholder="mm-dd-yyyy/mm-dd-yyyy">
+              <form action="/sales-report" method="get">
+                <div >
+                  <div class="form-group">
+                  <label for="start">Start Date</label>
+                  <input type ="text" name="start" placeholder="yyyy-mm-dd" value=""> </input>
+                  </div>
+                  <div class="form-group">
+                    <label for="end">End Date</label>
+                    <input type ="text" name="end" placeholder="yyyy-mm-dd" value=""> </input>
+                    </div>
+                </div>
+                <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">
+                  Submit
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!--Excess Report -->
+        <div class="container-md">
+          <div class="row">
+            <div class="col">
+              <h3>Excess Report</h3>
+              <form action="/excess-report" method = "get">
+                <div >
+                  <label for="salesReport">Start Date</label>
+                  <input type ="text" name="start" placeholder="yyyy-mm-dd" value=""></input>
                 </div>
                 <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">
                   Submit

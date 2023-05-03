@@ -149,11 +149,71 @@
     </div>
   </div>
   <%}else if(type == 'Restock Report'){%>
+<!-- Restock Report -->
+<div class="container-md">
+  <div class="row">
+    <div class="col">
+      <h3><%= type%></h3>
+      <table class="table">
+        <thead>
+          <tr>
+           
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Restock Quantity</th>
+
+          </tr>
+        </thead>
+        <tbody>
+
+          <% for(var i in restock_arr) { %>
+              <tr>
+                <td><%= restock_arr[i].item%></td>
+                <td><%= restock_arr[i].quantity%></td>
+                <td><%= restock_arr[i].restockquantity%></td>
+                
+              </tr>
+           <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
 
+    <%}else if(type == 'Sales Report'){%>
+<!-- EXCESS REPORT -->
+<div class="container-md">
+  <div class="row">
+    <div class="col">
+      <h3><%= type%></h3>
+      <table class="table">
+        <thead>
+          <tr>
+           
+            <th>Item</th>
+            <th>Count</th>
+           
 
-  <%} %>
+          </tr>
+        </thead>
+        <tbody>
 
+          <% for(var i in sales_arr) { %>
+              <tr>
+                <td><%= sales_arr[i].name%></td>
+                <td><%= sales_arr[i].count%></td>
+              
+                
+              </tr>
+           <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<%}%>
   <%- include('translate-script') %>
 
 </body>

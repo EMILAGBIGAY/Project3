@@ -728,17 +728,20 @@ router.post('/deleteCartItem', (req, res) => {
  * @param {string} Dates - two dates to find the sales from the sales SQL table between.
  * @returns {void} - renders the sales report in reports.ejs
  */
-router.post('/sales-report', (req, res) => {
-    let start = req.body.start;
-    let end = req.body.end;
+router.get('/sales-report', (req, res) => {
+    console.log("hello");
+    const start = req.query.start;
+    const end = req.query.end;
+    let sales_arr = [];
+
     pool.query(`select name, count(*) from sales where sales.date >= to_timestamp($1,'YYYY-MM-DD') and sales.date <= to_timestamp($2, 'YYYY-MM-DD') group by name`, [start, end])
         .then(query_res => {
-            res.render('pages/reports', {
-                my_title: "Sales Report",
-                data: query_res.rows,
-                start: start,
-                end: end
-            })
+            for (let i = 0; i < query_res.rowCount; i++) {
+                sales_arr.push(query_res.rows[i]);
+            }
+            const data = { my_title: "Sales Report", sales_arr: sales_arr, start: start, end: end, type: "Sales Report" };
+            console.log(data);
+            res.render('XReport', data);
         })
         .catch(err => {
             console.error(err);
@@ -754,7 +757,7 @@ router.post('/sales-report', (req, res) => {
  * @returns {void} - renders the excess report in reports.ejs
  */
 router.get('/excess-report', (req, res) => {
-    let start = '2022-03-03';
+    let start = req.query.start;
     let current = moment().format('YYYY-MM-DD');
     let sub_arr = [];
     let tallcoffee = 0;
@@ -763,7 +766,7 @@ router.get('/excess-report', (req, res) => {
     let talltea = 0;
     let grandetea = 0;
     let ventitea = 0;
-    excess_arr = [];
+    let excess_arr = [];
     let tallcups = 0;
     let grandecups = 0;
     let venticups = 0;
@@ -956,7 +959,7 @@ router.get('/ZReport', (req, res) => {
                     for (let i = 0; i < query_res.rowCount; i++) {
                         revenue = query_res.rows[i];
                     }
-                    const data = { report_arr: report_arr, revenue: revenue, type: 'ZReport: WARNING REFRESHING WILL REQUEST A NEW Z REPORT DELETING' };
+                    const data = { report_arr: report_arr, revenue: revenue, type: 'ZReport' };
                     console.log(data);
 
                     pool.query("truncate xreport")
