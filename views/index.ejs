@@ -8,8 +8,74 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <title>Customer Home</title>
 <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/5977/5977591.png" alt="Starbucks Logo">
-<style>
 
+<%if(color == 'none'){%>
+<style>
+.btn {
+  background-color: #5C4033;
+
+}
+.fontColor{
+  color: black;
+}
+
+.btnbg {
+  background-color: #ffcccb;
+}
+
+.btns{
+  background-color: #006241;
+}
+
+.navbar {
+  background-color: #006241;
+}
+.col {
+    background-color: #d3b683;
+  }
+
+  .col-6 {
+    background-color: #006241;
+  }
+</style>
+<%}else {%>
+  <style>
+    .btn {
+      background-color: #D41159;
+      font-size: large;
+  font-weight: 600;
+      color: rgb(255, 255, 255);
+    }
+    .fontColor{
+  color: rgb(255, 255, 255);
+  font-size: large;
+  font-weight: 600;
+}
+    
+    .btnbg {
+      
+      background-color: #D41159;
+      
+    }
+    
+    .btns{
+      background-color: #D41159;
+    }
+    
+    .navbar {
+      background-color: #D41159;
+    }
+    .col {
+    background-color: #ccf2f5;
+  }
+
+  .col-6 {
+    background-color: #1A85FF;
+  }
+    </style>
+
+<%}%>
+<style>
   body {
     background-color: #f9f9f9;
     font: "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -20,23 +86,7 @@
   }
 
 
-  .btn {
-    background-color: #5C4033;
-
-  }
-
-  .btnbg {
-    background-color: #ffcccb;
-  }
-
-  .btns{
-    background-color: #006241;
-  }
-
-  .navbar {
-    background-color: #006241;
-  }
-
+  
   .sticky {
     position: sticky;
     top: 0;
@@ -80,7 +130,6 @@
     text-decoration: underline;
     text-decoration-color: #006241;
     text-decoration-thickness: 3px;
-
   }
 
   .row {
@@ -91,7 +140,6 @@
     /* padding-top: 10px;
       padding-bottom: 10px;
       padding-left: 10px; */
-
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 10px;
@@ -121,38 +169,7 @@ Removes the "radio button circle"
     vertical-align: middle;
   }
 
-  .col {
-    background-color: #d3b683;
-  }
-
-  .col-6 {
-    background-color: #006241;
-  }
-
-  label {
-    height: 100%;
-    display: inline-block;
-    background: white;
-    border: 2px solid #006241;
-    border-radius: 20px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    text-align: center;
-    width: 80%;
-
-  }
-
-  input[type="radio"]:checked+label {
-    background: #006241;
-    color: hsla(215, 0%, 100%, 1);
-    box-shadow: 0px 0px 20px #006241;
-  }
-
-  input[type="checkbox"]:checked+label {
-    background: #006241;
-    color: hsla(215, 0%, 100%, 1);
-    box-shadow: 0px 0px 20px #006241;
-  }
+  
 
 </style>
 
@@ -205,9 +222,9 @@ Removes the "radio button circle"
       </div>
       <div class="col d-flex align-items-center justify-content-center">
         <div class="text-center">
-          <h1 style="font-size: 40px;">Welcome to Starbucks!</h1>
-          <p style="font-size: 25px;">Take a look at out vide variety of options!</p>
-          <p style="font-size: 25px;">From our coffee to our breakfast, or even our bakery!</p>
+          <h1 style="font-size: 45px;">Welcome to Starbucks!</h1>
+          <p style="font-size: 28px;">Take a look at out vide variety of options!</p>
+          <p style="font-size: 28px;">From our coffee to our breakfast, or even our bakery!</p>
           <button class="btn align-middle text-light" type="submit" aria-haspopup="true" aria-expanded="false">
             <a class="nav-link text-light" title="Link to order menu" href="/Customer/CoffeeMenu/none">Order now!</a>
           </button>
@@ -220,18 +237,18 @@ Removes the "radio button circle"
     <div class="row rounded">
       <div class="col-6 d-flex align-items-center justify-content-center">
         <div class="text-center text-light">
-          <h2 style="font-size: 40px; ">Try our seasonal menu!</h2>
-          <p style="font-size: 25px;">Seasonal menu items that change every season!</p>
-          <p style="font-size: 25px;">Limited time only!</p>
+          <h2 style="font-size: 45px; ">Try our seasonal menu!</h2>
+          <p style="font-size: 28px;">Seasonal menu items that change every season!</p>
+          <p style="font-size: 28px;">Limited time only!</p>
           <button class="btn align-middle text-light btnbg" type="submit" aria-haspopup="true" aria-expanded="false">
-            <a class="nav-link text-dark" title="link to seasonal menu" href="/Customer/SeasonalMenu">Seasonal Menu</a>
+            <a class="nav-link fontColor" title="link to seasonal menu" href="/Customer/SeasonalMenu">Seasonal Menu</a>
           </button>
         </div>
       </div>
       <div class="col-6">
         <img
-          src="https://media.glamour.com/photos/63628dba780dd126aac5f18e/16:9/w_1280,c_limit/Starbucks%20Holiday%20Drinks%203.jpg"
-          width="100%" alt="4 starbucks seasonal drinks" />
+        <%if(color=='HighContrast'){%>src="https://i.pinimg.com/originals/fd/6d/53/fd6d539d078861f3a861cdb846edba4c.png"<%}else{%>   src="https://media.glamour.com/photos/63628dba780dd126aac5f18e/16:9/w_1280,c_limit/Starbucks%20Holiday%20Drinks%203.jpg"     <%}%>
+          width="100%" height="100%"alt="starbucks seasonal drinks" />
       </div>
     </div>
   </div>
@@ -248,28 +265,36 @@ Removes the "radio button circle"
     });
   </script>
 
-  <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-    <label>
-      <select id="colorblind-select" title="type of colorblindness selection">
-        <option value="normal">Normal</option>
-        <option value="protanopia">Protanopia</option>
-        <option value="deuteranopia">Deuteranopia</option>
-        <option value="tritanopia">Tritanopia</option>
-        <option value="greyscale">Greyscale</option>
-      </select>
-    </label>
+  
   </div>
 
+  <div class="container-md">
+  
+    <div class="row">
+    <div class="col">
+  <h3>Accesibility</h3>
   <%- include('translate-script') %>
-
-
+  <br>
+  <div class="dropdown">
+    <button class="btn text-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Colorblind Filter
+    </button>
+    <div class="dropdown-menu" aria-labelledby="Colorblind filters">
+      <a class="dropdown-item" href="/">none</a>
+      <a class="dropdown-item" href="/HighContrast">HighContrast</a>
+    
+    </div>
+  
+  </div>
+  <br>
+  </div>
+  </div>
+  </div>
     <!-- footer -->
     <footer class="text-center text-lg-start bg-white text-muted">
 
       <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
-        <div class="me-5 d-none d-lg-block">
-          <span>Don't understand English? Translate the page!</span>
-        </div>
+      
         <div id="google_translate_element"></div>
       </section>
 
@@ -283,7 +308,7 @@ Removes the "radio button circle"
                 <i class="strong fas fa-gem me-3 text-secondary text-uppercase fw-bold mb-4"></i>CSCE 331
               </p>
               <p>Team RHO</p>
-              <p>Ben, Ashwin, Emil</p>
+              <p>Ben, Ashwin, Emil, Olen</p>
             </div>
 
             <!--col2-->

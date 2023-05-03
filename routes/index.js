@@ -64,7 +64,7 @@ router.get('/', (req, res) => {
         .then(resp => resp.json())
         .then((data) => {
             const price = `10 GBP = ${data.rates.USD} USD`;
-            res.render('index', { price: price }); // pass price to the view
+            res.render('index', { price: price, color: 'none' }); // pass price to the view
         })
         .catch((err) => {
             console.error(err);
@@ -73,6 +73,22 @@ router.get('/', (req, res) => {
 
 });
 
+
+router.get('/HighContrast', (req, res) => {
+    const color = 'HighContrast';
+    const host = 'api.frankfurter.app';
+    fetch(`https://${host}/latest?amount=10&from=GBP&to=USD`)
+        .then(resp => resp.json())
+        .then((data) => {
+            const price = `10 GBP = ${data.rates.USD} USD`;
+            res.render('index', { price: price, color: color}); // pass price to the view
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+        });
+
+});
 
 //config set up with the .env file data
 const config = {
