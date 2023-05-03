@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -40,6 +41,7 @@
   width: 80%;
 }
 
+
 label.orderCusomizations {
   height: 100%;
   background: white;
@@ -48,8 +50,14 @@ label.orderCusomizations {
   padding: 1rem;
   margin-bottom: 1rem;
   text-align: center;
- width: 20%;
+
   position: relative;
+}
+label.size {
+  width: 30%;
+}
+label.customs{
+width: 22%;
 }
 input[type="radio"]:checked + label {
   background: #006241;
@@ -102,7 +110,7 @@ border-radius: 20px;
 padding: 1rem;
 margin-bottom: 1rem;
 text-align: center;
-width: 20%;
+
 position: relative;
 }
 input[type="radio"]:checked + label {
@@ -155,7 +163,7 @@ border-radius: 20px;
 padding: 1rem;
 margin-bottom: 1rem;
 text-align: center;
-width: 20%;
+
 position: relative;
 }
 input[type="radio"]:checked + label {
@@ -170,8 +178,8 @@ color: hsla(215, 0%, 100%, 1);
 box-shadow: 0px 0px 20px #009999;
 }
 </style>
-<%}else{%>
-<!-- greyscale -->
+<%}else if(color == 'greyscale'){%>
+<!-- Greyscale-->
 <style>
   a.currentPage, a.currentPage:hover, a.currentPage:visited{
   color: black;
@@ -208,7 +216,7 @@ border-radius: 20px;
 padding: 1rem;
 margin-bottom: 1rem;
 text-align: center;
-width: 20%;
+
 position: relative;
 }
 input[type="radio"]:checked + label {
@@ -223,9 +231,66 @@ color: hsla(215, 0%, 100%, 1);
 box-shadow: 0px 0px 20px #808080;
 }
 </style>
-<%}%>
+<%} else {%>
+<!-- High Contrast -->
+<style>
+  a.currentPage, a.currentPage:hover, a.currentPage:visited{
+  color: black;
+  text-decoration: underline;
+  text-decoration-color: #000000;
+  text-decoration-thickness: 3px;
+  font-weight:700;
+}
+  .btn{
+    background-color:#000000;
+    font-weight:700;
+  }
 
+  .navbar{
+    background-color:#000000;
+    font-weight:700;
+  }
+  
+label.orderOptions {
+height: 100%;
+display:inline-block;
+background: white;
+border: 3px solid #000000;
+border-radius: 20px;
+padding: 1rem;
+margin-bottom: 1rem;
+text-align: center;
+width: 80%;
+font-weight:700;
+}
 
+label.orderCusomizations {
+height: 100%;
+background: white;
+border:3px solid #000000;
+border-radius: 20px;
+padding: 1rem;
+margin-bottom: 1rem;
+text-align: center;
+
+position: relative;
+font-weight:700;
+}
+input[type="radio"]:checked + label {
+background: #070505;
+color: hsla(215, 0%, 100%, 1);
+font-weight:700;
+box-shadow: 0px 0px 20px #000000;
+}
+
+input[type="checkbox"]:checked + label {
+background: #000000;
+color: hsla(215, 0%, 100%, 1);
+font-weight:700;
+box-shadow: 0px 0px 20px #000000;
+}
+</style>
+<% } %>
 
 
   <style>
@@ -270,7 +335,7 @@ input[type="checkbox"]{
     margin-top: 1em;
     margin-bottom: 1em;
 
-
+    
     font-weight:500;
     }
     .menuNavItem{
@@ -282,7 +347,12 @@ input[type="checkbox"]{
   text-decoration: none;
 
 }
-
+label.size {
+  width: 30%;
+}
+label.customs{
+width: 22%;
+}
 
     .row {
       border-top: 1px solid #ccc;
@@ -344,7 +414,10 @@ img.deuteranopia  {
     hue-rotate(240deg);
 }
 
-
+img.HighContrast {
+  filter: brightness(125%); 
+  
+}
 
 img.greyscale  {
   /* Change all images to shades of grey */
@@ -353,6 +426,17 @@ img.greyscale  {
 
 img.none {
  
+}
+.item-name {
+  display: inline-block;
+  text-align: center;
+  width: 50%;
+}
+
+.prices {
+  display: inline-block;
+  text-align: center;
+  width: 50%;
 }
 
   </style>
@@ -365,7 +449,7 @@ img.none {
 <!--Navbar -->
 <nav class="navbar   navbar-expand-lg navbar-dark sticky">
   <a class="navbar-brand" href="/">
-    <img class="<%=color%>" src ="https://cdn-icons-png.flaticon.com/512/5977/5977591.png" height = 50px alt ="Your logo"/>
+    <img class="<%=color%>" src ="https://cdn-icons-png.flaticon.com/512/5977/5977591.png" height = 50px alt ="Starbucks logo"/>
   </a>
   <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -417,19 +501,23 @@ img.none {
         <div>
 
           <% if(serverMenu[0].subcategory!='seasonal') { %>
-          <img class="icon <%=color%>" src="<%= ('../../'+serverMenu[0].item+'.jpg').replace( /\s/g, '')%>">
+          <img class="icon <%=color%>" src="<%= ('../../'+serverMenu[0].item+'.jpg').replace( /\s/g, '')%>" alt = "image of serverMenu[0].item">
           <%}%>
         <input  type = "radio"  id="<%= serverMenu[0].item%>" value="<%= serverMenu[0].item%>:<%= serverMenu[0].category%>:<%= serverMenu[0].subcategory%>:<%= serverMenu[0].tall%>:<%= serverMenu[0].grande%>:<%= serverMenu[0].venti%>:Customer:<%=color%>" name= "drinkOrder" checked></input>
 
-        <label  class="orderOptions  " for="<%= serverMenu[0].item%>"><%= serverMenu[0].item%></label>
+        <label  class="orderOptions  " for="<%= serverMenu[0].item%>">
+          <span class="item-name"><%= serverMenu[0].item%> </span class="prices"> <span>$<%= serverMenu[0].tall%><%if(serverMenu[0].category=='Drink' ||serverMenu[0].subcategory=='seasonal'){%>&nbsp;&nbsp;&nbsp;&nbsp;$<%= serverMenu[0].grande%>&nbsp;&nbsp;&nbsp;&nbsp;$<%= serverMenu[0].venti%><%}%></span>
+        </label>
         </div>
       <% for (var i = 1; i < serverMenu.length; i++) { %>
         <div>
           <% if(serverMenu[0].subcategory!='seasonal') { %>
-            <img class="icon <%=color%>" src="<%= ('../../'+serverMenu[i].item+'.jpg').replace( /\s/g, '')%>">
+            <img class="icon <%=color%>" src="<%= ('../../'+serverMenu[i].item+'.jpg').replace( /\s/g, '')%>" alt = "image of serverMenu[i].item">
             <%}%>
             <input  type = "radio"  id="<%= serverMenu[i].item%>" value="<%= serverMenu[i].item%>:<%= serverMenu[i].category%>:<%= serverMenu[i].subcategory%>:<%= serverMenu[i].tall%>:<%= serverMenu[i].grande%>:<%= serverMenu[i].venti%>:Customer:<%=color%>" name= "drinkOrder"></input>
-            <label class="orderOptions  " for="<%= serverMenu[i].item%>"><%= serverMenu[i].item%></label>
+            <label class="orderOptions  " for="<%= serverMenu[i].item%>">
+              <span class="item-name"><%= serverMenu[i].item%> </span class="prices"> <span>$<%= serverMenu[i].tall%><%if(serverMenu[0].category=='Drink'||serverMenu[0].subcategory=='seasonal'){%>&nbsp;&nbsp;&nbsp;&nbsp;$<%= serverMenu[i].grande%>&nbsp;&nbsp;&nbsp;&nbsp;$<%= serverMenu[i].venti%><%}%></span>
+            </label>
            </div>
       <% } %>
 
@@ -439,24 +527,24 @@ img.none {
          <h3>Size</h3>
 
       <input type = "radio" id="tall" name= "drinkSize" value="tall"></input>
-      <label class="orderCusomizations  " for="tall">Tall </label>
+      <label class="orderCusomizations  size" for="tall">Tall </label>
 
       <input type = "radio" id="grande"name= "drinkSize"  value="grande" checked></input>
-      <label class="orderCusomizations  " for="grande">Grande</label>
+      <label class="orderCusomizations size " for="grande">Grande</label>
 
       <input type = "radio"  id="venti" name= "drinkSize" value="venti"></input>
-      <label class="orderCusomizations  " for="venti">Venti</label>
+      <label class="orderCusomizations size " for="venti">Venti</label>
 
 
       <h3>Customizations</h3>
       <input type = "checkbox" id="shot" name= "shot" ></input>
-      <label class="orderCusomizations  " for="shot">Espresso Shot</label>
+      <label class="orderCusomizations customs " for="shot">Espresso Shot</label>
       <input type = "checkbox" id="iced" name= "iced" ></input>
-      <label class="orderCusomizations  " for="iced">Iced </label>
+      <label class="orderCusomizations customs " for="iced">Iced </label>
       <input type = "checkbox" id="syrup" name= "syrup" ></input>
-      <label class="orderCusomizations  " for="syrup">Syrup Pump </label>
+      <label class="orderCusomizations customs " for="syrup">Syrup Pump </label>
       <input type = "checkbox" id="nondairy" name= "nondairy" ></input>
-      <label class="orderCusomizations  " for="nondairy">nondairy </label>
+      <label class="orderCusomizations  customs" for="nondairy">nondairy </label>
 
      <%} %>
        <br>
@@ -569,11 +657,11 @@ img.none {
   </button>
   <div class="dropdown-menu" aria-labelledby="Colorblind filters">
     <a class="dropdown-item" href="/Customer/<%=id%>/none">none</a>
-    <a class="dropdown-item" href="/Customer/<%=id%>/tritanopia">tritanopia(Blue-Yellow)</a>
-      <a class="dropdown-item" href="/Customer/<%=id%>/greyscale">greyscale</a>
+    <a class="dropdown-item" href="/Customer/<%=id%>/HighContrast">HighContrast</a>
+    <a class="dropdown-item" href="/Customer/<%=id%>/tritanopia">tritanopia(Blue-Yellow)</a> 
     <a class="dropdown-item" href="/Customer/<%=id%>/deuteranopia">deuteranopia(Red-Green)</a>
     <a class="dropdown-item" href="/Customer/<%=id%>/protanopia">protanopia(Red-Green)</a>
-  
+    <a class="dropdown-item" href="/Customer/<%=id%>/greyscale">greyscale</a>
   </div>
 
 </div>
