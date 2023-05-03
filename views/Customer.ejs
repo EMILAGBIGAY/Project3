@@ -248,7 +248,7 @@ label.orderOptions {
 height: 100%;
 display:inline-block;
 background: white;
-border: 2px solid #000000;
+border: 3px solid #000000;
 border-radius: 20px;
 padding: 1rem;
 margin-bottom: 1rem;
@@ -260,7 +260,7 @@ font-weight:700;
 label.orderCusomizations {
 height: 100%;
 background: white;
-border: 2px solid #000000;
+border:3px solid #000000;
 border-radius: 20px;
 padding: 1rem;
 margin-bottom: 1rem;
@@ -415,6 +415,17 @@ img.greyscale  {
 img.none {
  
 }
+.item-name {
+  display: inline-block;
+  text-align: center;
+  width: 50%;
+}
+
+.prices {
+  display: inline-block;
+  text-align: center;
+  width: 50%;
+}
 
   </style>
 
@@ -482,7 +493,9 @@ img.none {
           <%}%>
         <input  type = "radio"  id="<%= serverMenu[0].item%>" value="<%= serverMenu[0].item%>:<%= serverMenu[0].category%>:<%= serverMenu[0].subcategory%>:<%= serverMenu[0].tall%>:<%= serverMenu[0].grande%>:<%= serverMenu[0].venti%>:Customer:<%=color%>" name= "drinkOrder" checked></input>
 
-        <label  class="orderOptions  " for="<%= serverMenu[0].item%>"><%= serverMenu[0].item%></label>
+        <label  class="orderOptions  " for="<%= serverMenu[0].item%>">
+          <span class="item-name"><%= serverMenu[0].item%> </span class="prices"> <span>$<%= serverMenu[0].tall%><%if(serverMenu[0].category=='Drink' ||serverMenu[0].subcategory=='seasonal'){%>&nbsp;&nbsp;&nbsp;&nbsp;$<%= serverMenu[0].grande%>&nbsp;&nbsp;&nbsp;&nbsp;$<%= serverMenu[0].venti%><%}%></span>
+        </label>
         </div>
       <% for (var i = 1; i < serverMenu.length; i++) { %>
         <div>
@@ -490,7 +503,9 @@ img.none {
             <img class="icon <%=color%>" src="<%= ('../../'+serverMenu[i].item+'.jpg').replace( /\s/g, '')%>">
             <%}%>
             <input  type = "radio"  id="<%= serverMenu[i].item%>" value="<%= serverMenu[i].item%>:<%= serverMenu[i].category%>:<%= serverMenu[i].subcategory%>:<%= serverMenu[i].tall%>:<%= serverMenu[i].grande%>:<%= serverMenu[i].venti%>:Customer:<%=color%>" name= "drinkOrder"></input>
-            <label class="orderOptions  " for="<%= serverMenu[i].item%>"><%= serverMenu[i].item%></label>
+            <label class="orderOptions  " for="<%= serverMenu[i].item%>">
+              <span class="item-name"><%= serverMenu[i].item%> </span class="prices"> <span>$<%= serverMenu[i].tall%><%if(serverMenu[0].category=='Drink'||serverMenu[0].subcategory=='seasonal'){%>&nbsp;&nbsp;&nbsp;&nbsp;$<%= serverMenu[i].grande%>&nbsp;&nbsp;&nbsp;&nbsp;$<%= serverMenu[i].venti%><%}%></span>
+            </label>
            </div>
       <% } %>
 
