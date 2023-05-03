@@ -862,7 +862,7 @@ router.get('/excess-report', (req, res) => {
  */
 router.post('/restock-report', (req, res) => {
     let restock_arr = [];
-    pool.query("select * from inventory where quantity < restockquantity")
+    pool.query(`select * from inventory where quantity < restockquantity`)
         .then(query_res => {
             for (let i = 0; i < query_res.rowCount; i++) {
                 restock_arr.push(query_res.rows[i]);
