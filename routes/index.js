@@ -135,6 +135,13 @@ router.get('/login', (req, res) => {
     res.json({ isLoggedIn: req.oidc.isAuthenticated() });
 });
 
+router.get('/auth-widget', requiresAuth(), (req, res) => {
+    const isLoggedIn = req.oidc.isAuthenticated();
+    const buttonText = isLoggedIn ? 'Sign Out' : 'Sign In';
+    const buttonUrl = isLoggedIn ? '/logout' : '/login';
+    res.render('auth-widget', { isLoggedIn, buttonText, buttonUrl, async: true});
+});
+
 router.get('/profile', requiresAuth(), (req, res) => {
     const name = req.oidc.user.name;
     const img = req.oidc.user.picture;
