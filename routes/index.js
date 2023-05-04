@@ -996,20 +996,28 @@ router.get('/ZReport', (req, res) => {
 
 
 router.post('/add-inventory-item', (req, res) => {
-    const id = req.body.id;
     const item = req.body.item;
     const quantity = req.body.quantity;
     const restockquantity = req.body.restockquantity;
-    pool.query("insert into inventory values ($1, $2, $3, $4)", [id, item, quantity, restockquantity])
-        .then(() => {
-            console.log("item $1 added", [item]);
-            res.redirect('../Manager');
+    pool.query("SELECT id FROM inventory ORDER BY id DESC LIMIT 1")
+        .then(result => {
+            const id = result.rows[0].id + 1;
+            pool.query("INSERT INTO inventory VALUES ($1, $2, $3, $4)", [id, item, quantity, restockquantity])
+                .then(() => {
+                    console.log("item " + item + " added with id " + id);
+                    res.redirect('../Manager');
+                })
+                .catch(err => {
+                    console.error(err);
+                    res.status(500).send('Internal Server Error');
+                });
         })
         .catch(err => {
             console.error(err);
             res.status(500).send('Internal Server Error');
         });
 });
+
 
 
 router.post('/remove-inventory-item', (req, res) => {

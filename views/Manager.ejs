@@ -171,15 +171,62 @@
           </div>
         </div>
 
-        <!--Remove item -->
+        <!--Remove Menu item -->
         <div class="container-md">
           <div class="row">
             <div class="col">
-              <h3>Remove Item</h3>
+              <h3>Remove Menu Item</h3>
                 <form action="/remove-menu-item"method="post">
                   <div class="form-group">
                     <label for="enterNameItem">Item name</label>
                     <input type="menuItem" name="item"class="form-control" id="menuItemName" placeholder="Item Name">
+                  </div>
+                  <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">
+                    Submit
+                  </button>
+                </form>
+            </div>
+          </div>
+        </div>
+
+        <!--Add inventory item -->
+        <div class="container-md">
+          <div class="row">
+            <div class="col">
+              <h3>Add Inventory Item</h3>
+              <form action="/add-inventory-item" method="post">
+                <div class="form-group">
+                  <label for="enterItemInventory">Item Name</label>
+                  <input type="inventoryInsert" name="item" class="form-control" id="inventoryItemName"
+                    placeholder="Item Name">
+                </div>
+                <div class="form-group">
+                  <label for="enterQuantity">Quantity</label>
+                  <input type="inventoryInsert" name="quantity" class="form-control" id="inventoryQuantity"
+                    placeholder="Quantity">
+                </div>
+                <div class="form-group">
+                  <label for="enterRestockQuantity">Restock Quantity</label>
+                  <input type="inventoryInsert" name="restockquantity" class="form-control" id="inventoryRestockQuantity"
+                    placeholder="Restock Quantity">
+                </div>
+                <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">
+                  Submit
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!--Remove Inventory item -->
+        <div class="container-md">
+          <div class="row">
+            <div class="col">
+              <h3>Remove Inventory Item</h3>
+                <form action="/remove-inventory-item"method="post">
+                  <div class="form-group">
+                    <label for="enterInventoryItem">Item name</label>
+                    <input type="inventoryRemove" name="item" class="form-control" id="inventoryItemName" placeholder="Item Name">
                   </div>
                   <button class="btn btn-success" type="submit" aria-haspopup="true" aria-expanded="false">
                     Submit
