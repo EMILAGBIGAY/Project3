@@ -31,7 +31,7 @@
   background-color: #006241;
 }
 .col {
-    background-color: #d5bf98;
+    background-color: #d0c1a7;
   }
 
   .col-6 {
@@ -193,24 +193,29 @@ Removes the "radio button circle"
         </li>
 
         <li class="nav-item ">
-          <a class="nav-link" href="/Manager">Manager</a>
+          <a class="nav-link text-light" href="/Manager">Manager</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link"  href="/Server/CoffeeMenu">Server</a>
+          <a class="nav-link text-light"  href="/Server/CoffeeMenu">Server</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/Customer/CoffeeMenu/none">Customer</a>
+          <a class="nav-link text-light" href="/Customer/CoffeeMenu/none">Customer</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/finder">Locations</a>
+          <a class="nav-link text-light" href="/finder">Locations</a>
         </li>
       </ul>
     </div>
 
     <!--sign in features-->
     <div class="dropdown">
+<<<<<<< HEAD
 
       <button class="btn btns btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+=======
+
+      <button class="btn btns btn-sm dropdown-toggle" type="button" id="signinDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+>>>>>>> 0bb46a5c1f6ae9490739e70eb72ab086b35d960c
         <img class="rounded-circle"src="https://dq5pwpg1q8ru0.cloudfront.net/2023/03/30/11/54/02/f81c2504-1084-467a-8f5a-858db63ce6b3/blank-profile-circle.png" alt="profile picture" height="auto" width="15%"/>
       </button>
       <div class="dropdown-menu">
@@ -230,7 +235,7 @@ Removes the "radio button circle"
       <div class="col d-flex align-items-center justify-content-center">
         <div class="text-center">
           <h1 style="font-size: 45px;">Welcome to Starbucks!</h1>
-          <p style="font-size: 28px;">Take a look at out vide variety of options!</p>
+          <p style="font-size: 28px;">Take a look at out wide variety of options!</p>
           <p style="font-size: 28px;">From our coffee to our breakfast, or even our bakery!</p>
           <button class="btn align-middle text-light" type="submit" aria-haspopup="true" aria-expanded="false">
             <a class="nav-link text-light" title="Link to order menu" href="/Customer/CoffeeMenu/none">Order now!</a>
@@ -248,10 +253,11 @@ Removes the "radio button circle"
           <p style="font-size: 28px;">Seasonal menu items that change every season!</p>
           <p style="font-size: 28px;">Limited time only!</p>
           <button class="btn align-middle text-light btnbg" type="submit" aria-haspopup="true" aria-expanded="false">
-            <a class="nav-link fontColor" title="link to seasonal menu" href="/Customer/SeasonalMenu">Seasonal Menu</a>
+            <a class="nav-link fontColor" title="link to seasonal menu" href="/Customer/SeasonalMenu/none">Seasonal Menu</a>
           </button>
         </div>
       </div>
+
       <div class="col-6">
         <img
         <%if(color=='HighContrast'){%>src="https://i.pinimg.com/originals/fd/6d/53/fd6d539d078861f3a861cdb846edba4c.png"<%}else{%>   src="https://media.glamour.com/photos/63628dba780dd126aac5f18e/16:9/w_1280,c_limit/Starbucks%20Holiday%20Drinks%203.jpg"     <%}%>
@@ -276,14 +282,21 @@ Removes the "radio button circle"
   </div>
 
   <div class="container-md">
+<<<<<<< HEAD
 
     <div class="row">
     <div class="col">
   <h3>Accesibility</h3>
+=======
+
+    <div class="row bg-light">
+    <div class="col bg-light">
+  <h3 class="text-dark">Accesibility</h3>
+>>>>>>> 0bb46a5c1f6ae9490739e70eb72ab086b35d960c
   <%- include('translate-script') %>
   <br>
   <div class="dropdown">
-    <button class="btn text-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button class="btn text-light dropdown-toggle" type="button" id="ColorblindDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Colorblind Filter
     </button>
     <div class="dropdown-menu" aria-labelledby="Colorblind filters">
@@ -305,9 +318,9 @@ Removes the "radio button circle"
           <div class="row mt-2">
 
             <!--col1-->
-            <div class="col-md-2 col-lg-3 col-xl-3 mx-auto mb-4">
+            <div class="col-md-2 col-lg-3 text-dark col-xl-3 mx-auto mb-4">
               <p>
-                <i class="strong fas fa-gem me-3 text-secondary text-uppercase fw-bold mb-4"></i>CSCE 331
+                <i class="strong fas fa-gem me-3 text-dark text-uppercase fw-bold mb-4"></i>CSCE 331
               </p>
               <p>Team RHO</p>
               <p>Ben, Ashwin, Emil, Olen</p>
@@ -316,7 +329,7 @@ Removes the "radio button circle"
             <!--col2-->
             <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
 
-              <p class="strong text-uppercase fw-bold mb-4">
+              <p class="strong text-dark text-uppercase fw-bold mb-4">
                 Accesibility
               </p>
               <p>
@@ -327,7 +340,7 @@ Removes the "radio button circle"
 
             <!--col3-->
             <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-              <p class="strong text-uppercase fw-bold mb-4">
+              <p class="strong text-dark text-uppercase fw-bold mb-4">
                 Our inspiration
               </p>
               <p>
