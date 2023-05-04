@@ -341,7 +341,7 @@ router.get('/Customer/:id/:color', (req, res) => {
  * @returns {void} - redirects to server page if successful.
  */
 function requireManager(req, res, next) {
-    const allowedEmails = ['ashwin.kundeti@gmail.com', 'emilagbigay@tamu.edu', 'benwilley@tamu.edu'];
+    const allowedEmails = ['ashwin.kundeti@gmail.com', 'emilagbigay@tamu.edu', 'benwilley@tamu.edu', 'olenbrown@tamu.edu'];
     const user = req.oidc.user;
 
     if (user && allowedEmails.includes(user.email)) {
@@ -358,7 +358,7 @@ function requireManager(req, res, next) {
  * @returns {void} - redirects to server page if successful.
  */
 function requireServer(req, res, next) {
-    const allowedEmails = ['ashwin.kundeti@gmail.com', 'emilagbigay@tamu.edu', 'benwilley@tamu.edu'];
+    const allowedEmails = ['ashwin.kundeti@gmail.com', 'emilagbigay@tamu.edu', 'benwilley@tamu.edu', 'olenbrown@tamu.edu'];
     const user = req.oidc.user;
 
     if (user && allowedEmails.includes(user.email)) {
