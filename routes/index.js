@@ -994,12 +994,59 @@ router.get('/ZReport', (req, res) => {
 
 });
 
-/*
+
 router.post('/add-inventory-item', (req, res) => {
     const item = req.body.item;
     const quantity = req.body.quantity;
-    pool.query("insert into inventory (item, quantity) values ($1, $2)", [item, quantity])
-*/
+    const restockquantity = req.body.restockquantity;
+    pool.query("SELECT id FROM inventory ORDER BY id DESC LIMIT 1")
+        .then(result => {
+            const id = result.rows[0].id + 1;
+            pool.query("INSERT INTO inventory VALUES ($1, $2, $3, $4)", [id, item, quantity, restockquantity])
+                .then(() => {
+                    console.log("item " + item + " added with id " + id);
+                    res.redirect('../Manager');
+                })
+                .catch(err => {
+                    console.error(err);
+                    res.status(500).send('Internal Server Error');
+                });
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+        });
+});
+
+
+
+router.post('/remove-inventory-item', (req, res) => {
+    const item = req.body.item;
+    pool.query("delete from inventory where item = $1", [item])
+        .then(() => {
+            console.log("item $1 removed", [item]);
+            res.redirect('../Manager');
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+        });
+});
+
+
+router.post('/remove-menu-item', (req, res) => {
+    const item = req.body.item;
+    pool.query("delete from menu where item = $1", [item])
+        .then(() => {
+            console.log("item $1 removed", [item]);
+            res.redirect('../Manager');
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+        });
+});
+
 
 /**
  * Adds a seasonal item to the seasonal menu. The item can then be ordered on the customer or server page.
